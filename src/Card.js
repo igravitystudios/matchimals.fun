@@ -8,7 +8,7 @@ const Card = ({ width, height, card }) => (
       position: 'relative',
       display: 'inline-flex',
       overflow: 'hidden',
-      borderRadius: 4,
+      borderRadius: 2,
     }}
   >
     <svg
