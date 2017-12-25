@@ -1,10 +1,10 @@
-import React from "react";
-import Client from "boardgame.io/client";
-import Game from "boardgame.io/game";
+import React from 'react';
+import Client from 'boardgame.io/client';
+import Game from 'boardgame.io/game';
 
-import Card from "./Card";
-import data from "./data";
-import "./App.css";
+import Card from './Card';
+import data from './data';
+import './App.css';
 
 function IsVictory(cells) {
   // Return true if cells is in a winning configuration.
@@ -23,12 +23,12 @@ const BusyBee = Game({
       }
 
       return { ...G, cells };
-    }
+    },
   },
 
   victory: (G, ctx) => {
     return IsVictory(G.cells) ? ctx.currentPlayer : null;
-  }
+  },
 });
 
 class BusyBeeBoard extends React.Component {
@@ -46,18 +46,18 @@ class BusyBeeBoard extends React.Component {
   }
 
   render() {
-    let winner = "";
+    let winner = '';
     if (this.props.ctx.winner !== null) {
       winner = <div>Winner: {this.props.ctx.winner}</div>;
     }
 
     const cellStyle = {
-      display: "inline-block",
-      width: "50px",
-      height: "70px",
-      textAlign: "center",
-      background: "lightgray",
-      border: "1px dotted gray"
+      display: 'inline-block',
+      width: '50px',
+      height: '70px',
+      textAlign: 'center',
+      background: 'lightgray',
+      border: '1px dotted gray',
     };
 
     let board = [];
@@ -83,9 +83,7 @@ class BusyBeeBoard extends React.Component {
 
     return (
       <div>
-        <Card
-          card={{ top: "sheep", right: "bunny", bottom: "cow", left: "owl" }}
-        />
+        <Card card={data.demo} />
         <div id="board">{board}</div>
         {winner}
       </div>
@@ -95,7 +93,7 @@ class BusyBeeBoard extends React.Component {
 
 const App = Client({
   game: BusyBee,
-  board: BusyBeeBoard
+  board: BusyBeeBoard,
 });
 
 export default App;
