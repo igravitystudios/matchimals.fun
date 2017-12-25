@@ -1,0 +1,56 @@
+.row {
+  display: flex;
+}
+
+.cell {
+  display: flex;
+}
+
+.debug-ui * {
+  box-sizing: content-box;
+}
+
+/* Base */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #fafafa;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Box-sizing border-box */
+/* https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
+  background: transparent;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Reset `button` to nothing */
+button {
+  display: inline-block;
+  appearance: none;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+}
