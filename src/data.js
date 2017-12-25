@@ -73,15 +73,36 @@ const animals = {
 
 const board = Array(144).fill(null);
 
-const demo = {
+const demo1 = {
   top: 'bunny',
   right: 'cow',
   bottom: 'horse',
   left: 'sheep',
 };
+const demo2 = {
+  top: 'chick',
+  right: 'pig',
+  bottom: 'owl',
+  left: 'cow',
+};
+const demo3 = {
+  top: 'bunny',
+  right: 'tiger',
+  bottom: 'sheep',
+  left: 'pig',
+};
+const demo4 = {
+  top: 'dog',
+  right: 'flower',
+  bottom: 'horse',
+  left: 'tiger',
+};
 
 export default {
   animals,
   board,
-  demo,
+  demo1,
+  demo2,
+  demo3,
+  demo4,
 };

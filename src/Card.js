@@ -17,10 +17,36 @@ const Card = ({ width, height, card }) => (
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 140"
     >
-      <polygon id="top" points="50 70 100 0 0 0 50 70" fill="red" />
-      <polygon id="right" points="50 70 100 140 100 0 50 70" fill="blue" />
-      <polygon id="bottom" points="50 70 0 140 100 140 50 70" fill="green" />
-      <polygon id="left" points="50 70 0 0 0 140 50 70" fill="yellow" />
+      <polygon
+        id="top"
+        points="50 70 100 0 0 0 50 70"
+        fill={
+          (data.animals[card.top] && data.animals[card.top].color) || 'black'
+        }
+      />
+      <polygon
+        id="right"
+        points="50 70 100 140 100 0 50 70"
+        fill={
+          (data.animals[card.right] && data.animals[card.right].color) ||
+          'black'
+        }
+      />
+      <polygon
+        id="bottom"
+        points="50 70 0 140 100 140 50 70"
+        fill={
+          (data.animals[card.bottom] && data.animals[card.bottom].color) ||
+          'black'
+        }
+      />
+      <polygon
+        id="left"
+        points="50 70 0 0 0 140 50 70"
+        fill={
+          (data.animals[card.left] && data.animals[card.left].color) || 'black'
+        }
+      />
     </svg>
     {data.animals[card.top] && (
       <div

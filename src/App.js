@@ -83,7 +83,10 @@ class BusyBeeBoard extends React.Component {
 
     return (
       <div>
-        <Card card={data.demo} />
+        <Card card={data.demo1} />
+        <Card card={data.demo2} />
+        <Card card={data.demo3} />
+        <Card card={data.demo4} />
         <div id="board">{board}</div>
         {winner}
       </div>
