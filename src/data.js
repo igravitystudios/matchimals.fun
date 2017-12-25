@@ -1,7 +1,24 @@
-const animals = {
+const board = Array(144).fill(null);
+
+const cards = {
+  apple: {
+    image: require('./cards/apple.svg'),
+    color: 'black',
+    value: 10,
+  },
+  bear: {
+    image: require('./cards/bear.svg'),
+    color: 'black',
+    value: 10,
+  },
   bee: {
     image: require('./cards/bee.svg'),
     color: '#DC3F1C',
+    value: 10,
+  },
+  bird: {
+    image: require('./cards/bird.svg'),
+    color: 'black',
     value: 10,
   },
   bunny: {
@@ -19,6 +36,11 @@ const animals = {
     color: '#88A764',
     value: 10,
   },
+  chipmunk: {
+    image: require('./cards/chipmunk.svg'),
+    color: 'black',
+    value: 10,
+  },
   cow: {
     image: require('./cards/cow.svg'),
     color: '#D8A027',
@@ -27,11 +49,6 @@ const animals = {
   dog: {
     image: require('./cards/dog.svg'),
     color: '#D66B29',
-    value: 10,
-  },
-  duck: {
-    image: require('./cards/duck.svg'),
-    color: '#824119',
     value: 10,
   },
   elephant: {
@@ -44,9 +61,29 @@ const animals = {
     color: '#BAB393',
     value: 10,
   },
+  fox: {
+    image: require('./cards/fox.svg'),
+    color: 'black',
+    value: 10,
+  },
   horse: {
     image: require('./cards/horse.svg'),
     color: '#B1C4BB',
+    value: 10,
+  },
+  koala: {
+    image: require('./cards/koala.svg'),
+    color: 'black',
+    value: 10,
+  },
+  lion: {
+    image: require('./cards/lion.svg'),
+    color: 'black',
+    value: 10,
+  },
+  monkey: {
+    image: require('./cards/monkey.svg'),
+    color: '#D86060',
     value: 10,
   },
   owl: {
@@ -54,14 +91,29 @@ const animals = {
     color: '#D86060',
     value: 10,
   },
+  panda: {
+    image: require('./cards/panda.svg'),
+    color: '#824119',
+    value: 10,
+  },
+  penguin: {
+    image: require('./cards/penguin.svg'),
+    color: 'black',
+    value: 10,
+  },
   pig: {
     image: require('./cards/pig.svg'),
     color: '#C0D8C0',
     value: 10,
   },
+  ram: {
+    image: require('./cards/ram.svg'),
+    color: 'black',
+    value: 10,
+  },
   rooster: {
     image: require('./cards/rooster.svg'),
-    color: 'red',
+    color: 'black',
     value: 10,
   },
   sheep: {
@@ -74,44 +126,27 @@ const animals = {
     color: '#D8D8A8',
     value: 10,
   },
-};
-
-const board = Array(144).fill(null);
-
-const demo1 = {
-  top: 'bunny',
-  right: 'cow',
-  bottom: 'horse',
-  left: 'sheep',
-};
-const demo2 = {
-  top: 'chick',
-  right: 'pig',
-  bottom: 'owl',
-  left: 'cow',
-};
-const demo3 = {
-  top: 'bunny',
-  right: 'tiger',
-  bottom: 'sheep',
-  left: 'pig',
-};
-const demo4 = {
-  top: 'dog',
-  right: 'flower',
-  bottom: 'horse',
-  left: 'tiger',
+  turtle: {
+    image: require('./cards/turtle.svg'),
+    color: 'black',
+    value: 10,
+  },
+  zebra: {
+    image: require('./cards/zebra.svg'),
+    color: 'black',
+    value: 10,
+  },
 };
 
 const deck = [
   {
-    top: 'duck',
-    right: 'deer',
-    bottom: 'queenbee',
+    top: 'panda',
+    right: 'ram',
+    bottom: 'bee', // TODO: Queen Bee
     left: 'apple',
   },
   {
-    top: 'swan',
+    top: 'bird',
     right: 'cat',
     bottom: 'horse',
     left: 'bee',
@@ -125,18 +160,18 @@ const deck = [
   {
     top: 'cow',
     right: 'rooster',
-    bottom: 'squirrel',
+    bottom: 'chipmunk',
     left: 'pig',
   },
   {
-    top: 'kangaroo',
+    top: 'penguin',
     right: 'dog',
     bottom: 'monkey',
-    left: 'hippo',
+    left: 'turtle',
   },
   {
     top: 'bird',
-    right: 'rhino',
+    right: 'lion',
     bottom: 'lion',
     left: 'dog',
   },
@@ -153,7 +188,7 @@ const deck = [
     left: 'cat',
   },
   {
-    top: 'swan',
+    top: 'bird',
     right: 'cat',
     bottom: 'horse',
     left: 'bee',
@@ -161,11 +196,11 @@ const deck = [
   {
     top: 'horse',
     right: 'bunny',
-    bottom: 'swan',
+    bottom: 'bird',
     left: 'sheep',
   },
   {
-    top: 'seal',
+    top: 'fox',
     right: 'bear',
     bottom: 'chick',
     left: 'elephant',
@@ -180,12 +215,12 @@ const deck = [
     top: 'lion',
     right: 'apple',
     bottom: 'bird',
-    left: 'goat',
+    left: 'koala',
   },
   {
     top: 'monkey',
     right: 'cow',
-    bottom: 'kangaroo',
+    bottom: 'penguin',
     left: 'bear',
   },
   {
@@ -197,30 +232,30 @@ const deck = [
   {
     top: 'cow',
     right: 'chicken',
-    bottom: 'squirrel',
+    bottom: 'chipmunk',
     left: 'pig',
   },
   {
     top: 'horse',
     right: 'bunny',
-    bottom: 'swan',
+    bottom: 'bird',
     left: 'sheep',
   },
   {
     top: 'cow',
     right: 'sheep',
     bottom: 'elephant',
-    left: 'deer',
+    left: 'ram',
   },
   {
     top: 'chick',
-    right: 'hippo',
-    bottom: 'seal',
+    right: 'turtle',
+    bottom: 'fox',
     left: 'apple',
   },
   {
     top: 'bird',
-    right: 'hippo',
+    right: 'turtle',
     bottom: 'lion',
     left: 'dog',
   },
@@ -231,27 +266,27 @@ const deck = [
     left: 'bee',
   },
   {
-    top: 'duck',
-    right: 'deer',
+    top: 'panda',
+    right: 'ram',
     bottom: 'bee',
     left: 'apple',
   },
   {
     top: 'bee',
     right: 'flower',
-    bottom: 'duck',
-    left: 'rhino',
+    bottom: 'panda',
+    left: 'lion',
   },
   {
-    top: 'kangaroo',
+    top: 'penguin',
     right: 'dog',
     bottom: 'monkey',
-    left: 'hippo',
+    left: 'turtle',
   },
   {
     top: 'chick',
-    right: 'hippo',
-    bottom: 'seal',
+    right: 'turtle',
+    bottom: 'fox',
     left: 'apple',
   },
   {
@@ -264,10 +299,10 @@ const deck = [
     top: 'cow',
     right: 'sheep',
     bottom: 'elephant',
-    left: 'deer',
+    left: 'ram',
   },
   {
-    top: 'seal',
+    top: 'fox',
     right: 'bear',
     bottom: 'chick',
     left: 'elephant',
@@ -276,16 +311,16 @@ const deck = [
     top: 'lion',
     right: 'apple',
     bottom: 'bird',
-    left: 'goat',
+    left: 'koala',
   },
   {
     top: 'bee',
     right: 'flower',
-    bottom: 'duck',
-    left: 'rhino',
+    bottom: 'panda',
+    left: 'lion',
   },
   {
-    top: 'squirrel',
+    top: 'chipmunk',
     right: 'bee',
     bottom: 'cow',
     left: 'tiger',
@@ -305,16 +340,13 @@ const deck = [
   {
     top: 'monkey',
     right: 'cow',
-    bottom: 'kangaroo',
+    bottom: 'penguin',
     left: 'bear',
   },
 ];
 
 export default {
-  animals,
   board,
-  demo1,
-  demo2,
-  demo3,
-  demo4,
+  cards,
+  deck,
 };

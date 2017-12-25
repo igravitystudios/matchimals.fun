@@ -20,35 +20,25 @@ const Card = ({ width, height, card }) => (
       <polygon
         id="top"
         points="50 70 100 0 0 0 50 70"
-        fill={
-          (data.animals[card.top] && data.animals[card.top].color) || 'black'
-        }
+        fill={data.cards[card.top] && data.cards[card.top].color}
       />
       <polygon
         id="right"
         points="50 70 100 140 100 0 50 70"
-        fill={
-          (data.animals[card.right] && data.animals[card.right].color) ||
-          'black'
-        }
+        fill={data.cards[card.right] && data.cards[card.right].color}
       />
       <polygon
         id="bottom"
         points="50 70 0 140 100 140 50 70"
-        fill={
-          (data.animals[card.bottom] && data.animals[card.bottom].color) ||
-          'black'
-        }
+        fill={data.cards[card.bottom] && data.cards[card.bottom].color}
       />
       <polygon
         id="left"
         points="50 70 0 0 0 140 50 70"
-        fill={
-          (data.animals[card.left] && data.animals[card.left].color) || 'black'
-        }
+        fill={data.cards[card.left] && data.cards[card.left].color}
       />
     </svg>
-    {data.animals[card.top] && (
+    {data.cards[card.top] && (
       <div
         style={{
           position: 'absolute',
@@ -56,12 +46,12 @@ const Card = ({ width, height, card }) => (
           left: 9,
           width: 32,
           height: 32,
-          backgroundImage: `url(${data.animals[card.top].image || null})`,
+          backgroundImage: `url(${data.cards[card.top].image || null})`,
           backgroundSize: '32px 32px',
         }}
       />
     )}
-    {data.animals[card.right] && (
+    {data.cards[card.right] && (
       <div
         style={{
           position: 'absolute',
@@ -69,12 +59,12 @@ const Card = ({ width, height, card }) => (
           right: -16,
           width: 32,
           height: 32,
-          backgroundImage: `url(${data.animals[card.right].image})`,
+          backgroundImage: `url(${data.cards[card.right].image})`,
           backgroundSize: '32px 32px',
         }}
       />
     )}
-    {data.animals[card.bottom] && (
+    {data.cards[card.bottom] && (
       <div
         style={{
           position: 'absolute',
@@ -82,12 +72,12 @@ const Card = ({ width, height, card }) => (
           left: 9,
           width: 32,
           height: 32,
-          backgroundImage: `url(${data.animals[card.bottom].image})`,
+          backgroundImage: `url(${data.cards[card.bottom].image})`,
           backgroundSize: '32px 32px',
         }}
       />
     )}
-    {data.animals[card.left] && (
+    {data.cards[card.left] && (
       <div
         style={{
           position: 'absolute',
@@ -95,7 +85,7 @@ const Card = ({ width, height, card }) => (
           left: -16,
           width: 32,
           height: 32,
-          backgroundImage: `url(${data.animals[card.left].image})`,
+          backgroundImage: `url(${data.cards[card.left].image})`,
           backgroundSize: '32px 32px',
         }}
       />

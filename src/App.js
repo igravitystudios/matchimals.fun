@@ -67,10 +67,7 @@ class BusyBeeBoard extends React.Component {
         const id = 12 * i + j;
         cells.push(
           <div key={id} className="cell" onClick={() => this.onClick(id)}>
-            <div style={cellStyle}>
-              <Card />
-              {/* {this.props.G.cells[id]} */}
-            </div>
+            <div style={cellStyle}>{this.props.G.cells[id]}</div>
           </div>
         );
       }
@@ -83,10 +80,13 @@ class BusyBeeBoard extends React.Component {
 
     return (
       <div>
-        <Card card={data.demo1} />
-        <Card card={data.demo2} />
-        <Card card={data.demo3} />
-        <Card card={data.demo4} />
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {data.deck.map((card, i) => (
+            <div key={i} style={{ display: 'inline-flex', margin: '1px' }}>
+              <Card card={card} />
+            </div>
+          ))}
+        </div>
         <div id="board">{board}</div>
         {winner}
       </div>
