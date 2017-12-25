@@ -1,72 +1,72 @@
 const animals = {
   bee: {
     image: require('./cards/bee.svg'),
-    color: 'red',
+    color: '#DC3F1C',
     value: 10,
   },
   bunny: {
     image: require('./cards/bunny.svg'),
-    color: 'red',
+    color: '#EBE18C',
     value: 10,
   },
   cat: {
     image: require('./cards/cat.svg'),
-    color: 'red',
+    color: '#448D7A',
     value: 10,
   },
   chick: {
     image: require('./cards/chick.svg'),
-    color: 'red',
+    color: '#88A764',
     value: 10,
   },
   cow: {
     image: require('./cards/cow.svg'),
-    color: 'red',
+    color: '#D8A027',
     value: 10,
   },
   dog: {
     image: require('./cards/dog.svg'),
-    color: 'red',
+    color: '#D66B29',
     value: 10,
   },
   duck: {
     image: require('./cards/duck.svg'),
-    color: 'red',
+    color: '#824119',
     value: 10,
   },
   elephant: {
     image: require('./cards/elephant.svg'),
-    color: 'red',
+    color: '#A89F4D',
     value: 10,
   },
   flower: {
     image: require('./cards/flower.svg'),
-    color: 'red',
+    color: '#BAB393',
     value: 10,
   },
   horse: {
     image: require('./cards/horse.svg'),
-    color: 'red',
+    color: '#B1C4BB',
     value: 10,
   },
   owl: {
     image: require('./cards/owl.svg'),
-    color: 'red',
+    color: '#D86060',
     value: 10,
   },
   pig: {
     image: require('./cards/pig.svg'),
-    color: 'red',
+    color: '#C0D8C0',
     value: 10,
   },
   sheep: {
     image: require('./cards/sheep.svg'),
-    color: 'red',
+    color: '#F0C0A8',
     value: 10,
   },
   tiger: {
     image: require('./cards/tiger.svg'),
-    color: 'red',
+    color: '#D8D8A8',
     value: 10,
   },
 };
