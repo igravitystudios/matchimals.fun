@@ -345,7 +345,7 @@ const deck = [
   },
 ];
 
-export default {
+module.exports = {
   board,
   cards,
   deck,

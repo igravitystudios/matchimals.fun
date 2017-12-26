@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import data from '../data';
+import data from '../../data';
 
 const CardFront = ({ width, height, card }) => (
   <Fragment>
