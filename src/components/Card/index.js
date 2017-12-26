@@ -144,7 +144,8 @@ const Card = ({ flipped, style, ...props }) => (
     }}
   >
     {console.log(...props)}
-    {!flipped ? <CardBack {...props} /> : <CardFront {...props} />}
+    {/* {!flipped ? <CardBack {...props} /> : <CardFront {...props} />} */}
+    <CardFront {...props} />
   </div>
 );
 

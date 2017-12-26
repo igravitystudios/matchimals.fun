@@ -1,4 +1,6 @@
-const board = Array(144).fill(null);
+const width = 6
+const height = 6
+const board = Array(width * height).fill(null);
 
 const cards = {
   apple: {
@@ -349,4 +351,6 @@ module.exports = {
   board,
   cards,
   deck,
+  width,
+  height
 };

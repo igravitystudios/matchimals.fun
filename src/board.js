@@ -1,4 +1,7 @@
 import React from 'react';
+import Card from './components/Card';
+import Deck from './components/Deck';
+import data from './data';
 
 class BusyBeeBoard extends React.Component {
   onClick(id) {
@@ -22,21 +25,24 @@ class BusyBeeBoard extends React.Component {
 
     const cellStyle = {
       display: 'inline-block',
-      width: '50px',
-      height: '70px',
+      width: '100px',
+      height: '140px',
       textAlign: 'center',
       background: 'lightgray',
       border: '1px dotted gray',
     };
 
     let board = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < data.width; i++) { //width?
       let cells = [];
-      for (let j = 0; j < 12; j++) {
-        const id = 12 * i + j;
+      for (let j = 0; j < data.height; j++) { //height?
+        const id = data.width * i + j;
+        const value = this.props.G.cells[id]
         cells.push(
           <div key={id} className="cell" onClick={() => this.onClick(id)}>
-            <div style={cellStyle}>{this.props.G.cells[id]}</div>
+            <div style={cellStyle}>
+              {value && <Card card={value}></Card>}
+            </div>
           </div>
         );
       }
@@ -46,10 +52,10 @@ class BusyBeeBoard extends React.Component {
         </div>
       );
     }
-
     return (
       <div>
         <div id="board">{board}</div>
+        {<Deck cards={this.props.G.deck}></Deck>}
         {winner}
       </div>
     );

@@ -1,12 +1,13 @@
-import Client from 'boardgame.io/client';
+import BoardGameClient from 'boardgame.io/client';
 
 import BusyBee from './game';
 import BusyBeeBoard from './board';
 import './app.css';
 
-const App = Client({
+const Client = BoardGameClient({
   game: BusyBee,
   board: BusyBeeBoard,
+  debug: false
 });
 
-export default App;
+export default Client;
