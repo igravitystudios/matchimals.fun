@@ -78,11 +78,19 @@ class BusyBeeBoard extends React.Component {
       );
     }
 
+    console.log(Object.keys(data.cards));
+
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {data.deck.map((card, i) => (
-            <div key={i} style={{ display: 'inline-flex', margin: '1px' }}>
+            <div
+              key={i}
+              style={{
+                display: 'inline-flex',
+                margin: '4px',
+              }}
+            >
               <Card card={card} />
             </div>
           ))}

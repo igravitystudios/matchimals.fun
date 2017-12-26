@@ -9,6 +9,7 @@ const Card = ({ width, height, card }) => (
       display: 'inline-flex',
       overflow: 'hidden',
       borderRadius: 2,
+      boxShadow: '0px 2px 3px rgba(0,0,0,0.2)',
     }}
   >
     <svg
@@ -42,12 +43,12 @@ const Card = ({ width, height, card }) => (
       <div
         style={{
           position: 'absolute',
-          top: -16,
-          left: 9,
-          width: 32,
-          height: 32,
-          backgroundImage: `url(${data.cards[card.top].image || null})`,
-          backgroundSize: '32px 32px',
+          top: -32,
+          left: 18,
+          width: 64,
+          height: 64,
+          backgroundImage: `url(${data.cards[card.top].image})`,
+          backgroundSize: '64px 64px',
         }}
       />
     )}
@@ -55,38 +56,70 @@ const Card = ({ width, height, card }) => (
       <div
         style={{
           position: 'absolute',
-          top: 19,
-          right: -16,
-          width: 32,
-          height: 32,
+          top: 38,
+          right: -32,
+          width: 64,
+          height: 64,
           backgroundImage: `url(${data.cards[card.right].image})`,
-          backgroundSize: '32px 32px',
+          backgroundSize: '64px 64px',
         }}
-      />
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '-12px',
+            left: '14px',
+            width: '20px',
+            color: '#fff',
+            fontSize: '14px',
+            fontWeight: '700',
+            textAlign: 'center',
+            userSelect: 'none',
+          }}
+        >
+          {data.cards[card.right].value}
+        </div>
+      </div>
     )}
     {data.cards[card.bottom] && (
       <div
         style={{
           position: 'absolute',
-          bottom: -16,
-          left: 9,
-          width: 32,
-          height: 32,
+          bottom: '-32px',
+          left: 18,
+          width: '64px',
+          height: '64px',
           backgroundImage: `url(${data.cards[card.bottom].image})`,
-          backgroundSize: '32px 32px',
+          backgroundSize: '64px 64px',
         }}
-      />
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '-16px',
+            left: '22px',
+            width: '20px',
+            color: '#fff',
+            fontSize: '14px',
+            fontWeight: '700',
+            textAlign: 'center',
+            userSelect: 'none',
+          }}
+        >
+          {data.cards[card.bottom].value}
+        </div>
+      </div>
     )}
     {data.cards[card.left] && (
       <div
         style={{
           position: 'absolute',
-          top: 19,
-          left: -16,
-          width: 32,
-          height: 32,
+          top: 38,
+          left: -32,
+          width: 64,
+          height: 64,
           backgroundImage: `url(${data.cards[card.left].image})`,
-          backgroundSize: '32px 32px',
+          backgroundSize: '64px 64px',
         }}
       />
     )}
@@ -94,8 +127,8 @@ const Card = ({ width, height, card }) => (
 );
 
 Card.defaultProps = {
-  width: 50,
-  height: 70,
+  width: 100,
+  height: 140,
   card: {},
 };
 
