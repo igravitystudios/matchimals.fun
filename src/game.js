@@ -19,6 +19,28 @@ const BusyBee = Game({
 
       // Ensure we can't overwrite cells.
       if (cells[id] === null) {
+        let topCard = null, rightCard = null, bottomCard = null, leftCard = null;
+
+        let topIndex = id - data.width;
+        let rightIndex = id + 1;
+        let leftIndex = id - 1;
+        let bottomIndex = id + data.width;
+
+        if (topIndex >= 0) {
+          topCard = cells[topIndex];
+        }
+        if (bottomIndex < cells.length) {
+          bottomCard = cells[bottomIndex];
+        }
+        if ((rightIndex % data.width !== 0) && (rightIndex < cells.length - 1)) {
+          rightCard = cells[rightIndex];
+        }
+        if ((leftIndex % data.width !== data.width - 1) && (leftIndex >= 0)) {
+          leftCard = cells[leftIndex];
+        }
+
+        console.log("Top", topCard, "Right", rightCard, "Bottom", bottomCard, "Left", leftCard);
+
         // cells[id] = ctx.currentPlayer;
         cells[id] = currentCard;
       }

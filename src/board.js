@@ -55,6 +55,7 @@ class BusyBeeBoard extends React.Component {
     return (
       <div>
         <div id="board">{board}</div>
+        <div>Player {parseInt(this.props.ctx.currentPlayer, 10) + 1}</div>
         {<Deck cards={this.props.G.deck}></Deck>}
         {winner}
       </div>
