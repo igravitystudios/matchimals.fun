@@ -15,7 +15,7 @@ const BusyBee = Game({
     clickCell(G, ctx, id) {
       const cells = [...G.cells];
       const deck = [...G.deck];
-      const currentCard = deck.shift();
+      const currentCard = deck[0];
 
       // Ensure we can't overwrite cells.
       if (cells[id] === null) {
@@ -41,8 +41,13 @@ const BusyBee = Game({
 
         console.log("Top", topCard, "Right", rightCard, "Bottom", bottomCard, "Left", leftCard);
 
-        // cells[id] = ctx.currentPlayer;
-        cells[id] = currentCard;
+        if ((topCard === null || currentCard.top === topCard.bottom) &&
+            (rightCard === null || currentCard.right === rightCard.left) &&
+            (bottomCard === null || currentCard.bottom === bottomCard.top) &&
+            (leftCard === null || currentCard.left === leftCard.right)) {
+              cells[id] = currentCard;
+              deck.shift(); 
+        }
       }
 
       return { ...G, cells, deck};
