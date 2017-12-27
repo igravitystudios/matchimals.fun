@@ -1,5 +1,5 @@
-const width = 6
-const height = 6
+const width = 10;
+const height = 10;
 const board = Array(width * height).fill(null);
 
 const cards = {
@@ -352,5 +352,5 @@ module.exports = {
   cards,
   deck,
   width,
-  height
+  height,
 };

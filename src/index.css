@@ -1,13 +1,17 @@
+/* override boardgame.io stylesheet */
+.client {
+  overflow: inherit !important;
+}
+.debug-ui * {
+  box-sizing: content-box !important;
+}
+
+/* card table */
 .row {
   display: flex;
 }
-
 .cell {
   display: flex;
-}
-
-.debug-ui * {
-  box-sizing: content-box;
 }
 
 /* Base */
