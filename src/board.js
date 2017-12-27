@@ -33,15 +33,17 @@ class BusyBeeBoard extends React.Component {
     };
 
     let board = [];
-    for (let i = 0; i < data.width; i++) { //width?
+    for (let i = 0; i < data.width; i++) {
+      //width?
       let cells = [];
-      for (let j = 0; j < data.height; j++) { //height?
+      for (let j = 0; j < data.height; j++) {
+        //height?
         const id = data.width * i + j;
-        const value = this.props.G.cells[id]
+        const value = this.props.G.cells[id];
         cells.push(
           <div key={id} className="cell" onClick={() => this.onClick(id)}>
             <div style={cellStyle}>
-              {value && <Card card={value}></Card>}
+              {value && <Card card={value} flipped />}
             </div>
           </div>
         );
@@ -56,7 +58,7 @@ class BusyBeeBoard extends React.Component {
       <div>
         <div id="board">{board}</div>
         <div>Player {parseInt(this.props.ctx.currentPlayer, 10) + 1}</div>
-        {<Deck cards={this.props.G.deck}></Deck>}
+        {<Deck cards={this.props.G.deck} />}
         {winner}
       </div>
     );

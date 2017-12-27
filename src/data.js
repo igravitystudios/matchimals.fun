@@ -1,6 +1,13 @@
-const width = 10;
-const height = 10;
+const width = 5;
+const height = 5;
+const center = Math.floor((width * height) / 2);
 const board = Array(width * height).fill(null);
+board[center] =  {
+  top: 'cow',
+  right: 'chicken',
+  bottom: 'hamster',
+  left: 'pig'
+}
 
 const cards = {
   apple: {
