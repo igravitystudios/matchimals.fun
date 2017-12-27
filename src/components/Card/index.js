@@ -132,46 +132,20 @@ const CardBack = ({ width, height }) => (
   </svg>
 );
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      flipped: this.props.flipped || false,
-    };
-  }
-
-  flip = () => {
-    this.setState(() => ({
-      flipped: true,
-    }));
-  };
-
-  render() {
-    const { style } = this.props;
-    const { flipped } = this.state;
-    return (
-      <div
-        style={{
-          position: 'relative',
-          display: 'inline-flex',
-          overflow: 'hidden',
-          borderRadius: 4,
-          boxShadow: '0px 2px 3px rgba(0,0,0,0.2)',
-          ...style,
-        }}
-        onClick={this.flip}
-      >
-        {!flipped ? (
-          <CardBack {...this.props} />
-        ) : (
-          <CardFront {...this.props} />
-        )}
-        {/* <CardFront {...props} /> */}
-      </div>
-    );
-  }
-}
+const Card = ({ flipped, style, ...props }) => (
+  <div
+    style={{
+      position: 'relative',
+      display: 'inline-flex',
+      overflow: 'hidden',
+      borderRadius: 4,
+      boxShadow: '0px 2px 3px rgba(0,0,0,0.2)',
+      ...style,
+    }}
+  >
+    {!flipped ? <CardBack {...props} /> : <CardFront {...props} />}
+  </div>
+);
 
 Card.defaultProps = {
   width: 100,
