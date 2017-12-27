@@ -65,6 +65,12 @@ const BusyBee = Game({
 
       return { ...G, cells, deck };
     },
+    pass(G, ctx, id) {
+      const deck = [...G.deck];
+      //place top card to bottom of deck
+      deck.push(deck.shift());
+      return { ...G, deck };
+    },
   },
 
   victory: (G, ctx) => {
