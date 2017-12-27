@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import data from '../../data';
 
@@ -125,29 +125,53 @@ const CardBack = ({ width, height }) => (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 100 140"
   >
-    <polygon id="top" points="50 70 100 0 0 0 50 70" fill="black" />
+    <polygon id="top" points="50 70 100 0 0 0 50 70" fill="blue" />
     <polygon id="right" points="50 70 100 140 100 0 50 70" fill="black" />
-    <polygon id="bottom" points="50 70 0 140 100 140 50 70" fill="black" />
+    <polygon id="bottom" points="50 70 0 140 100 140 50 70" fill="blue" />
     <polygon id="left" points="50 70 0 0 0 140 50 70" fill="black" />
   </svg>
 );
 
-const Card = ({ flipped, style, ...props }) => (
-  <div
-    style={{
-      position: 'relative',
-      display: 'inline-flex',
-      overflow: 'hidden',
-      borderRadius: 4,
-      boxShadow: '0px 2px 3px rgba(0,0,0,0.2)',
-      ...style,
-    }}
-  >
-    {console.log(...props)}
-    {/* {!flipped ? <CardBack {...props} /> : <CardFront {...props} />} */}
-    <CardFront {...props} />
-  </div>
-);
+class Card extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      flipped: this.props.flipped || false,
+    };
+  }
+
+  flip = () => {
+    this.setState(() => ({
+      flipped: true,
+    }));
+  };
+
+  render() {
+    const { style } = this.props;
+    const { flipped } = this.state;
+    return (
+      <div
+        style={{
+          position: 'relative',
+          display: 'inline-flex',
+          overflow: 'hidden',
+          borderRadius: 4,
+          boxShadow: '0px 2px 3px rgba(0,0,0,0.2)',
+          ...style,
+        }}
+        onClick={this.flip}
+      >
+        {!flipped ? (
+          <CardBack {...this.props} />
+        ) : (
+          <CardFront {...this.props} />
+        )}
+        {/* <CardFront {...props} /> */}
+      </div>
+    );
+  }
+}
 
 Card.defaultProps = {
   width: 100,
