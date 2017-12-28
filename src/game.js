@@ -1,4 +1,5 @@
-import Game from 'boardgame.io/game';
+import BoardGameGame from 'boardgame.io/game';
+import shuffle from 'lodash/shuffle';
 import data from './data';
 
 function isVictory(cells) {
@@ -43,14 +44,15 @@ function isLegalMove(cells, id, currentCard) {
   return false;
 }
 
-const BusyBee = Game({
+const Game = BoardGameGame({
   setup: () => ({
     cells: data.board,
-    deck: data.deck,
+    deck: shuffle(data.deck),
   }),
 
   moves: {
     clickCell(G, ctx, id) {
+      // Clone cells and deck state so we don't mutate values
       const cells = [...G.cells];
       const deck = [...G.deck];
       const currentCard = deck[0];
@@ -63,12 +65,17 @@ const BusyBee = Game({
         }
       }
 
+      // Return a copy of game state, along with updated cells and deck
       return { ...G, cells, deck };
     },
     pass(G, ctx, id) {
+      // Clone deck state so we don't mutate values
       const deck = [...G.deck];
-      //place top card to bottom of deck
+
+      // Place top card to bottom of deck
       deck.push(deck.shift());
+
+      // Return a copy of game state, along with updated cells and deck
       return { ...G, deck };
     },
   },
@@ -78,4 +85,4 @@ const BusyBee = Game({
   },
 });
 
-export default BusyBee;
+export default Game;

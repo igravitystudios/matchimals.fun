@@ -3,11 +3,12 @@ import Card from './components/Card';
 import Deck from './components/Deck';
 import data from './data';
 
-class BusyBeeBoard extends React.Component {
+class Board extends React.Component {
   onPass = () => {
     this.props.moves.pass();
     this.props.endTurn();
   };
+
   onClick(id) {
     if (this.isActive(id)) {
       this.props.moves.clickCell(id);
@@ -59,7 +60,7 @@ class BusyBeeBoard extends React.Component {
       );
     }
     return (
-      <div>
+      <div style={{ display: 'flex' }}>
         <div id="board">{board}</div>
         <div>Player {parseInt(this.props.ctx.currentPlayer, 10) + 1}</div>
         {<Deck cards={this.props.G.deck} />}
@@ -70,4 +71,4 @@ class BusyBeeBoard extends React.Component {
   }
 }
 
-export default BusyBeeBoard;
+export default Board;

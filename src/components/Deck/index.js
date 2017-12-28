@@ -19,7 +19,7 @@ class Deck extends Component {
   };
 
   render() {
-    const { cards, style } = this.props;
+    const { cards } = this.props;
     const { flipped } = this.state;
     return (
       <div

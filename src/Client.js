@@ -1,11 +1,11 @@
 import BoardGameClient from 'boardgame.io/client';
 
-import BusyBee from './game';
-import BusyBeeBoard from './board';
+import Game from './game';
+import Board from './board';
 
 const Client = BoardGameClient({
-  game: BusyBee,
-  board: BusyBeeBoard,
+  game: Game,
+  board: Board,
   debug: true,
 });
 
