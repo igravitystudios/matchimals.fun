@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './components/Button';
 import Card from './components/Card';
 import Deck from './components/Deck';
 import data from './data';
@@ -64,7 +65,7 @@ class Board extends React.Component {
         <div id="board">{board}</div>
         <div>Player {parseInt(this.props.ctx.currentPlayer, 10) + 1}</div>
         {<Deck cards={this.props.G.deck} />}
-        <button onClick={this.onPass}>Pass</button>
+        <Button onClick={this.onPass}>Pass</Button>
         {winner}
       </div>
     );
