@@ -8,7 +8,7 @@ class Deck extends Component {
     super(props);
 
     this.state = {
-      flipped: this.props.flipped || false,
+      flipped: props.flipped || false,
     };
   }
 
@@ -21,29 +21,29 @@ class Deck extends Component {
   render() {
     const { cards } = this.props;
     const { flipped } = this.state;
+
     return (
       <div
         style={{
           position: 'relative',
           display: 'inline-flex',
-          minWidth: '400px',
-          minHeight: '400px',
           zIndex: '999',
         }}
         onClick={this.flip}
       >
         {cards.map((card, i) => (
-          <div
+          <Card
             key={i}
+            card={card}
+            flipped={i === 0 && flipped}
             style={{
-              position: 'absolute',
+              position: i ? 'absolute' : 'inherit',
               top: i * 2,
               left: i,
               zIndex: -i,
+              cursor: flipped ? 'inherit' : 'pointer',
             }}
-          >
-            <Card card={card} flipped={i === 0 && flipped} />
-          </div>
+          />
         ))}
       </div>
     );
@@ -55,8 +55,6 @@ Deck.defaultProps = {
 };
 
 Deck.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   cards: PropTypes.array.isRequired,
 };
 
