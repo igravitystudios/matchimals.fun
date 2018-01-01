@@ -1,4 +1,5 @@
 import React from 'react';
+import { isLegalMove } from './Game';
 import Button from './components/Button';
 import Card from './components/Card';
 import Deck from './components/Deck';
@@ -11,16 +12,11 @@ class Board extends React.Component {
   };
 
   onClick(id) {
-    if (this.isActive(id)) {
+    // TODO: Fix up `isLegalMove` to be easier/cleaner to call
+    if (isLegalMove(this.props.G.cells, id, this.props.G.deck[0])) {
       this.props.moves.clickCell(id);
       this.props.endTurn();
     }
-  }
-
-  isActive(id) {
-    if (this.props.ctx.winner !== null) return false;
-    if (this.props.G.cells[id] !== null) return false;
-    return true;
   }
 
   render() {

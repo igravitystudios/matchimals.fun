@@ -1,4 +1,4 @@
-import BoardGameGame from 'boardgame.io/game';
+import BGGame from 'boardgame.io/game';
 import shuffle from 'lodash/shuffle';
 import data from './data';
 
@@ -6,7 +6,7 @@ function isVictory(cells) {
   // Return true if cells is in a winning configuration.
 }
 
-function isLegalMove(cells, id, currentCard) {
+export function isLegalMove(cells, id, currentCard) {
   let topCard = null,
     rightCard = null,
     bottomCard = null,
@@ -44,7 +44,7 @@ function isLegalMove(cells, id, currentCard) {
   return false;
 }
 
-const Game = BoardGameGame({
+const Game = BGGame({
   setup: () => ({
     cells: data.board,
     deck: shuffle(data.deck),

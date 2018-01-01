@@ -2,12 +2,6 @@ const width = 7;
 const height = 7;
 const center = Math.floor(width * height / 2);
 const board = Array(width * height).fill(null);
-board[center] = {
-  top: 'cow',
-  right: 'chicken',
-  bottom: 'hamster',
-  left: 'pig',
-};
 
 const cards = {
   bat: {
@@ -148,12 +142,6 @@ const cards = {
 };
 
 const deck = [
-  {
-    top: 'panda',
-    right: 'frog',
-    bottom: 'butterfly', // TODO: Queen Bee
-    left: 'bat',
-  },
   {
     top: 'giraffe',
     right: 'cat',
@@ -353,6 +341,13 @@ const deck = [
     left: 'bear',
   },
 ];
+
+board[center] = {
+  top: 'panda',
+  right: 'frog',
+  bottom: 'butterfly', // TODO: Queen Bee
+  left: 'bat',
+};
 
 module.exports = {
   board,

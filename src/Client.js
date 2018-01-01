@@ -1,9 +1,9 @@
-import BoardGameClient from 'boardgame.io/client';
+import BGClient from 'boardgame.io/client';
 
-import Game from './game';
-import Board from './board';
+import Game from './Game';
+import Board from './Board';
 
-const Client = BoardGameClient({
+const Client = BGClient({
   game: Game,
   board: Board,
   debug: true,
