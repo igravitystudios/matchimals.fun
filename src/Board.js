@@ -1,8 +1,8 @@
 import React from 'react';
+import withStyles from 'react-jss';
 import { isLegalMove } from './Game';
-import Button from './components/Button';
+import Sidebar from './Sidebar';
 import Card from './components/Card';
-import Deck from './components/Deck';
 import data from './data';
 
 class Board extends React.Component {
@@ -12,7 +12,8 @@ class Board extends React.Component {
   };
 
   onClick(id) {
-    // TODO: Fix up `isLegalMove` to be easier/cleaner to call
+    // TODO: Fix up `isLegalMove` to be easier/cleaner to call,
+    //       maybe just pass it the `id` and `G`?
     if (isLegalMove(this.props.G.cells, id, this.props.G.deck[0])) {
       this.props.moves.clickCell(id);
       this.props.endTurn();
@@ -20,11 +21,7 @@ class Board extends React.Component {
   }
 
   render() {
-    let winner = '';
-    if (this.props.ctx.winner !== null) {
-      winner = <div>Winner: {this.props.ctx.winner}</div>;
-    }
-
+    const { classes } = this.props;
     const cellStyle = {
       display: 'inline-block',
       width: '100px',
@@ -36,14 +33,16 @@ class Board extends React.Component {
 
     let board = [];
     for (let i = 0; i < data.width; i++) {
-      //width?
       let cells = [];
       for (let j = 0; j < data.height; j++) {
-        //height?
         const id = data.width * i + j;
         const value = this.props.G.cells[id];
         cells.push(
-          <div key={id} className="cell" onClick={() => this.onClick(id)}>
+          <div
+            key={id}
+            className={classes.cell}
+            onClick={() => this.onClick(id)}
+          >
             <div style={cellStyle}>
               {value && <Card card={value} flipped />}
             </div>
@@ -51,21 +50,28 @@ class Board extends React.Component {
         );
       }
       board.push(
-        <div key={i} className="row">
+        <div key={i} className={classes.row}>
           {cells}
         </div>
       );
     }
-    return (
-      <div style={{ display: 'flex' }}>
-        <div id="board">{board}</div>
-        <div>Player {parseInt(this.props.ctx.currentPlayer, 10) + 1}</div>
-        {<Deck cards={this.props.G.deck} />}
-        <Button onClick={this.onPass}>Pass</Button>
-        {winner}
-      </div>
-    );
+
+    return <div className={classes.root}>{board}</div>;
   }
 }
 
-export default Board;
+export default withStyles({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+  },
+  row: {
+    display: 'flex',
+  },
+  cell: {
+    display: 'flex',
+  },
+})(Board);

@@ -1,5 +1,5 @@
-const width = 7;
-const height = 7;
+const width = 9;
+const height = 9;
 const center = Math.floor(width * height / 2);
 const board = Array(width * height).fill(null);
 
@@ -345,7 +345,7 @@ const deck = [
 board[center] = {
   top: 'panda',
   right: 'frog',
-  bottom: 'butterfly', // TODO: Queen Bee
+  bottom: 'butterfly',
   left: 'bat',
 };
 

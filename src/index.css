@@ -6,14 +6,6 @@
   box-sizing: content-box !important;
 }
 
-/* card table */
-.row {
-  display: flex;
-}
-.cell {
-  display: flex;
-}
-
 /* Base */
 html,
 body {
