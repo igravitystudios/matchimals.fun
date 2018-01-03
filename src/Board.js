@@ -6,11 +6,6 @@ import { isLegalMove } from './Game';
 import data from './data';
 
 class Board extends React.Component {
-  onPass = () => {
-    this.props.moves.pass();
-    this.props.endTurn();
-  };
-
   onClick(id) {
     // TODO: Fix up `isLegalMove` to be easier/cleaner to call,
     //       maybe just pass it the `id` and `G`?

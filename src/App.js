@@ -9,6 +9,11 @@ class App extends Component {
     players: 2,
   };
 
+  onPass = () => {
+    this.props.moves.pass();
+    this.props.endTurn();
+  };
+
   render() {
     const { classes, ...rest } = this.props;
 

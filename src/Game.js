@@ -34,14 +34,23 @@ export function isLegalMove(cells, id, currentCard) {
 
   //Check for matching side
   if (
-    (topCard !== null && currentCard.top === topCard.bottom) ||
-    (rightCard !== null && currentCard.right === rightCard.left) ||
-    (bottomCard !== null && currentCard.bottom === bottomCard.top) ||
-    (leftCard !== null && currentCard.left === leftCard.right)
+    topCard == null &&
+    rightCard == null &&
+    bottomCard == null &&
+    leftCard == null
   ) {
-    return true;
+    return false; //Return false if no neighbor cards exist
   }
-  return false;
+  if (
+    (topCard == null || currentCard.top === topCard.bottom) &&
+    (rightCard == null || currentCard.right === rightCard.left) &&
+    (bottomCard == null || currentCard.bottom === bottomCard.top) &&
+    (leftCard == null || currentCard.left === leftCard.right)
+  ) {
+    return true; //Return true if there exists a match
+  }
+
+  return false; //Return false if there are no neighboring cards that match
 }
 
 const Game = BGGame({

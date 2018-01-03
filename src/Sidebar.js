@@ -25,6 +25,7 @@ export default withStyles({
     display: 'flex',
     flexDirection: 'column',
     padding: '8px',
+    height: '100%',
   },
   logo: {
     width: '100%',
