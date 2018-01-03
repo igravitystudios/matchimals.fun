@@ -3,7 +3,6 @@ import withStyles from 'react-jss';
 
 import Board from './Board';
 import Sidebar from './Sidebar';
-import data from './data';
 
 class App extends Component {
   state = {

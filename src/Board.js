@@ -1,8 +1,8 @@
 import React from 'react';
 import withStyles from 'react-jss';
-import { isLegalMove } from './Game';
-import Sidebar from './Sidebar';
+
 import Card from './components/Card';
+import { isLegalMove } from './Game';
 import data from './data';
 
 class Board extends React.Component {
