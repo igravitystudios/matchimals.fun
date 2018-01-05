@@ -24,8 +24,10 @@ export default withStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '8px',
+    width: '100%',
     height: '100%',
+    padding: '8px',
+    borderLeft: '1px solid black',
   },
   logo: {
     width: '100%',
