@@ -6,7 +6,7 @@ import Deck from './components/Deck';
 
 const Sidebar = ({ classes, ctx, deck, onPass }) => (
   <div className={classes.root}>
-    <div className={classes.logo}>Zoozle</div>
+    <div className={classes.logo}>Matchimals</div>
     <div>
       <div>Player {parseInt(ctx.currentPlayer, 10) + 1}</div>
       <div>

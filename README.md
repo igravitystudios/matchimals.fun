@@ -1,4 +1,4 @@
-# Zoozle– an animal matching puzzle card game 🦁 🃏
+# Matchimals– an animal matching puzzle card game 🦁 🃏
 
 Play online: https://example.com/
 
@@ -12,7 +12,7 @@ Play online: https://example.com/
 
 ## About
 
-Zoozle was built as a proof-of-concept by Chris Heninger (@chrisheninger) and Hannah Nolan (@mshannahnv). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
+Matchimals was built as a proof-of-concept by Chris Heninger (@chrisheninger) and Hannah Nolan (@mshannahnv). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
 
 This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development based in Phoenix, Arizona.
 
