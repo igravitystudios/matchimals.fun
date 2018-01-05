@@ -77,6 +77,6 @@ export default withStyles({
     display: 'inline-flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#fff',
+    background: '#eee',
   },
 })(CardBack);

@@ -42,10 +42,10 @@ export default withStyles({
     overflow: 'hidden',
   },
   board: {
-    width: 'calc(100% - 200px)',
+    width: 'calc(100% - 220px)',
   },
   sidebar: {
-    width: '200px',
+    width: '220px',
     height: '100%',
   },
 })(App);
