@@ -17,18 +17,9 @@ class Board extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const cellStyle = {
-      display: 'inline-block',
-      width: '100px',
-      height: '140px',
-      textAlign: 'center',
-      background: 'lightgray',
-      border: '1px dotted gray',
-    };
 
-    let board = [];
+    let cells = [];
     for (let i = 0; i < data.width; i++) {
-      let cells = [];
       for (let j = 0; j < data.height; j++) {
         const id = data.width * i + j;
         const value = this.props.G.cells[id];
@@ -38,35 +29,30 @@ class Board extends React.Component {
             className={classes.cell}
             onClick={() => this.onClick(id)}
           >
-            <div style={cellStyle}>
-              {value && <Card card={value} flipped />}
-            </div>
+            {value && <Card card={value} flipped />}
           </div>
         );
       }
-      board.push(
-        <div key={i} className={classes.row}>
-          {cells}
-        </div>
-      );
     }
 
-    return <div className={classes.root}>{board}</div>;
+    return <div className={classes.root}>{cells}</div>;
   }
 }
 
 export default withStyles({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: '100%',
-    height: '100%',
-    overflow: 'auto',
-  },
-  row: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns:
+      '100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px',
+    gridTemplateRows:
+      '140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px',
+    gridGap: '0',
   },
   cell: {
-    display: 'flex',
+    width: '100px',
+    height: '140px',
+    textAlign: 'center',
+    background: 'lightgray',
+    border: '1px dotted gray',
   },
 })(Board);

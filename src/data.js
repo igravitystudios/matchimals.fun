@@ -1,5 +1,5 @@
-const width = 9;
-const height = 9;
+const width = 13;
+const height = 13;
 const center = Math.floor(width * height / 2);
 const board = Array(width * height).fill(null);
 

@@ -43,8 +43,16 @@ export default withStyles({
   },
   board: {
     width: 'calc(100% - 220px)',
+    height: '100%',
+    overflow: 'auto',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   sidebar: {
+    position: 'fixed',
+    top: '0',
+    right: '0',
     width: '220px',
     height: '100%',
   },

@@ -8,10 +8,8 @@ import Deck from './components/Deck';
 const Sidebar = ({ classes, ctx, deck, onPass }) => (
   <div className={classes.root}>
     <div className={classes.logo}>
-      <Logo />
-      <span className={classes.tagline}>
-        An animal matching puzzle card game
-      </span>
+      <Logo className={classes.logoMark} />
+      <div className={classes.tagline}>An animal matching puzzle card game</div>
     </div>
     <div className={classes.player}>
       <div className={classes.playerText}>
@@ -32,17 +30,25 @@ export default withStyles({
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    padding: '16px',
-    borderLeft: '1px solid black',
+    backgroundColor: '#333',
+    padding: '8px',
+    // borderLeft: '1px solid black',
   },
   logo: {
-    width: '100%',
-    color: '#292929',
-    textAlign: 'center',
     marginBottom: '24px',
   },
+  logoMark: {
+    // filter: 'drop-shadow(-1px -1px 2px #fff)',
+  },
+  tagline: {
+    fontSize: '14px',
+    lineHeight: '18px',
+    color: '#fafafa',
+    textAlign: 'center',
+    padding: '0 16px',
+  },
   playerText: {
-    color: '#292929',
+    color: '#fafafa',
     fontSize: '18px',
     lineHeight: '24px',
     fontWeight: '500',
