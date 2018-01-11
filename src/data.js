@@ -222,7 +222,7 @@ const deck = [
     top: 'lion',
     right: 'bat',
     bottom: 'butterfly',
-    left: 'goat',
+    left: 'cow',
   },
   {
     top: 'boar',
@@ -262,12 +262,7 @@ const deck = [
   },
 ];
 
-board[center] = {
-  top: 'panda',
-  right: 'frog',
-  bottom: 'butterfly',
-  left: 'bat',
-};
+board[center] = deck[Math.floor(Math.random() * deck.length)];
 
 module.exports = {
   board,
