@@ -37,13 +37,14 @@ class App extends Component {
 export default withStyles({
   root: {
     display: 'flex',
-    width: '100vw',
-    height: '100vh',
-    overflow: 'hidden',
+    // width: '100vw',
+    // height: '100vh',
+    // overflow: 'hidden',
   },
   board: {
-    width: 'calc(100% - 220px)',
-    height: '100%',
+    // width: 'calc(100% - 220px)',
+    // height: '100%',
+    paddingRight: '220px',
     overflow: 'auto',
   },
   sidebar: {
