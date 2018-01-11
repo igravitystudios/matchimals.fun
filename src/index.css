@@ -16,8 +16,10 @@ body {
     'Helvetica Neue', sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  background: #fafafa;
-  color: #000;
+  background-image: url('./artwork/wood-background.jpg');
+  background-repeat: repeat;
+  background-color: #1e1412;
+  color: #fafafa;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;

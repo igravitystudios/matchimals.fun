@@ -33,15 +33,15 @@ export default withStyles({
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    backgroundColor: '#333',
+    backgroundColor: 'rgba(41,26,19,0.420)',
+    borderRadius: '8px',
     padding: '8px',
-    // borderLeft: '1px solid black',
   },
   logo: {
     marginBottom: '24px',
   },
   logoMark: {
-    // filter: 'drop-shadow(-1px -1px 2px #fff)',
+    filter: 'drop-shadow(-1px -1px 0 rgba(41,26,19,0.420))',
   },
   tagline: {
     fontSize: '14px',

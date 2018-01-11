@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from 'react-jss';
-import woodBackground from './artwork/wood-background.jpg';
+// import woodBackground from './artwork/wood-background.jpg';
 
 import Card from './components/Card';
 import { isLegalMove } from './Game';
@@ -36,24 +36,13 @@ class Board extends React.Component {
       }
     }
 
-    return (
-      <div className={classes.root}>
-        <div className={classes.grid}>{cells}</div>
-      </div>
-    );
+    return <div className={classes.root}>{cells}</div>;
   }
 }
 
 export default withStyles({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundImage: `url(${woodBackground})`,
-    backgroundRepeat: 'repeat',
-  },
-  grid: {
-    minWidth: '1300px',
+    minWidth: '1536px', // 100 * 13 (gameboard) + 220 (sidebar) + 16 (padding)
     minHeight: '1820px',
     display: 'grid',
     gridTemplateColumns: `repeat(${data.width}, 100px)`,
@@ -65,5 +54,8 @@ export default withStyles({
     height: '140px',
     textAlign: 'center',
     // border: '1px dotted white',
+    outline: '2px dashed rgba(255, 255, 255, 0.2)',
+    outlineOffset: '-4px',
+    borderRadius: '8px',
   },
 })(Board);
