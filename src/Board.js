@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'react-jss';
+import woodBackground from './artwork/wood-background.jpg';
 
 import Card from './components/Card';
 import { isLegalMove } from './Game';
@@ -35,24 +36,34 @@ class Board extends React.Component {
       }
     }
 
-    return <div className={classes.root}>{cells}</div>;
+    return (
+      <div className={classes.root}>
+        <div className={classes.grid}>{cells}</div>
+      </div>
+    );
   }
 }
 
 export default withStyles({
   root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundImage: `url(${woodBackground})`,
+    backgroundRepeat: 'repeat',
+  },
+  grid: {
+    minWidth: '1300px',
+    minHeight: '1820px',
     display: 'grid',
-    gridTemplateColumns:
-      '100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px',
-    gridTemplateRows:
-      '140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px 140px',
+    gridTemplateColumns: `repeat(${data.width}, 100px)`,
+    gridTemplateRows: `repeat(${data.height}, 140px)`,
     gridGap: '0',
   },
   cell: {
     width: '100px',
     height: '140px',
     textAlign: 'center',
-    background: 'lightgray',
-    border: '1px dotted gray',
+    // border: '1px dotted white',
   },
 })(Board);

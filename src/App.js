@@ -45,9 +45,6 @@ export default withStyles({
     width: 'calc(100% - 220px)',
     height: '100%',
     overflow: 'auto',
-    // display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   sidebar: {
     position: 'fixed',

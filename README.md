@@ -1,6 +1,6 @@
-# Matchimals– an animal matching puzzle card game 🦁 🃏
+# Matchimals.fun– an animal matching puzzle card game 🦁 🃏
 
-Play online: https://example.com/
+Play online: https://www.matchimals.fun/
 
 [screenshot]
 
@@ -12,13 +12,17 @@ Play online: https://example.com/
 
 ## About
 
-Matchimals was built as a proof-of-concept by Chris Heninger (@chrisheninger) and Hannah Nolan (@mshannahnv). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
+Matchimals was built as a proof-of-concept by Chris Heninger ([@chrisheninger](https://github.com/chrisheninger)) and Hannah Nolan ([@mshannahnv](https://github.com/mshannahnv)). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
 
 This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development based in Phoenix, Arizona.
 
 ## Want to contribute?
 
-This game has been made open source to help others looking to learn more about JavaScript and React applications. Find a bug or have a question? Feel free to open an issue or pull request!
+This game has been made open source to help others looking to learn more about JavaScript, BoardGame.io, and React applications. Find a bug or have a question? Feel free to open an issue or pull request!
+
+### Development
+
+### Styleguide
 
 ---
 

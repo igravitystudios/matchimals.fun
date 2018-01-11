@@ -52,7 +52,7 @@ export default withStyles({
     display: 'inline-flex',
     background: '#ccc',
     overflow: 'hidden',
-    borderRadius: '4px',
+    borderRadius: '8px',
     boxShadow: '0px 2px 3px rgba(0,0,0,0.18)',
   },
 })(Card);
