@@ -54,16 +54,34 @@ export function isLegalMove(cells, id, currentCard) {
 }
 
 const Game = BGGame({
-  setup: () => ({
-    cells: data.board,
-    deck: shuffle(data.deck),
-  }),
+  setup: numPlayers => {
+    const G = {
+      cells: data.board,
+      players: {},
+    };
+
+    let fulldeck = data.deck;
+    for (var i = 0; i < numPlayers - 1; i++) {
+      fulldeck = fulldeck.concat(data.deck);
+    }
+    fulldeck = shuffle(fulldeck);
+    const length = fulldeck.length;
+
+    for (var i = 0; i < numPlayers; i++) {
+      G.players[i] = {
+        score: 0,
+        deck: fulldeck.splice(0, length / numPlayers),
+      };
+    }
+    console.log(G);
+    return G;
+  },
 
   moves: {
     clickCell(G, ctx, id) {
       // Clone cells and deck state so we don't mutate values
       const cells = [...G.cells];
-      const deck = [...G.deck];
+      const deck = [...G.players[ctx.currentPlayer].deck];
       const currentCard = deck[0];
 
       // Ensure we can't overwrite cells.

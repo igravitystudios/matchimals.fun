@@ -13,6 +13,7 @@ import './index.css';
 const Client = BGClient({
   board: App,
   game: Game,
+  numPlayers: 2,
   debug: false,
 });
 
