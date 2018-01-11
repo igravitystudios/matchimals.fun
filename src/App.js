@@ -25,7 +25,7 @@ class App extends Component {
         <div className={classes.sidebar}>
           <Sidebar
             ctx={this.props.ctx}
-            deck={this.props.G.deck}
+            players={this.props.G.players}
             onPass={this.onPass}
           />
         </div>

@@ -5,18 +5,21 @@ import Logo from './components/Logo';
 import Button from './components/Button';
 import Deck from './components/Deck';
 
-const Sidebar = ({ classes, ctx, deck, onPass }) => (
+const Sidebar = ({ classes, ctx, players, onPass }) => (
   <div className={classes.root}>
     <div className={classes.logo}>
       <Logo className={classes.logoMark} />
       <div className={classes.tagline}>An animal matching puzzle card game</div>
     </div>
-    <div className={classes.player}>
-      <div className={classes.playerText}>
-        Player {parseInt(ctx.currentPlayer, 10) + 1}
+    <div>Player {parseInt(ctx.currentPlayer, 10) + 1}'s Turn</div>
+    {Object.keys(players).map(player => (
+      <div key={player} className={classes.player}>
+        <div className={classes.playerText}>
+          Player {parseInt(player, 10) + 1}
+        </div>
+        <Deck cards={players[player].deck} />
       </div>
-      <Deck cards={deck} />
-    </div>
+    ))}
     <Button className={classes.button} onClick={onPass}>
       Pass
     </Button>
@@ -46,6 +49,9 @@ export default withStyles({
     color: '#fafafa',
     textAlign: 'center',
     padding: '0 16px',
+  },
+  player: {
+    marginBottom: '50px',
   },
   playerText: {
     color: '#fafafa',
