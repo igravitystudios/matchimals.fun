@@ -8,9 +8,9 @@ import data from './data';
 
 class Board extends React.Component {
   onClick(id) {
-    const { endTurn, G, moves } = this.props;
+    const { endTurn, G, ctx, moves } = this.props;
 
-    if (isLegalMove(G, id)) {
+    if (isLegalMove(G, ctx, id)) {
       moves.clickCell(id);
       endTurn();
     }
