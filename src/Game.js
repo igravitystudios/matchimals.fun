@@ -6,11 +6,14 @@ function isVictory(cells) {
   // Return true if cells is in a winning configuration.
 }
 
-export function isLegalMove(cells, id, currentCard) {
+// export function isLegalMove(cells, id, currentCard) {
+export function isLegalMove(G, ctx, id) {
   let topCard = null,
     rightCard = null,
     bottomCard = null,
     leftCard = null;
+  const currentCard = G.players[ctx.currentPlayer].deck[0];
+  const { cells } = G;
 
   // Find neighbor indices
   let topIndex = id - data.width;
@@ -89,32 +92,33 @@ const Game = BGGame({
 
   moves: {
     clickCell(G, ctx, id) {
-      // Clone cells and deck state so we don't mutate values
+      // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
-      const deck = [...G.players[ctx.currentPlayer].deck];
-      const currentCard = deck[0];
+      const players = { ...G.players };
+      const deck = players[ctx.currentPlayer].deck;
 
       // Ensure we can't overwrite cells.
       if (cells[id] === null) {
-        if (isLegalMove(cells, id, currentCard)) {
-          cells[id] = currentCard;
+        if (isLegalMove(G, ctx, id)) {
+          cells[id] = deck[0];
           deck.shift();
         }
       }
 
-      // Return a copy of game state, along with updated cells and players' decks
-      return { ...G, cells, deck };
+      // Return a copy of game state, along with updated cells and players state
+      return { ...G, cells, players };
     },
 
     pass(G, ctx, id) {
-      // Clone deck state so we don't mutate values
-      const deck = [...G.deck];
+      // Clone players state so we don't mutate values
+      const players = { ...G.players };
+      const deck = players[ctx.currentPlayer].deck;
 
       // Place top card to bottom of deck
       deck.push(deck.shift());
 
       // Return a copy of game state, along with updated cells and deck
-      return { ...G, deck };
+      return { ...G, players };
     },
   },
 
