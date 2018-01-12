@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from 'react-jss';
 
-import data from '../../data';
+import animals from '../../constants/animals';
 
 const CardFront = ({ card, classes, className }) => (
   <div className={classNames(classes.root, className)}>
@@ -16,25 +16,25 @@ const CardFront = ({ card, classes, className }) => (
       <polygon
         id="top"
         points="50 70 100 0 0 0 50 70"
-        fill={data.cards[card.top] && data.cards[card.top].color}
+        fill={animals[card.top] && animals[card.top].color}
       />
       <polygon
         id="right"
         points="50 70 100 140 100 0 50 70"
-        fill={data.cards[card.right] && data.cards[card.right].color}
+        fill={animals[card.right] && animals[card.right].color}
       />
       <polygon
         id="bottom"
         points="50 70 0 140 100 140 50 70"
-        fill={data.cards[card.bottom] && data.cards[card.bottom].color}
+        fill={animals[card.bottom] && animals[card.bottom].color}
       />
       <polygon
         id="left"
         points="50 70 0 0 0 140 50 70"
-        fill={data.cards[card.left] && data.cards[card.left].color}
+        fill={animals[card.left] && animals[card.left].color}
       />
     </svg>
-    {data.cards[card.top] && (
+    {animals[card.top] && (
       <div
         style={{
           position: 'absolute',
@@ -42,12 +42,12 @@ const CardFront = ({ card, classes, className }) => (
           left: 18,
           width: 64,
           height: 64,
-          backgroundImage: `url(${data.cards[card.top].image})`,
-          backgroundSize: '64px 64px',
         }}
-      />
+      >
+        {animals[card.top].icon}
+      </div>
     )}
-    {data.cards[card.right] && (
+    {animals[card.right] && (
       <div
         style={{
           position: 'absolute',
@@ -55,8 +55,6 @@ const CardFront = ({ card, classes, className }) => (
           right: -32,
           width: 64,
           height: 64,
-          backgroundImage: `url(${data.cards[card.right].image})`,
-          backgroundSize: '64px 64px',
         }}
       >
         <div
@@ -71,11 +69,12 @@ const CardFront = ({ card, classes, className }) => (
             userSelect: 'none',
           }}
         >
-          {data.cards[card.right].value}
+          {animals[card.right].points}
         </div>
+        {animals[card.right].icon}
       </div>
     )}
-    {data.cards[card.bottom] && (
+    {animals[card.bottom] && (
       <div
         style={{
           position: 'absolute',
@@ -83,8 +82,6 @@ const CardFront = ({ card, classes, className }) => (
           left: 18,
           width: '64px',
           height: '64px',
-          backgroundImage: `url(${data.cards[card.bottom].image})`,
-          backgroundSize: '64px 64px',
         }}
       >
         <div
@@ -99,11 +96,12 @@ const CardFront = ({ card, classes, className }) => (
             userSelect: 'none',
           }}
         >
-          {data.cards[card.bottom].value}
+          {animals[card.bottom].points}
         </div>
+        {animals[card.bottom].icon}
       </div>
     )}
-    {data.cards[card.left] && (
+    {animals[card.left] && (
       <div
         style={{
           position: 'absolute',
@@ -111,10 +109,10 @@ const CardFront = ({ card, classes, className }) => (
           left: -32,
           width: 64,
           height: 64,
-          backgroundImage: `url(${data.cards[card.left].image})`,
-          backgroundSize: '64px 64px',
         }}
-      />
+      >
+        {animals[card.left].icon}
+      </div>
     )}
   </div>
 );
