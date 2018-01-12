@@ -14,7 +14,7 @@ Play online: https://www.matchimals.fun/
 
 Matchimals was built as a proof-of-concept by Chris Heninger ([@chrisheninger](https://github.com/chrisheninger)) and Hannah Nolan ([@mshannahnv](https://github.com/mshannahnv)). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
 
-This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development based in Phoenix, Arizona.
+This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development– based in Phoenix, Arizona.
 
 ## Want to contribute?
 
@@ -22,7 +22,11 @@ This game has been made open source to help others looking to learn more about J
 
 ### Development
 
+`yarn start`
+
 ### Styleguide
+
+`yarn run styleguide`
 
 ---
 

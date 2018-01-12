@@ -12,13 +12,13 @@ export function isLegalMove(cells, id, currentCard) {
     bottomCard = null,
     leftCard = null;
 
-  //Find neighbor indices
+  // Find neighbor indices
   let topIndex = id - data.width;
   let rightIndex = id + 1;
   let leftIndex = id - 1;
   let bottomIndex = id + data.width;
 
-  //Set neighbor cards if within board
+  // Set neighbor cards if within board boundaries
   if (topIndex >= 0) {
     topCard = cells[topIndex];
   }
@@ -32,7 +32,7 @@ export function isLegalMove(cells, id, currentCard) {
     leftCard = cells[leftIndex];
   }
 
-  //Check for matching side
+  // Check for matching side
   if (
     topCard == null &&
     rightCard == null &&
@@ -54,26 +54,36 @@ export function isLegalMove(cells, id, currentCard) {
 }
 
 const Game = BGGame({
+  // The setup method is passed numPlayers, which is set in the BGClient
   setup: numPlayers => {
+    // Initial Game State– `G`
     const G = {
       cells: data.board,
       players: {},
     };
 
+    // Populate the initial deck
     let fulldeck = data.deck;
-    for (var i = 0; i < numPlayers - 1; i++) {
+
+    // Add a deck for every additional player
+    for (let i = 0; i < numPlayers - 1; i++) {
       fulldeck = fulldeck.concat(data.deck);
     }
+
+    // Shuffle resulting deck using lodash
     fulldeck = shuffle(fulldeck);
+
+    // Snapshot the length of the entire deck before we chop it up
     const length = fulldeck.length;
 
-    for (var i = 0; i < numPlayers; i++) {
-      G.players[i] = {
+    // Set up the game state for each player, and deal them a part of the deck
+    for (let j = 0; j < numPlayers; j++) {
+      G.players[j] = {
         score: 0,
         deck: fulldeck.splice(0, length / numPlayers),
       };
     }
-    console.log(G);
+
     return G;
   },
 
@@ -92,9 +102,10 @@ const Game = BGGame({
         }
       }
 
-      // Return a copy of game state, along with updated cells and deck
+      // Return a copy of game state, along with updated cells and players' decks
       return { ...G, cells, deck };
     },
+
     pass(G, ctx, id) {
       // Clone deck state so we don't mutate values
       const deck = [...G.deck];
