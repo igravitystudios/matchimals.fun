@@ -8,11 +8,11 @@ import data from './data';
 
 class Board extends React.Component {
   onClick(id) {
-    const { endTurn, G, ctx, moves } = this.props;
+    const { G, ctx, game, moves } = this.props;
 
     if (isLegalMove(G, ctx, id)) {
       moves.clickCell(id);
-      endTurn();
+      game.endTurn();
     }
   }
 
