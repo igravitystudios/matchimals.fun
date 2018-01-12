@@ -1,53 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '../Card';
 
-class Deck extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      flipped: props.flipped || false,
-    };
-  }
-
-  flip = () => {
-    this.setState(() => ({
-      flipped: true,
-    }));
-  };
-
-  render() {
-    const { cards } = this.props;
-    const { flipped } = this.state;
-
-    return (
-      <div
+const Deck = ({ cards, flipped }) => (
+  <div
+    style={{
+      position: 'relative',
+      display: 'inline-flex',
+      zIndex: '101',
+    }}
+  >
+    {cards.map((card, i) => (
+      <Card
+        key={i}
+        card={card}
+        flipped={i === 0 && flipped}
         style={{
-          position: 'relative',
-          display: 'inline-flex',
-          zIndex: '999',
+          position: i ? 'absolute' : 'inherit',
+          left: i,
+          zIndex: -i,
         }}
-        onClick={this.flip}
-      >
-        {cards.map((card, i) => (
-          <Card
-            key={i}
-            card={card}
-            flipped={i === 0 && flipped}
-            style={{
-              position: i ? 'absolute' : 'inherit',
-              left: i,
-              zIndex: -i,
-              cursor: flipped ? 'inherit' : 'pointer',
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+      />
+    ))}
+  </div>
+);
 
 Deck.defaultProps = {
   cards: [],

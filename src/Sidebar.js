@@ -16,7 +16,10 @@ const Sidebar = ({ classes, ctx, players, onPass }) => (
         <div className={classes.playerText}>
           Player {parseInt(player, 10) + 1}
         </div>
-        <Deck cards={players[player].deck} />
+        <Deck
+          cards={players[player].deck}
+          flipped={ctx.currentPlayer === player}
+        />
       </div>
     ))}
     <div className={classes.turn}>
