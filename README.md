@@ -2,7 +2,8 @@
 
 Play online: https://www.matchimals.fun/
 
-[screenshot]
+![screenshot of matchimals.fun game](./screenshot.png)
+TODO: better screenshot 😅
 
 ## How to play
 
