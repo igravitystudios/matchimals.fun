@@ -11,7 +11,7 @@ class App extends Component {
 
   onPass = () => {
     this.props.moves.pass();
-    this.props.endTurn();
+    this.props.game.endTurn();
   };
 
   render() {
