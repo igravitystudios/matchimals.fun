@@ -1036,7 +1036,7 @@ base64-arraybuffer@0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
 
-base64-js@>=0.0.4, base64-js@^1.0.2:
+base64-js@^1.0.2:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
 
@@ -1094,9 +1094,9 @@ bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
 
-boardgame.io@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/boardgame.io/-/boardgame.io-0.14.0.tgz#52b8ef1ac7ceb4ad54ec47070f2cc0527f385d78"
+boardgame.io@0.16.3:
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/boardgame.io/-/boardgame.io-0.16.3.tgz#b81469a481fae2a3576ddd074844effb76729386"
   dependencies:
     koa "^2.3.0"
     koa-router "^7.2.1"
@@ -1503,7 +1503,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.5:
+classnames@2.2.5, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -3211,7 +3211,7 @@ glob-parent@^2.0.0:
   dependencies:
     is-glob "^2.0.0"
 
-glob@>=3.2.6, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -3301,12 +3301,6 @@ got@^5.0.0:
     timed-out "^3.0.0"
     unzip-response "^1.0.2"
     url-parse-lax "^1.0.0"
-
-graceful-fs@^3.0.4:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-3.0.11.tgz#7613c778a1afea62f25c630a086d7f3acbbdd818"
-  dependencies:
-    natives "^1.1.0"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
@@ -4769,7 +4763,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-"lodash@>=3.5 <5", lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+lodash@4.17.4, "lodash@>=3.5 <5", lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5086,10 +5080,6 @@ nan@^2.3.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
-natives@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.1.tgz#011acce1f7cbd87f7ba6b3093d6cd9392be1c574"
-
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -5107,16 +5097,6 @@ negotiator@0.4.9:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
-
-netlify@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/netlify/-/netlify-1.2.0.tgz#ebf89b94b01b478d539630174decb496c2bbe315"
-  dependencies:
-    base64-js ">=0.0.4"
-    glob ">=3.2.6"
-    graceful-fs "^3.0.4"
-    semaphore "^1.0.5"
-    when "^3.7.5"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -5992,7 +5972,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@15.6.0, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -6202,7 +6182,7 @@ react-docgen@^3.0.0-beta9:
     node-dir "^0.1.10"
     recast "^0.12.6"
 
-react-dom@^16.2.0:
+react-dom@16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -6239,9 +6219,9 @@ react-json-view@^1.13.0:
     react-base16-styling "^0.5.3"
     react-textarea-autosize "^5.1.0"
 
-react-jss@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.2.0.tgz#8440f08aef27d408ba31f63df09167ed22a5b99b"
+react-jss@8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.2.1.tgz#b2905063ba8b950f095a139a75232d851c79e15e"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     jss "^9.3.2"
@@ -6303,7 +6283,7 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
-react-styleguidist@^6.1.0:
+react-styleguidist@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-6.1.0.tgz#08e097f75eae5f59c5bb93ee5301b9a507d729fd"
   dependencies:
@@ -6370,7 +6350,7 @@ react-textarea-autosize@^5.1.0:
   dependencies:
     prop-types "^15.6.0"
 
-react@^16.2.0:
+react@16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
@@ -6844,10 +6824,6 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.1.tgz#bf8cb7b83256c4551e31347c6311778db99eec52"
   dependencies:
     node-forge "0.6.33"
-
-semaphore@^1.0.5:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/semaphore/-/semaphore-1.1.0.tgz#aaad8b86b20fe8e9b32b16dc2ee682a8cd26a8aa"
 
 semver-diff@^2.0.0:
   version "2.1.0"
@@ -8099,10 +8075,6 @@ whatwg-url@^4.3.0:
   dependencies:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
-
-when@^3.7.5:
-  version "3.7.8"
-  resolved "https://registry.yarnpkg.com/when/-/when-3.7.8.tgz#c7130b6a7ea04693e842cdc9e7a1f2aa39a39f82"
 
 whet.extend@~0.9.9:
   version "0.9.9"

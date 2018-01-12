@@ -1,12 +1,7 @@
-import BGGame from 'boardgame.io/game';
+import { Game as BGGame } from 'boardgame.io/core';
 import shuffle from 'lodash/shuffle';
 import data from './data';
 
-function isVictory(cells) {
-  // Return true if cells is in a winning configuration.
-}
-
-// export function isLegalMove(cells, id, currentCard) {
 export function isLegalMove(G, ctx, id) {
   let topCard = null,
     rightCard = null,
@@ -122,8 +117,13 @@ const Game = BGGame({
     },
   },
 
-  victory: (G, ctx) => {
-    return isVictory(G.cells) ? ctx.currentPlayer : null;
+  flow: {
+    endGameIf: (G, ctx) => {
+      // TODO: Logic to end game
+      // if (isVictory(G, ctx)) {
+      //   return ctx.currentPlayer;
+      // }
+    },
   },
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'react-jss';
-import BGClient from 'boardgame.io/client';
+import { Client as BGClient } from 'boardgame.io/client';
 
 import App from './App';
 import Game from './Game';
