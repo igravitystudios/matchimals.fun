@@ -14,13 +14,13 @@ export default withStyles({
     alignItems: 'center',
     justifyContent: 'center',
     background: '#D86060',
+    borderRadius: '4px',
   },
   buttonChildren: {
     width: '100%',
     textAlign: 'center',
-    fontSize: '18px',
-    fontWeight: '700',
-    color: '#000',
+    fontSize: '32px',
+    color: '#fafafa',
     padding: '16px',
   },
 })(Button);

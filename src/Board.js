@@ -8,22 +8,22 @@ import data from './data';
 
 class Board extends React.Component {
   onClick(id) {
-    // TODO: Fix up `isLegalMove` to be easier/cleaner to call,
-    //       maybe just pass it the `id` and `G`?
-    if (isLegalMove(this.props.G.cells, id, this.props.G.deck[0])) {
-      this.props.moves.clickCell(id);
-      this.props.endTurn();
+    const { endTurn, G, moves } = this.props;
+
+    if (isLegalMove(G, id)) {
+      moves.clickCell(id);
+      endTurn();
     }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, G } = this.props;
 
     let cells = [];
     for (let i = 0; i < data.width; i++) {
       for (let j = 0; j < data.height; j++) {
         const id = data.width * i + j;
-        const value = this.props.G.cells[id];
+        const value = G.cells[id];
         cells.push(
           <div
             key={id}

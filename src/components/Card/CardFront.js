@@ -67,7 +67,6 @@ const CardFront = ({ card, classes, className }) => (
             width: '20px',
             color: '#fff',
             fontSize: '14px',
-            fontWeight: '700',
             textAlign: 'center',
             userSelect: 'none',
           }}
@@ -96,7 +95,6 @@ const CardFront = ({ card, classes, className }) => (
             width: '20px',
             color: '#fff',
             fontSize: '14px',
-            fontWeight: '700',
             textAlign: 'center',
             userSelect: 'none',
           }}

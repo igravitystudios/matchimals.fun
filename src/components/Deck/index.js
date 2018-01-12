@@ -38,7 +38,6 @@ class Deck extends Component {
             flipped={i === 0 && flipped}
             style={{
               position: i ? 'absolute' : 'inherit',
-              top: i * 2,
               left: i,
               zIndex: -i,
               cursor: flipped ? 'inherit' : 'pointer',

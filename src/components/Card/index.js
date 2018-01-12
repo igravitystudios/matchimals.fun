@@ -53,6 +53,6 @@ export default withStyles({
     background: '#ccc',
     overflow: 'hidden',
     borderRadius: '8px',
-    boxShadow: '1px 1px 1px rgba(0,0,0,0.420)',
+    boxShadow: '1px 1px 1px rgba(41,26,19,0.420)',
   },
 })(Card);

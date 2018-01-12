@@ -11,7 +11,6 @@ const Sidebar = ({ classes, ctx, players, onPass }) => (
       <Logo className={classes.logoMark} />
       <div className={classes.tagline}>An animal matching puzzle card game</div>
     </div>
-    <div>Player {parseInt(ctx.currentPlayer, 10) + 1}'s Turn</div>
     {Object.keys(players).map(player => (
       <div key={player} className={classes.player}>
         <div className={classes.playerText}>
@@ -20,6 +19,9 @@ const Sidebar = ({ classes, ctx, players, onPass }) => (
         <Deck cards={players[player].deck} />
       </div>
     ))}
+    <div className={classes.turn}>
+      Player {parseInt(ctx.currentPlayer, 10) + 1}'s Turn
+    </div>
     <Button className={classes.button} onClick={onPass}>
       Pass
     </Button>
@@ -44,23 +46,30 @@ export default withStyles({
     filter: 'drop-shadow(-1px -1px 0 rgba(41,26,19,0.420))',
   },
   tagline: {
-    fontSize: '14px',
-    lineHeight: '18px',
+    fontSize: '18px',
+    lineHeight: '21px',
     color: '#fafafa',
     textAlign: 'center',
     padding: '0 16px',
   },
   player: {
-    marginBottom: '50px',
+    marginBottom: '48px',
   },
   playerText: {
     color: '#fafafa',
-    fontSize: '18px',
-    lineHeight: '24px',
-    fontWeight: '500',
+    fontSize: '24px',
+    lineHeight: '32px',
     marginBottom: '6px',
   },
-  button: {
+  turn: {
+    fontSize: '24px',
+    lineHeight: '32px',
+    textDecoration: 'underline',
+    textDecorationSkip: 'ink', // this may become `text-decoration-skip-ink: auto;` in the future? Regardless, it's a hot effect. 🔥🔥🔥 https://css-tricks.com/almanac/properties/t/text-decoration-skip/
+    textAlign: 'center',
     marginTop: 'auto',
+  },
+  button: {
+    marginTop: '24px',
   },
 })(Sidebar);
