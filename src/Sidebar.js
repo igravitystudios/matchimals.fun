@@ -57,7 +57,7 @@ export default withStyles({
     padding: '0 16px',
   },
   player: {
-    marginBottom: '48px',
+    marginBottom: '24px',
   },
   playerText: {
     color: '#fafafa',
