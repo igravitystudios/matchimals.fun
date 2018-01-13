@@ -17,10 +17,10 @@ const deck = [
     left: 'boar',
   },
   {
-    top: 'giraffe',
+    top: 'gorilla',
     right: 'boar',
     bottom: 'cow',
-    left: 'flower',
+    left: 'zebra',
   },
   {
     top: 'cow',
@@ -47,7 +47,7 @@ const deck = [
     left: 'penguin',
   },
   {
-    top: 'zebra',
+    top: 'giraffe',
     right: 'pig',
     bottom: 'chick',
     left: 'cat',
@@ -62,12 +62,12 @@ const deck = [
     top: 'turtle',
     right: 'bear',
     bottom: 'chick',
-    left: 'giraffe',
+    left: 'gorilla',
   },
   {
     top: 'chick',
     right: 'tiger',
-    bottom: 'zebra',
+    bottom: 'giraffe',
     left: 'bunny',
   },
   {
@@ -78,14 +78,14 @@ const deck = [
   },
   {
     top: 'boar',
-    right: 'flower',
+    right: 'zebra',
     bottom: 'frog',
     left: 'panda',
   },
   {
     top: 'cow',
     right: 'wolf',
-    bottom: 'giraffe',
+    bottom: 'gorilla',
     left: 'fox',
   },
   {
@@ -108,7 +108,7 @@ const deck = [
   },
   {
     top: 'owl',
-    right: 'giraffe',
+    right: 'gorilla',
     bottom: 'koala',
     left: 'boar',
   },

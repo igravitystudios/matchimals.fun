@@ -67,6 +67,7 @@ const CardFront = ({ card, classes, className }) => (
             fontSize: '14px',
             textAlign: 'center',
             userSelect: 'none',
+            textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
           {animals[card.right].points}
@@ -94,6 +95,7 @@ const CardFront = ({ card, classes, className }) => (
             fontSize: '14px',
             textAlign: 'center',
             userSelect: 'none',
+            textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
           {animals[card.bottom].points}

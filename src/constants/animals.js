@@ -1,4 +1,5 @@
 import React from 'react';
+import colors from './colors';
 
 import Bat from '../artwork/Bat';
 import Bear from '../artwork/Bear';
@@ -10,7 +11,6 @@ import Chick from '../artwork/Chick';
 import Chicken from '../artwork/Chicken';
 import Cow from '../artwork/Cow';
 import Dog from '../artwork/Dog';
-import Flower from '../artwork/Flower';
 import Fox from '../artwork/Fox';
 import Frog from '../artwork/Frog';
 import Giraffe from '../artwork/Giraffe';
@@ -33,147 +33,142 @@ import Zebra from '../artwork/Zebra';
 export default {
   bat: {
     icon: <Bat />,
-    color: '#DC6349',
+    color: colors.greenLight,
     points: 1,
   },
   bear: {
     icon: <Bear />,
-    color: '#C5D9B2',
+    color: colors.greenLight,
     points: 7,
   },
   boar: {
     icon: <Boar />,
-    color: '#879796',
+    color: colors.blueMedium,
     points: 3,
   },
   bunny: {
     icon: <Bunny />,
-    color: '#EBE18C',
+    color: colors.yellowLight,
     points: 2,
   },
   butterfly: {
     icon: <Butterfly />,
-    color: '#4C514A',
+    color: colors.orangeMedium,
     points: 2,
   },
   cat: {
     icon: <Cat />,
-    color: '#448D7A',
+    color: colors.purpleMedium,
     points: 10,
   },
   chick: {
     icon: <Chick />,
-    color: '#88A764',
+    color: colors.redMedium,
     points: 2,
   },
   chicken: {
     icon: <Chicken />,
-    color: '#318EA8',
+    color: colors.yellowLight,
     points: 4,
   },
   cow: {
     icon: <Cow />,
-    color: '#D8A027',
+    color: colors.greenMedium,
     points: 4,
   },
   dog: {
     icon: <Dog />,
-    color: '#A55C55',
+    color: colors.blueMedium,
     points: 10,
-  },
-  flower: {
-    icon: <Flower />,
-    color: '#BAB393',
-    points: 1,
   },
   fox: {
     icon: <Fox />,
-    color: '#0E9163',
+    color: colors.grayMedium,
     points: 9,
   },
   frog: {
     icon: <Frog />,
-    color: '#D66B29',
+    color: colors.redMedium,
     points: 4,
   },
   giraffe: {
     icon: <Giraffe />,
-    color: '#907A62',
+    color: colors.grayMedium,
     points: 2,
   },
   gorilla: {
     icon: <Gorilla />,
-    color: '#F0C0A8',
+    color: colors.yellowLight,
     points: 7,
   },
   hamster: {
     icon: <Hamster />,
-    color: '#F17A97',
+    color: colors.grayMedium,
     points: 3,
   },
   hedgehog: {
     icon: <Hedgehog />,
-    color: '#eeeeee',
+    color: colors.greenMedium,
     points: 3,
   },
   koala: {
     icon: <Koala />,
-    color: '#755854',
+    color: colors.blueDark,
     points: 8,
   },
   lion: {
     icon: <Lion />,
-    color: '#88A34F',
+    color: colors.redLight,
     points: 8,
   },
   monkey: {
     icon: <Monkey />,
-    color: '#C48285',
+    color: colors.blueDark,
     points: 7,
   },
   mouse: {
     icon: <Mouse />,
-    color: '#EDCC6B',
+    color: colors.redLight,
     points: 4,
   },
   owl: {
     icon: <Owl />,
-    color: '#D86060',
+    color: colors.redMedium,
     points: 2,
   },
   panda: {
     icon: <Panda />,
-    color: '#824119',
+    color: colors.greenMedium,
     points: 7,
   },
   penguin: {
     icon: <Penguin />,
-    color: '#FFB05A',
+    color: colors.blueLight,
     points: 3,
   },
   pig: {
     icon: <Pig />,
-    color: '#C0D8C0',
+    color: colors.blueDark,
     points: 4,
   },
   tiger: {
     icon: <Tiger />,
-    color: '#D8D8A8',
+    color: colors.purpleMedium,
     points: 6,
   },
   turtle: {
     icon: <Turtle />,
-    color: '#915466',
+    color: colors.purpleMedium,
     points: 5,
   },
   wolf: {
     icon: <Wolf />,
-    color: '#B1C4BB',
+    color: colors.blueLight,
     points: 7,
   },
   zebra: {
     icon: <Zebra />,
-    color: '#eee',
+    color: colors.greenLight,
     points: 7,
   },
 };
