@@ -2,11 +2,11 @@
 
 Play online: https://www.matchimals.fun/
 
-![screenshot of matchimals.fun game](./screenshot.png)
-TODO: better screenshot 😅
+![screenshot of matchimals.fun game](./screenshot.jpg)
 
 ## How to play
 
+1. Visit https://www.matchimals.fun/ in your browser
 1. The card you draw must be connected to existing cards on the board.
 1. If you cannot play, you must pass. Your card will be moved to the bottom of your deck.
 1. When any player finishes placing all of their cards, the game ends. The player with the highest score is the winner!
