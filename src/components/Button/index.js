@@ -13,6 +13,7 @@ export default withStyles({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
+    minHeight: '64px',
     background: '#D86060',
     borderRadius: '4px',
   },

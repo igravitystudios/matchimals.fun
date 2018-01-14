@@ -41,13 +41,14 @@ export default withStyles({
     backgroundColor: 'rgba(41,26,19,0.420)',
     borderRadius: '8px',
     padding: '8px',
+    overflowY: 'auto',
   },
   logo: {
     marginBottom: '24px',
   },
   logoMark: {
     padding: '8px',
-    filter: 'drop-shadow(2px 2px 0 rgba(41,26,19,0.420))',
+    filter: 'drop-shadow(1px 1px 0 rgba(41,26,19,0.420))',
   },
   tagline: {
     fontSize: '18px',
