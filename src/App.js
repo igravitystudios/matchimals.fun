@@ -3,10 +3,19 @@ import withStyles from 'react-jss';
 
 import Board from './Board';
 import Sidebar from './Sidebar';
+import Menu from './Menu';
 
 class App extends Component {
   state = {
     players: 2,
+    isMenuVisible: false,
+  };
+
+  onMenuToggle = e => {
+    e.preventDefault();
+    this.setState(state => ({
+      isMenuVisible: !state.isMenuVisible,
+    }));
   };
 
   onPass = () => {
@@ -16,6 +25,7 @@ class App extends Component {
 
   render() {
     const { classes, ...rest } = this.props;
+    const { isMenuVisible } = this.state;
 
     return (
       <div className={classes.root}>
@@ -26,9 +36,11 @@ class App extends Component {
           <Sidebar
             ctx={this.props.ctx}
             players={this.props.G.players}
+            onMenuToggle={this.onMenuToggle}
             onPass={this.onPass}
           />
         </div>
+        {isMenuVisible && <Menu onMenuToggle={this.onMenuToggle} />}
       </div>
     );
   }

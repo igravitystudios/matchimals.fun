@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import withStyles from 'react-jss';
+import colors from '../../constants/colors';
 
 const Button = ({ children, classes, className, onClick, ...props }) => (
   <button className={classNames(classes.root, className)} onClick={onClick}>
@@ -14,7 +15,7 @@ export default withStyles({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '64px',
-    background: '#D86060',
+    background: props => colors[props.color] || '#D86060',
     borderRadius: '4px',
   },
   buttonChildren: {

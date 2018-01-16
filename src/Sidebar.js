@@ -5,7 +5,7 @@ import Logo from './components/Logo';
 import Button from './components/Button';
 import Deck from './components/Deck';
 
-const Sidebar = ({ classes, ctx, players, onPass }) => (
+const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass }) => (
   <div className={classes.root}>
     <div className={classes.logo}>
       <Logo className={classes.logoMark} />
@@ -25,8 +25,11 @@ const Sidebar = ({ classes, ctx, players, onPass }) => (
     <div className={classes.turn}>
       Player {parseInt(ctx.currentPlayer, 10) + 1}'s Turn
     </div>
-    <Button className={classes.button} onClick={onPass}>
+    <Button className={classes.pass} onClick={onPass}>
       Pass
+    </Button>
+    <Button color="grayLight" className={classes.menu} onClick={onMenuToggle}>
+      Menu
     </Button>
     {ctx.winner && <div>Winner: {ctx.winner}</div>}
   </div>
@@ -74,7 +77,10 @@ export default withStyles({
     textAlign: 'center',
     marginTop: 'auto',
   },
-  button: {
+  pass: {
     marginTop: '24px',
+  },
+  menu: {
+    marginTop: '8px',
   },
 })(Sidebar);

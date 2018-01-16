@@ -9,5 +9,6 @@ export default {
   blueMedium: '#7698A4',
   blueDark: '#364F57',
   purpleMedium: '#94638D',
+  grayLight: '#9F9FB7',
   grayMedium: '#5D5D6B',
 };
