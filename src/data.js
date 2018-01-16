@@ -118,6 +118,7 @@ board[center] = deck[Math.floor(Math.random() * deck.length)];
 
 module.exports = {
   board,
+  center,
   deck,
   width,
   height,

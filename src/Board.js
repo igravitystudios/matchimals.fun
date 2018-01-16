@@ -1,12 +1,19 @@
 import React from 'react';
 import withStyles from 'react-jss';
-// import woodBackground from './artwork/wood-background.jpg';
 
 import Card from './components/Card';
 import { isLegalMove } from './Game';
 import data from './data';
 
 class Board extends React.Component {
+  componentDidMount() {
+    this.centerCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+
   onClick(id) {
     const { G, ctx, game, moves } = this.props;
 
@@ -27,6 +34,13 @@ class Board extends React.Component {
         cells.push(
           <div
             key={id}
+            ref={
+              id === data.center
+                ? card => {
+                    this.centerCard = card;
+                  }
+                : null
+            }
             className={classes.cell}
             onClick={() => this.onClick(id)}
           >
@@ -53,7 +67,6 @@ export default withStyles({
     width: '100px',
     height: '140px',
     textAlign: 'center',
-    // border: '1px dotted white',
     outline: '2px dashed rgba(255, 255, 255, 0.2)',
     outlineOffset: '-4px',
     borderRadius: '8px',
