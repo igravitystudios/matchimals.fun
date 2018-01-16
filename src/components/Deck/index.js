@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'react-jss';
+import classNames from 'classnames';
 
 import Card from '../Card';
 
-const Deck = ({ cards, flipped }) => (
-  <div
-    style={{
-      position: 'relative',
-      display: 'inline-flex',
-      zIndex: '101',
-    }}
-  >
+const Deck = ({ cards, classes, className, flipped, ...rest }) => (
+  <div className={classNames(classes.root, className)}>
     {cards.map((card, i) => (
       <Card
         key={i}
@@ -34,4 +30,10 @@ Deck.propTypes = {
   cards: PropTypes.array.isRequired,
 };
 
-export default Deck;
+export default withStyles({
+  root: {
+    position: 'relative',
+    display: 'inline-flex',
+    zIndex: '101',
+  },
+})(Deck);

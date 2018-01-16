@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'react-jss';
+import classNames from 'classnames';
 
 import Logo from './components/Logo';
 import Button from './components/Button';
@@ -11,20 +12,23 @@ const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass }) => (
       <Logo className={classes.logoMark} />
       <div className={classes.tagline}>An animal matching puzzle card game</div>
     </div>
-    {Object.keys(players).map(player => (
-      <div key={player} className={classes.player}>
-        <div className={classes.playerText}>
-          Player {parseInt(player, 10) + 1}
+    {Object.keys(players).map(player => {
+      const isPlayerActive = player === ctx.currentPlayer;
+      return (
+        <div
+          key={player}
+          className={classNames(
+            classes.player,
+            isPlayerActive && classes.playerActive
+          )}
+        >
+          <div className={classes.playerText}>
+            Player {parseInt(player, 10) + 1}
+          </div>
+          <Deck cards={players[player].deck} flipped={isPlayerActive} />
         </div>
-        <Deck
-          cards={players[player].deck}
-          flipped={ctx.currentPlayer === player}
-        />
-      </div>
-    ))}
-    <div className={classes.turn}>
-      Player {parseInt(ctx.currentPlayer, 10) + 1}'s Turn
-    </div>
+      );
+    })}
     <Button className={classes.pass} onClick={onPass}>
       Pass
     </Button>
@@ -62,23 +66,23 @@ export default withStyles({
   },
   player: {
     marginBottom: '24px',
+    transition: 'all 0.3s ease-in-out',
+    transformOrigin: 'top left',
+    transform: 'scale(0.75)',
+  },
+  playerActive: {
+    transform: 'scale(1)',
   },
   playerText: {
     color: '#fafafa',
     fontSize: '24px',
     lineHeight: '32px',
     marginBottom: '6px',
-  },
-  turn: {
-    fontSize: '24px',
-    lineHeight: '32px',
     textDecoration: 'underline',
     textDecorationSkip: 'ink', // this may become `text-decoration-skip-ink: auto;` in the future? Regardless, it's a hot effect. 🔥🔥🔥 https://css-tricks.com/almanac/properties/t/text-decoration-skip/
-    textAlign: 'center',
-    marginTop: 'auto',
   },
   pass: {
-    marginTop: '24px',
+    marginTop: 'auto',
   },
   menu: {
     marginTop: '8px',
