@@ -2,7 +2,7 @@
 
 Play online: https://www.matchimals.fun/
 
-![screenshot of matchimals.fun game](./screenshot.jpg)
+![screenshot of matchimals.fun game](./public/matchimals-og-1200x630.png)
 
 ## How to play
 
