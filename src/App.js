@@ -11,6 +11,12 @@ class App extends Component {
     isMenuVisible: false,
   };
 
+  onGameReset = e => {
+    e.preventDefault();
+    this.props.moves.resetGame(this.state.players);
+    this.onMenuToggle(e);
+  };
+
   onMenuToggle = e => {
     e.preventDefault();
     this.setState(state => ({
@@ -40,7 +46,12 @@ class App extends Component {
             onPass={this.onPass}
           />
         </div>
-        {isMenuVisible && <Menu onMenuToggle={this.onMenuToggle} />}
+        {isMenuVisible && (
+          <Menu
+            onMenuToggle={this.onMenuToggle}
+            onGameReset={this.onGameReset}
+          />
+        )}
       </div>
     );
   }

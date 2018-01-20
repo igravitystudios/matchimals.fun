@@ -3,10 +3,10 @@ import withStyles from 'react-jss';
 
 import Button from './components/Button';
 
-const Menu = ({ classes, onMenuToggle }) => (
+const Menu = ({ classes, onMenuToggle, onGameReset }) => (
   <div className={classes.root}>
-    <Button className={classes.menu} onClick={onMenuToggle}>
-      🚧
+    <Button className={classes.menu} onClick={onGameReset}>
+      Reset Game
     </Button>
     <Button color="grayLight" className={classes.menu} onClick={onMenuToggle}>
       Back to game

@@ -159,7 +159,7 @@ const Game = BGGame({
       return { ...G, cells, players };
     },
 
-    pass(G, ctx, id) {
+    pass(G, ctx) {
       // Clone players state so we don't mutate values
       const players = { ...G.players };
       const deck = players[ctx.currentPlayer].deck;
@@ -169,6 +169,10 @@ const Game = BGGame({
 
       // Return a copy of game state, along with updated cells and deck
       return { ...G, players };
+    },
+
+    resetGame(numPlayers) {
+      return Game.setup(numPlayers);
     },
   },
 
