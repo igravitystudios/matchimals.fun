@@ -12,20 +12,23 @@ const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass }) => (
       <Logo className={classes.logoMark} />
       <div className={classes.tagline}>An animal matching puzzle card game</div>
     </div>
-    {Object.keys(players).map(player => {
-      const isPlayerActive = player === ctx.currentPlayer;
+    {Object.keys(players).map(playerIndex => {
+      const isPlayerActive = playerIndex === ctx.currentPlayer;
       return (
         <div
-          key={player}
+          key={playerIndex}
           className={classNames(
-            classes.player,
+            classes.playerIndex,
             isPlayerActive && classes.playerActive
           )}
         >
           <div className={classes.playerText}>
-            Player {parseInt(player, 10) + 1}
+            Player {parseInt(playerIndex, 10) + 1}
           </div>
-          <Deck cards={players[player].deck} flipped={isPlayerActive} />
+          <div className={classes.playerText}>
+            Score {players[playerIndex].score}
+          </div>
+          <Deck cards={players[playerIndex].deck} flipped={isPlayerActive} />
         </div>
       );
     })}

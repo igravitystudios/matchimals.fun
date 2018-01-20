@@ -1,22 +1,24 @@
 import { Game as BGGame } from 'boardgame.io/core';
 import shuffle from 'lodash/shuffle';
 import data from './data';
+import animals from './constants/animals';
 
-export function isLegalMove(G, ctx, id) {
+export function getNeighbors(G, id) {
+  const { cells } = G;
+
+  //Assume all are null
   let topCard = null,
     rightCard = null,
     bottomCard = null,
     leftCard = null;
-  const currentCard = G.players[ctx.currentPlayer].deck[0];
-  const { cells } = G;
 
   // Find neighbor indices
-  let topIndex = id - data.width;
-  let rightIndex = id + 1;
-  let leftIndex = id - 1;
-  let bottomIndex = id + data.width;
+  const topIndex = id - data.width,
+    rightIndex = id + 1,
+    leftIndex = id - 1,
+    bottomIndex = id + data.width;
 
-  // Set neighbor cards if within board boundaries
+  // Set as a neighbor card only if within board boundaries
   if (topIndex >= 0) {
     topCard = cells[topIndex];
   }
@@ -30,6 +32,53 @@ export function isLegalMove(G, ctx, id) {
     leftCard = cells[leftIndex];
   }
 
+  return { topCard, rightCard, bottomCard, leftCard };
+}
+
+export function calculateScore(G, ctx, id) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  const currentCard = currentPlayer.deck[0];
+
+  //Assign neighbors
+  const neighbors = getNeighbors(G, id);
+  const topCard = neighbors.topCard,
+    rightCard = neighbors.rightCard,
+    bottomCard = neighbors.bottomCard,
+    leftCard = neighbors.leftCard;
+
+  //Calculate score for each matching side
+  let score = 0;
+  if (topCard != null && currentCard.top === topCard.bottom) {
+    score += animals[topCard.bottom].score;
+    console.log('TopCard: ', topCard);
+  }
+  if (rightCard != null && currentCard.right === rightCard.left) {
+    score += animals[rightCard.left].score;
+    console.log('RCard: ', rightCard);
+  }
+  if (bottomCard != null && currentCard.bottom === bottomCard.top) {
+    score += animals[bottomCard.top].score;
+    console.log('BCard: ', bottomCard);
+  }
+  if (leftCard != null && currentCard.left === leftCard.right) {
+    score += animals[leftCard.right].score;
+    console.log('LCard: ', leftCard);
+  }
+  console.log('Score: ', score);
+  return score;
+}
+
+export function isLegalMove(G, ctx, id) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  const currentCard = currentPlayer.deck[0];
+
+  //Assign neighbors
+  const neighbors = getNeighbors(G, id);
+  const topCard = neighbors.topCard,
+    rightCard = neighbors.rightCard,
+    bottomCard = neighbors.bottomCard,
+    leftCard = neighbors.leftCard;
+
   // Check for matching side
   if (
     topCard == null &&
@@ -39,6 +88,7 @@ export function isLegalMove(G, ctx, id) {
   ) {
     return false; //Return false if no neighbor cards exist
   }
+
   if (
     (topCard == null || currentCard.top === topCard.bottom) &&
     (rightCard == null || currentCard.right === rightCard.left) &&
@@ -90,13 +140,18 @@ const Game = BGGame({
       // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
       const players = { ...G.players };
-      const deck = players[ctx.currentPlayer].deck;
+      const currentDeck = players[ctx.currentPlayer].deck;
+      const currentCard = currentDeck[0];
 
       // Ensure we can't overwrite cells.
       if (cells[id] === null) {
         if (isLegalMove(G, ctx, id)) {
-          cells[id] = deck[0];
-          deck.shift();
+          //Lay the card on the board
+          cells[id] = currentCard;
+          players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
+
+          //Next card shifts up the deck
+          currentDeck.shift();
         }
       }
 

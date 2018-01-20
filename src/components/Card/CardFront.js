@@ -70,7 +70,7 @@ const CardFront = ({ card, classes, className }) => (
             textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
-          {animals[card.right].points}
+          {animals[card.right].score}
         </div>
         {animals[card.right].icon}
       </div>
@@ -98,7 +98,7 @@ const CardFront = ({ card, classes, className }) => (
             textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
-          {animals[card.bottom].points}
+          {animals[card.bottom].score}
         </div>
         {animals[card.bottom].icon}
       </div>
