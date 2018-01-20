@@ -18,17 +18,17 @@ const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass }) => (
         <div
           key={playerIndex}
           className={classNames(
-            classes.playerIndex,
+            classes.player,
             isPlayerActive && classes.playerActive
           )}
         >
           <div className={classes.playerText}>
             Player {parseInt(playerIndex, 10) + 1}
           </div>
-          <div className={classes.playerText}>
-            Score {players[playerIndex].score}
-          </div>
           <Deck cards={players[playerIndex].deck} flipped={isPlayerActive} />
+          <div className={classes.playerScore}>
+            {players[playerIndex].score}
+          </div>
         </div>
       );
     })}
@@ -68,6 +68,8 @@ export default withStyles({
     padding: '0 16px',
   },
   player: {
+    display: 'flex',
+    flexWrap: 'wrap',
     marginBottom: '24px',
     transition: 'all 0.3s ease-in-out',
     transformOrigin: 'top left',
@@ -77,12 +79,19 @@ export default withStyles({
     transform: 'scale(1)',
   },
   playerText: {
+    width: '100%',
     color: '#fafafa',
     fontSize: '24px',
     lineHeight: '32px',
     marginBottom: '6px',
     textDecoration: 'underline',
     textDecorationSkip: 'ink', // this may become `text-decoration-skip-ink: auto;` in the future? Regardless, it's a hot effect. 🔥🔥🔥 https://css-tricks.com/almanac/properties/t/text-decoration-skip/
+  },
+  playerScore: {
+    textAlign: 'right',
+    color: '#fafafa',
+    fontSize: '60px',
+    paddingLeft: '36px',
   },
   pass: {
     marginTop: 'auto',
