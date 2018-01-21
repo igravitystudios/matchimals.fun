@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Card = props => (
   <svg viewBox="0 0 100 140" {...props}>

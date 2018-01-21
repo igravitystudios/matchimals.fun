@@ -3,14 +3,13 @@
   "version": "1.33.7",
   "private": true,
   "dependencies": {
-    "boardgame.io": "0.16.3",
+    "boardgame.io": "0.16.7",
     "classnames": "2.2.5",
     "lodash": "4.17.4",
     "prop-types": "15.6.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "react-jss": "8.2.1",
-    "react-scripts": "1.0.17"
+    "react-jss": "8.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,6 +20,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.1",
+    "prettier": "1.10.2",
+    "react-scripts": "1.1.0",
     "react-styleguidist": "6.1.0"
   }
 }
