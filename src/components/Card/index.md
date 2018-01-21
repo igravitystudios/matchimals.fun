@@ -1,7 +1,7 @@
 ```js
-const data = require('../../data');
+const cards = require('../../constants/cards');
 
-data.deck.map((card, i) => (
+cards.deck.map((card, i) => (
   <Card
     key={i}
     card={card}

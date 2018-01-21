@@ -3,7 +3,7 @@ import withStyles from 'react-jss';
 
 import Card from './components/Card';
 import { isLegalMove } from './Game';
-import data from './data';
+import { center, height, width } from './constants/board';
 
 class Board extends React.Component {
   componentDidMount() {
@@ -27,15 +27,15 @@ class Board extends React.Component {
     const { classes, G } = this.props;
 
     let cells = [];
-    for (let i = 0; i < data.width; i++) {
-      for (let j = 0; j < data.height; j++) {
-        const id = data.width * i + j;
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
+        const id = width * i + j;
         const value = G.cells[id];
         cells.push(
           <div
             key={id}
             ref={
-              id === data.center
+              id === center
                 ? card => {
                     this.centerCard = card;
                   }
@@ -59,8 +59,8 @@ export default withStyles({
     minWidth: '1536px', // 100 * 13 (gameboard) + 220 (sidebar) + 16 (padding)
     minHeight: '1820px',
     display: 'grid',
-    gridTemplateColumns: `repeat(${data.width}, 100px)`,
-    gridTemplateRows: `repeat(${data.height}, 140px)`,
+    gridTemplateColumns: `repeat(${width}, 100px)`,
+    gridTemplateRows: `repeat(${height}, 140px)`,
     gridGap: '0',
   },
   cell: {

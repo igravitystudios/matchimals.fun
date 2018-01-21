@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   redLight: '#FF9E9C',
   redMedium: '#DB7270',
   orangeMedium: '#cd7547',

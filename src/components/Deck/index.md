@@ -1,5 +1,5 @@
 ```js
-const data = require('../../data');
+const cards = require('../../constants/cards');
 
-<Deck cards={data.deck} />;
+<Deck cards={cards.deck} />;
 ```

@@ -1,8 +1,3 @@
-const width = 13;
-const height = 13;
-const center = Math.floor(width * height / 2);
-const board = Array(width * height).fill(null);
-
 const deck = [
   {
     top: 'frog',
@@ -114,12 +109,9 @@ const deck = [
   },
 ];
 
-board[center] = deck[Math.floor(Math.random() * deck.length)];
+const getRandomCard = deck => deck[Math.floor(Math.random() * deck.length)];
 
 module.exports = {
-  board,
-  center,
   deck,
-  width,
-  height,
+  getRandomCard,
 };

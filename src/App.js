@@ -13,7 +13,7 @@ class App extends Component {
 
   onGameReset = e => {
     e.preventDefault();
-    this.props.moves.resetGame(this.state.players);
+    this.props.moves.resetGame();
     this.onMenuToggle(e);
   };
 

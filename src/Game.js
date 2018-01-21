@@ -1,7 +1,8 @@
 import { Game as BGGame } from 'boardgame.io/core';
 import shuffle from 'lodash/shuffle';
-import data from './data';
 import animals from './constants/animals';
+import board from './constants/board';
+import { deck, getRandomCard } from './constants/cards';
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -13,10 +14,10 @@ export function getNeighbors(G, id) {
     leftCard = null;
 
   // Find neighbor indices
-  const topIndex = id - data.width,
+  const topIndex = id - board.width,
     rightIndex = id + 1,
     leftIndex = id - 1,
-    bottomIndex = id + data.width;
+    bottomIndex = id + board.width;
 
   // Set as a neighbor card only if within board boundaries
   if (topIndex >= 0) {
@@ -25,10 +26,10 @@ export function getNeighbors(G, id) {
   if (bottomIndex < cells.length) {
     bottomCard = cells[bottomIndex];
   }
-  if (rightIndex % data.width !== 0 && rightIndex < cells.length - 1) {
+  if (rightIndex % board.width !== 0 && rightIndex < cells.length - 1) {
     rightCard = cells[rightIndex];
   }
-  if (leftIndex % data.width !== data.width - 1 && leftIndex >= 0) {
+  if (leftIndex % board.width !== board.width - 1 && leftIndex >= 0) {
     leftCard = cells[leftIndex];
   }
 
@@ -50,21 +51,16 @@ export function calculateScore(G, ctx, id) {
   let score = 0;
   if (topCard != null && currentCard.top === topCard.bottom) {
     score += animals[topCard.bottom].score;
-    console.log('TopCard: ', topCard);
   }
   if (rightCard != null && currentCard.right === rightCard.left) {
     score += animals[rightCard.left].score;
-    console.log('RCard: ', rightCard);
   }
   if (bottomCard != null && currentCard.bottom === bottomCard.top) {
     score += animals[bottomCard.top].score;
-    console.log('BCard: ', bottomCard);
   }
   if (leftCard != null && currentCard.left === leftCard.right) {
     score += animals[leftCard.right].score;
-    console.log('LCard: ', leftCard);
   }
-  console.log('Score: ', score);
   return score;
 }
 
@@ -106,16 +102,16 @@ const Game = BGGame({
   setup: numPlayers => {
     // Initial Game State– `G`
     const G = {
-      cells: data.board,
+      cells: [],
       players: {},
     };
 
     // Populate the initial deck
-    let fulldeck = data.deck;
+    let fulldeck = [...deck];
 
     // Add a deck for every additional player
     for (let i = 0; i < numPlayers - 1; i++) {
-      fulldeck = fulldeck.concat(data.deck);
+      fulldeck = fulldeck.concat(deck);
     }
 
     // Shuffle resulting deck using lodash
@@ -131,6 +127,10 @@ const Game = BGGame({
         deck: fulldeck.splice(0, length / numPlayers),
       };
     }
+
+    // Fill the game board
+    G.cells = board.cells;
+    G.cells[board.center] = getRandomCard(deck);
 
     return G;
   },
@@ -171,8 +171,8 @@ const Game = BGGame({
       return { ...G, players };
     },
 
-    resetGame(numPlayers) {
-      return Game.setup(numPlayers);
+    resetGame(G, ctx) {
+      return Game.setup(ctx.numPlayers);
     },
   },
 
