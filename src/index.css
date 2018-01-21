@@ -1,0 +1,55 @@
+/* override boardgame.io stylesheet */
+.client {
+  overflow: inherit !important;
+}
+.debug-ui * {
+  box-sizing: content-box !important;
+}
+
+/* Base */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Patua One', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  background-image: url('./artwork/wood-background.jpg');
+  background-repeat: repeat;
+  background-color: #1e1412;
+  color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Box-sizing border-box */
+/* https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
+  background: transparent;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Reset `button` to nothing */
+button {
+  display: inline-block;
+  font: inherit;
+  appearance: none;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+}
