@@ -15,11 +15,11 @@ class Board extends React.Component {
   }
 
   onClick(id) {
-    const { G, ctx, game, moves } = this.props;
+    const { G, ctx, events, moves } = this.props;
 
     if (isLegalMove(G, ctx, id)) {
       moves.clickCell(id);
-      game.endTurn();
+      events.endTurn();
     }
   }
 
