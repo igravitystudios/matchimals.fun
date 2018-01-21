@@ -4,27 +4,28 @@
   "private": true,
   "scripts": {
     "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "everything": "yarn run start & yarn run android & yarn run ios"
   },
   "dependencies": {
     "boardgame.io": "0.16.7",
-    "classnames": "2.2.5",
     "lodash": "4.17.4",
     "prop-types": "15.6.0",
     "react": "16.2.0",
-    "react-dom": "16.2.0",
-    "react-jss": "8.2.1"
+    "react-native": "^0.52.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.16.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.5.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.1",
-    "prettier": "1.10.2",
-    "react-scripts": "1.1.0",
-    "react-styleguidist": "6.1.0"
+    "prettier": "1.10.2"
   }
 }
