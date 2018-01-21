@@ -7,6 +7,7 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
+import dispatchToast from './components/Toast/actions';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -41,6 +42,10 @@ export default function register() {
       }
     });
   }
+
+  if (process.env.NODE_ENV !== 'production') {
+    dispatchToast('Service Worker: Development mode started.');
+  }
 }
 
 function registerValidSW(swUrl) {
@@ -56,19 +61,20 @@ function registerValidSW(swUrl) {
               // the fresh content will have been added to the cache.
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
-              console.log('New content is available; please refresh.');
+              dispatchToast('App updates are available. Please refresh.');
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+              dispatchToast('Content is cached for offline use.');
             }
           }
         };
       };
     })
     .catch(error => {
-      console.error('Error during service worker registration:', error);
+      dispatchToast('Error occurred during service worker registration.');
+      console.error(error);
     });
 }
 
@@ -93,7 +99,7 @@ function checkValidServiceWorker(swUrl) {
       }
     })
     .catch(() => {
-      console.log(
+      dispatchToast(
         'No internet connection found. App is running in offline mode.'
       );
     });
