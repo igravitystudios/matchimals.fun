@@ -1,19 +1,11 @@
 import React from 'react';
-import withStyles from 'react-jss';
+import { View, StyleSheet } from 'react-native';
 
-import Card from './components/Card';
+// import Card from './components/Card';
 import { isLegalMove } from './Game';
 import { center, height, width } from './constants/board';
 
 class Board extends React.Component {
-  componentDidMount() {
-    this.centerCard.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    });
-  }
-
   onClick(id) {
     const { G, ctx, events, moves } = this.props;
 
@@ -24,37 +16,26 @@ class Board extends React.Component {
   }
 
   render() {
-    const { classes, G } = this.props;
+    // const { G } = this.props;
 
     let cells = [];
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < height; j++) {
         const id = width * i + j;
-        const value = G.cells[id];
+        // const value = G.cells[id];
         cells.push(
-          <div
-            key={id}
-            ref={
-              id === center
-                ? card => {
-                    this.centerCard = card;
-                  }
-                : null
-            }
-            className={classes.cell}
-            onClick={() => this.onClick(id)}
-          >
-            {value && <Card card={value} flipped />}
-          </div>
+          <View key={id} style={styles.cell}>
+            {/* {value && <Card card={value} flipped />} */}
+          </View>
         );
       }
     }
 
-    return <div className={classes.root}>{cells}</div>;
+    return <View style={styles.root}>{cells}</View>;
   }
 }
 
-export default withStyles({
+const styles = StyleSheet.create({
   root: {
     minWidth: '1536px', // 100 * 13 (gameboard) + 220 (sidebar) + 16 (padding)
     minHeight: '1820px',
@@ -71,4 +52,6 @@ export default withStyles({
     outlineOffset: '-4px',
     borderRadius: '8px',
   },
-})(Board);
+});
+
+export default Board;

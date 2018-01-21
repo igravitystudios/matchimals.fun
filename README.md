@@ -1,4 +1,4 @@
-<img src="./matchimals-icon" alt="Matchimals logo" width="240" />
+<img src="./matchimals-icon.png" alt="Matchimals logo" width="240" />
 
 # Matchimals.native – the app! 📲 🦁 🃏
 

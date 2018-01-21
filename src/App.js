@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import withStyles from 'react-jss';
+import { View, StyleSheet } from 'react-native';
 
 import Board from './Board';
-import Sidebar from './Sidebar';
-import Menu from './Menu';
+// import Sidebar from './Sidebar';
+// import Menu from './Menu';
 
 class App extends Component {
   state = {
@@ -30,34 +30,34 @@ class App extends Component {
   };
 
   render() {
-    const { classes, ...rest } = this.props;
+    const { ...rest } = this.props;
     const { isMenuVisible } = this.state;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.board}>
+      <View style={styles.root}>
+        <View style={styles.board}>
           <Board {...rest} />
-        </div>
-        <div className={classes.sidebar}>
-          <Sidebar
+        </View>
+        <View style={styles.sidebar}>
+          {/* <Sidebar
             ctx={this.props.ctx}
             players={this.props.G.players}
             onMenuToggle={this.onMenuToggle}
             onPass={this.onPass}
-          />
-        </div>
-        {isMenuVisible && (
-          <Menu
-            onMenuToggle={this.onMenuToggle}
-            onGameReset={this.onGameReset}
-          />
-        )}
-      </div>
+          /> */}
+        </View>
+        {/* {isMenuVisible && (
+          // <Menu
+          //   onMenuToggle={this.onMenuToggle}
+          //   onGameReset={this.onGameReset}
+          // />
+        )} */}
+      </View>
     );
   }
 }
 
-export default withStyles({
+const styles = StyleSheet.create({
   root: {},
   board: {},
   sidebar: {
@@ -67,4 +67,6 @@ export default withStyles({
     bottom: '8px',
     width: '220px',
   },
-})(App);
+});
+
+export default App;

@@ -1,4 +1,14 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import { Client as BGClient } from 'boardgame.io/client';
 
-AppRegistry.registerComponent('matchimals', () => App);
+import App from './src/App';
+import Game from './src/Game';
+
+const Client = BGClient({
+  board: App,
+  game: Game,
+  numPlayers: 2,
+  debug: false,
+});
+
+AppRegistry.registerComponent('matchimals', () => Client);
