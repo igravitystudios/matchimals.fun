@@ -6,15 +6,32 @@ import Sidebar from './Sidebar';
 import Menu from './Menu';
 
 class App extends Component {
-  state = {
-    players: 2,
-    isMenuVisible: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      players: 2,
+      isMenuVisible: false,
+      initialCtx: props.ctx,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.ctx.gameover) {
+      this.setState(() => ({
+        isMenuVisible: true,
+      }));
+    }
+  }
 
   onGameReset = e => {
     e.preventDefault();
-    this.props.moves.resetGame();
-    this.onMenuToggle(e);
+
+    // Couldn't get boardgame.io's restore action working properly
+    // Ideal situation is to use `this.props.restore` and pass it
+    // a fresh game state + `this.state.initialCtx` –
+    // not sure why it wasn't working properly.
+    window.location.reload();
   };
 
   onMenuToggle = e => {
@@ -48,6 +65,7 @@ class App extends Component {
         </div>
         {isMenuVisible && (
           <Menu
+            winner={this.props.ctx.gameover}
             onMenuToggle={this.onMenuToggle}
             onGameReset={this.onGameReset}
           />

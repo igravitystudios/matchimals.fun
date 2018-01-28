@@ -1,16 +1,27 @@
 import React from 'react';
 import withStyles from 'react-jss';
+import Confetti from 'react-confetti';
 
 import Button from './components/Button';
 
-const Menu = ({ classes, onMenuToggle, onGameReset }) => (
+const Menu = ({ classes, onMenuToggle, onGameReset, winner }) => (
   <div className={classes.root}>
+    {winner && (
+      <Confetti width={window.innerWidth} height={window.innerHeight} />
+    )}
+    {winner && (
+      <div className={classes.winner}>
+        Player {parseInt(winner, 10) + 1} Wins!
+      </div>
+    )}
     <Button className={classes.menu} onClick={onGameReset}>
       Reset Game
     </Button>
-    <Button color="grayLight" className={classes.menu} onClick={onMenuToggle}>
-      Back to game
-    </Button>
+    {!winner && (
+      <Button color="grayLight" className={classes.menu} onClick={onMenuToggle}>
+        Back to game
+      </Button>
+    )}
   </div>
 );
 
@@ -30,9 +41,13 @@ export default withStyles({
     backgroundColor: 'rgba(20,13,10,0.9)',
     borderRadius: '8px',
     padding: '8px',
-    overflowY: 'auto',
+    overflow: 'hidden',
   },
   menu: {
     margin: '8px',
+  },
+  winner: {
+    fontSize: '48px',
+    lineHeight: '60px',
   },
 })(Menu);

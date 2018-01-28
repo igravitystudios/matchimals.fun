@@ -97,7 +97,7 @@ export function isLegalMove(G, ctx, id) {
   return false; //Return false if there are no neighboring cards that match
 }
 
-function canFirstCardConnect(player, starters) {
+export function canFirstCardConnect(player, starters) {
   const firstCard = player.deck[0];
   if (
     firstCard.top === starters.left.bottom ||
@@ -115,57 +115,58 @@ function canFirstCardConnect(player, starters) {
   return false;
 }
 
+export function getInitialState(numPlayers) {
+  const G = {
+    cells: [],
+    players: {},
+  };
+
+  // Populate the initial deck
+  let fulldeck = [...deck];
+
+  // Add a deck for every additional player
+  for (let i = 0; i < numPlayers - 1; i++) {
+    fulldeck = fulldeck.concat(deck);
+  }
+
+  // Shuffle resulting deck using lodash
+  fulldeck = shuffle(fulldeck);
+
+  // Snapshot the length of the entire deck before we chop it up
+  const length = fulldeck.length;
+
+  // Set up the game state for each player, and deal them a part of the deck
+  for (let j = 0; j < numPlayers; j++) {
+    G.players[j] = {
+      score: 0,
+      deck: fulldeck.splice(0, length / numPlayers),
+    };
+  }
+
+  // Fill the game board
+  G.cells = board.cells;
+
+  // Set the initial cards on the board
+  const randomStarters = getRandomStarters(starters);
+  G.cells[board.center - 1] = randomStarters.left;
+  G.cells[board.center] = randomStarters.center;
+  G.cells[board.center + 1] = randomStarters.right;
+
+  // Ensure each player starts off with a card that is connectable
+  for (let k = 0; k < numPlayers; k++) {
+    while (!canFirstCardConnect(G.players[k], randomStarters)) {
+      const deck = G.players[k].deck;
+      deck.push(deck.shift()); // Place top card to bottom of deck, try again!
+    }
+  }
+
+  // Our game state is ready to go– return it!
+  return G;
+}
+
 const Game = BGGame({
   // The setup method is passed numPlayers, which is set in the BGClient
-  setup: numPlayers => {
-    // Initial Game State– `G`
-    const G = {
-      cells: [],
-      players: {},
-    };
-
-    // Populate the initial deck
-    let fulldeck = [...deck];
-
-    // Add a deck for every additional player
-    for (let i = 0; i < numPlayers - 1; i++) {
-      fulldeck = fulldeck.concat(deck);
-    }
-
-    // Shuffle resulting deck using lodash
-    fulldeck = shuffle(fulldeck);
-
-    // Snapshot the length of the entire deck before we chop it up
-    const length = fulldeck.length;
-
-    // Set up the game state for each player, and deal them a part of the deck
-    for (let j = 0; j < numPlayers; j++) {
-      G.players[j] = {
-        score: 0,
-        deck: fulldeck.splice(0, length / numPlayers),
-      };
-    }
-
-    // Fill the game board
-    G.cells = board.cells;
-
-    // Set the initial cards on the board
-    const randomStarters = getRandomStarters(starters);
-    G.cells[board.center - 1] = randomStarters.left;
-    G.cells[board.center] = randomStarters.center;
-    G.cells[board.center + 1] = randomStarters.right;
-
-    // Ensure each player starts off with a card that is connectable
-    for (let k = 0; k < numPlayers; k++) {
-      while (!canFirstCardConnect(G.players[k], randomStarters)) {
-        const deck = G.players[k].deck;
-        deck.push(deck.shift()); // Place top card to bottom of deck, try again!
-      }
-    }
-
-    // Our game state is ready to go– return it!
-    return G;
-  },
+  setup: getInitialState,
 
   moves: {
     clickCell(G, ctx, id) {
@@ -202,18 +203,19 @@ const Game = BGGame({
       // Return a copy of game state, along with updated deck
       return { ...G, players };
     },
-
-    resetGame(G, ctx) {
-      return Game.setup(ctx.numPlayers);
-    },
   },
 
   flow: {
     endGameIf: (G, ctx) => {
-      // TODO: Logic to end game
-      // if (isVictory(G, ctx)) {
-      //   return ctx.currentPlayer;
-      // }
+      // TODO: Logic should be based on ctx.numPlayers
+      if (G.players[0].deck.length === 17 && G.players[1].deck.length === 17) {
+        if (G.players[0].score > G.players[1].score) {
+          return '0';
+        } else {
+          // TODO: Need to also handle a tie game
+          return '1';
+        }
+      }
     },
   },
 });

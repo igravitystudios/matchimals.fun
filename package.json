@@ -17,6 +17,7 @@
     "lodash": "4.17.4",
     "prop-types": "15.6.0",
     "react": "16.2.0",
+    "react-confetti": "^2.0.2",
     "react-dom": "16.2.0",
     "react-jss": "8.2.1"
   },
