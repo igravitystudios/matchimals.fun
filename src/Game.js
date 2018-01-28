@@ -2,7 +2,7 @@ import { Game as BGGame } from 'boardgame.io/core';
 import shuffle from 'lodash/shuffle';
 import animals from './constants/animals';
 import board from './constants/board';
-import { deck, getRandomCard } from './constants/cards';
+import { deck, getRandomStarters, starters } from './constants/cards';
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -97,6 +97,24 @@ export function isLegalMove(G, ctx, id) {
   return false; //Return false if there are no neighboring cards that match
 }
 
+function canFirstCardConnect(player, starters) {
+  const firstCard = player.deck[0];
+  if (
+    firstCard.top === starters.left.bottom ||
+    firstCard.top === starters.center.bottom ||
+    firstCard.top === starters.right.bottom ||
+    firstCard.bottom === starters.left.top ||
+    firstCard.bottom === starters.center.top ||
+    firstCard.bottom === starters.right.top ||
+    firstCard.left === starters.right.right ||
+    firstCard.right === starters.left.left
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 const Game = BGGame({
   // The setup method is passed numPlayers, which is set in the BGClient
   setup: numPlayers => {
@@ -130,8 +148,22 @@ const Game = BGGame({
 
     // Fill the game board
     G.cells = board.cells;
-    G.cells[board.center] = getRandomCard(deck);
 
+    // Set the initial cards on the board
+    const randomStarters = getRandomStarters(starters);
+    G.cells[board.center - 1] = randomStarters.left;
+    G.cells[board.center] = randomStarters.center;
+    G.cells[board.center + 1] = randomStarters.right;
+
+    // Ensure each player starts off with a card that is connectable
+    for (let k = 0; k < numPlayers; k++) {
+      while (!canFirstCardConnect(G.players[k], randomStarters)) {
+        const deck = G.players[k].deck;
+        deck.push(deck.shift()); // Place top card to bottom of deck, try again!
+      }
+    }
+
+    // Our game state is ready to go– return it!
     return G;
   },
 
@@ -167,7 +199,7 @@ const Game = BGGame({
       // Place top card to bottom of deck
       deck.push(deck.shift());
 
-      // Return a copy of game state, along with updated cells and deck
+      // Return a copy of game state, along with updated deck
       return { ...G, players };
     },
 
