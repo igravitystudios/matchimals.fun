@@ -208,7 +208,7 @@ const Game = BGGame({
   flow: {
     endGameIf: (G, ctx) => {
       // TODO: Logic should be based on ctx.numPlayers
-      if (G.players[0].deck.length === 17 && G.players[1].deck.length === 17) {
+      if (G.players[0].deck.length === 0 && G.players[1].deck.length === 0) {
         if (G.players[0].score > G.players[1].score) {
           return '0';
         } else {
