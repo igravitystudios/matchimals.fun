@@ -15,22 +15,30 @@ Play online: https://www.matchimals.fun/
 
 Matchimals was built as a proof-of-concept by Chris Heninger ([@chrisheninger](https://github.com/chrisheninger)) and Hannah Nolan ([@mshannahnv](https://github.com/mshannahnv)). The gameplay is inspired by a 1959 card game called Busy Bee. 🐝 🃏
 
-This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development– based in Phoenix, Arizona.
+This project is sponsored by [iGravity Studios](https://igravitystudios.com)– a custom software shop with an emphasis on UI/UX development– based in Phoenix, Arizona. 🏜 ❤️
 
 ## Want to contribute?
 
 This game has been made open source to help others looking to learn more about JavaScript, BoardGame.io, and React applications. Find a bug or have a question? Feel free to open an issue or pull request!
 
-### Development
+### Development (Game logic)
 
-`yarn start`
+1. Fork the repo
+1. Install dependencies (`yarn` or `npm i`)
+1. `yarn start`
+1. View http://localhost:3000/ in your browser
 
-### Styleguide
+### Development (Styleguide)
 
-`yarn run styleguide`
+1. Fork the repo
+1. Install dependencies (`yarn` or `npm i`)
+1. `yarn run styleguide`
+1. View http://localhost:6060/ in your browser
 
----
+## Special thanks
 
-This project is built on Google's [boardgame.io](https://github.com/google/boardgame.io) engine.
+Built with Google's [boardgame.io](https://github.com/google/boardgame.io) library.
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+Bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app)
+
+Static hosting by [Netlify](https://www.netlify.com/)
