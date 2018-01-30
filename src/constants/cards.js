@@ -109,54 +109,9 @@ const deck = [
   },
 ];
 
-const getRandomStarters = starters =>
-  starters[Math.floor(Math.random() * starters.length)];
-
-const starters = [
-  {
-    right: {
-      top: 'giraffe',
-      right: 'pig',
-      bottom: 'chick',
-      left: 'cat',
-    },
-    center: {
-      top: 'hedgehog',
-      right: 'cat',
-      bottom: 'koala',
-      left: 'boar',
-    },
-    left: {
-      top: 'gorilla',
-      right: 'boar',
-      bottom: 'cow',
-      left: 'zebra',
-    },
-  },
-  {
-    right: {
-      top: 'chicken',
-      right: 'boar',
-      bottom: 'cow',
-      left: 'tiger',
-    },
-    center: {
-      top: 'chick',
-      right: 'tiger',
-      bottom: 'giraffe',
-      left: 'bunny',
-    },
-    left: {
-      top: 'koala',
-      right: 'bunny',
-      bottom: 'hedgehog',
-      left: 'wolf',
-    },
-  },
-];
+const getRandomCard = cards => cards[Math.floor(Math.random() * cards.length)];
 
 module.exports = {
   deck,
-  getRandomStarters,
-  starters,
+  getRandomCard,
 };

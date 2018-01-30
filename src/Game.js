@@ -2,7 +2,7 @@ import { Game as BGGame } from 'boardgame.io/core';
 import shuffle from 'lodash/shuffle';
 import animals from './constants/animals';
 import board from './constants/board';
-import { deck, getRandomStarters, starters } from './constants/cards';
+import { deck, getRandomCard } from './constants/cards';
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -97,17 +97,12 @@ export function isLegalMove(G, ctx, id) {
   return false; //Return false if there are no neighboring cards that match
 }
 
-export function canFirstCardConnect(player, starters) {
-  const firstCard = player.deck[0];
+function canCardsConnect(card1, card2) {
   if (
-    firstCard.top === starters.left.bottom ||
-    firstCard.top === starters.center.bottom ||
-    firstCard.top === starters.right.bottom ||
-    firstCard.bottom === starters.left.top ||
-    firstCard.bottom === starters.center.top ||
-    firstCard.bottom === starters.right.top ||
-    firstCard.left === starters.right.right ||
-    firstCard.right === starters.left.left
+    card1.top === card2.bottom ||
+    card1.bottom === card2.top ||
+    card1.left === card2.right ||
+    card1.right === card2.left
   ) {
     return true;
   }
@@ -146,15 +141,13 @@ export function getInitialState(numPlayers) {
   // Fill the game board
   G.cells = board.cells;
 
-  // Set the initial cards on the board
-  const randomStarters = getRandomStarters(starters);
-  G.cells[board.center - 1] = randomStarters.left;
-  G.cells[board.center] = randomStarters.center;
-  G.cells[board.center + 1] = randomStarters.right;
+  // Set the initial card on the board
+  const initialCard = getRandomCard(deck);
+  G.cells[board.center] = initialCard;
 
   // Ensure each player starts off with a card that is connectable
   for (let k = 0; k < numPlayers; k++) {
-    while (!canFirstCardConnect(G.players[k], randomStarters)) {
+    while (!canCardsConnect(G.players[k].deck[0], initialCard)) {
       const deck = G.players[k].deck;
       deck.push(deck.shift()); // Place top card to bottom of deck, try again!
     }
