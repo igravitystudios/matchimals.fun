@@ -27,6 +27,7 @@ class Board extends React.Component {
   };
 
   render() {
+    console.log('Re-rendered entire board');
     const { classes, G } = this.props;
     let cells = [];
     for (let i = 0; i < width; i++) {
@@ -36,6 +37,7 @@ class Board extends React.Component {
         cells.push(
           <div
             key={id}
+            onClick={() => this.onClick(id)}
             ref={
               id === center
                 ? card => {
@@ -44,7 +46,7 @@ class Board extends React.Component {
                 : null
             }
           >
-            <Cell className={classes.cell} id={id} onClick={this.onClick}>
+            <Cell id={id} className={classes.cell} onClick={this.onClick}>
               {value && <Card card={value} flipped />}
             </Cell>
           </div>

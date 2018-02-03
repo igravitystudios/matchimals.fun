@@ -49,14 +49,6 @@ class App extends Component {
     this.props.events.endTurn();
   };
 
-  onDragStart = initial => {
-    console.log(initial);
-  };
-
-  onDragEnd = result => {
-    console.log(result);
-  };
-
   render() {
     const { classes, ...rest } = this.props;
     const { isMenuVisible } = this.state;
@@ -86,16 +78,14 @@ class App extends Component {
   }
 }
 
-export default DragDropContext(HTML5Backend)(
-  withStyles({
-    root: {},
-    board: {},
-    sidebar: {
-      position: 'fixed',
-      top: '8px',
-      right: '8px',
-      bottom: '8px',
-      width: '220px',
-    },
-  })(App)
-);
+export default withStyles({
+  root: {},
+  board: {},
+  sidebar: {
+    position: 'fixed',
+    top: '8px',
+    right: '8px',
+    bottom: '8px',
+    width: '220px',
+  },
+})(DragDropContext(HTML5Backend)(App));

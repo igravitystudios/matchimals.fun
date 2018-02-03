@@ -52,6 +52,7 @@ export default withStyles({
     borderRadius: '8px',
     padding: '8px',
     overflowY: 'auto',
+    userSelect: 'none',
   },
   logo: {
     marginBottom: '24px',

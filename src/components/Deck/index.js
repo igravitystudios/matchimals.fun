@@ -18,14 +18,9 @@ const Deck = ({
   <div className={classNames(classes.root, className)}>
     {cards.map(
       (card, i) =>
-        i === 0 ? (
+        i === 0 && flipped ? (
           connectDragSource(
-            <div
-              key={i}
-              style={{
-                transform: isDragging ? 'scale(1.1)' : 'scale(1)',
-              }}
-            >
+            <div key={i}>
               <Card
                 card={card}
                 flipped={i === 0 && flipped}
@@ -33,6 +28,7 @@ const Deck = ({
                   position: i ? 'absolute' : 'inherit',
                   left: i,
                   zIndex: -i,
+                  transform: isDragging ? 'scale(1.1)' : 'scale(1)',
                 }}
               />
             </div>
@@ -75,7 +71,8 @@ export default withStyles({
   DragSource(
     'CARD',
     {
-      beginDrag() {
+      beginDrag(props) {
+        console.log(props);
         return {};
       },
     },
