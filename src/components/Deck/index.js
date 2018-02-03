@@ -72,7 +72,6 @@ export default withStyles({
     'CARD',
     {
       beginDrag(props) {
-        console.log(props);
         return {};
       },
     },

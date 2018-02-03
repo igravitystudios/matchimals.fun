@@ -4,17 +4,9 @@ import withStyles from 'react-jss';
 import Card from './components/Card';
 import Cell from './components/Cell';
 import { isLegalMove } from './Game';
-import { center, height, width } from './constants/board';
+import { height, width } from './constants/board';
 
 class Board extends React.Component {
-  componentDidMount() {
-    this.centerCard.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    });
-  }
-
   onClick = id => {
     const { G, ctx, events, moves } = this.props;
     const cells = [...G.cells];
@@ -27,7 +19,8 @@ class Board extends React.Component {
   };
 
   render() {
-    console.log('Re-rendered entire board');
+    console.log('Rendered Board');
+
     const { classes, G } = this.props;
     let cells = [];
     for (let i = 0; i < width; i++) {
@@ -35,17 +28,7 @@ class Board extends React.Component {
         const id = width * i + j;
         const value = G.cells[id];
         cells.push(
-          <div
-            key={id}
-            onClick={() => this.onClick(id)}
-            ref={
-              id === center
-                ? card => {
-                    this.centerCard = card;
-                  }
-                : null
-            }
-          >
+          <div key={id}>
             <Cell id={id} className={classes.cell} onClick={this.onClick}>
               {value && <Card card={value} flipped />}
             </Cell>

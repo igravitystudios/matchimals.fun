@@ -12,13 +12,14 @@ class Cell extends PureComponent {
       ...rest
     } = this.props;
 
+    console.log('Rendered Cell (connectDropTarget)');
+
     return connectDropTarget(
       <div
         {...rest}
         style={{ background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent' }}
       >
         {children}
-        {console.log('Re-rendered cell')}
       </div>
     );
   }
@@ -31,7 +32,6 @@ export default DropTarget(
       return {};
     },
     drop(props) {
-      console.log(props);
       props.onClick(props.id);
     },
   },
