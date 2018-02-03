@@ -2,6 +2,7 @@ import React from 'react';
 import withStyles from 'react-jss';
 
 import Card from './components/Card';
+import Cell from './components/Cell';
 import { isLegalMove } from './Game';
 import { center, height, width } from './constants/board';
 
@@ -14,7 +15,7 @@ class Board extends React.Component {
     });
   }
 
-  onClick(id) {
+  onClick = id => {
     const { G, ctx, events, moves } = this.props;
     const cells = [...G.cells];
     if (cells[id] === null) {
@@ -23,11 +24,10 @@ class Board extends React.Component {
         events.endTurn();
       }
     }
-  }
+  };
 
   render() {
     const { classes, G } = this.props;
-
     let cells = [];
     for (let i = 0; i < width; i++) {
       for (let j = 0; j < height; j++) {
@@ -43,10 +43,10 @@ class Board extends React.Component {
                   }
                 : null
             }
-            className={classes.cell}
-            onClick={() => this.onClick(id)}
           >
-            {value && <Card card={value} flipped />}
+            <Cell className={classes.cell} id={id} onClick={this.onClick}>
+              {value && <Card card={value} flipped />}
+            </Cell>
           </div>
         );
       }
