@@ -1,34 +1,25 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 
-class Cell extends PureComponent {
-  render() {
-    const {
-      children,
-      connectDropTarget,
-      id,
-      isOver,
-      canDrop,
-      ...rest
-    } = this.props;
+const Cell = ({ children, connectDropTarget, id, isOver, canDrop, ...rest }) =>
+  connectDropTarget(
+    <div
+      id={id}
+      style={{
+        background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',
+      }}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
 
-    console.log('Rendered Cell (connectDropTarget)');
-
-    return connectDropTarget(
-      <div
-        id={id}
-        style={{
-          width: '100%',
-          height: '100%',
-          background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',
-        }}
-        {...rest}
-      >
-        {children}
-      </div>
-    );
-  }
-}
+Cell.propTypes = {
+  isOver: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+};
 
 export default DropTarget(
   'CARD',

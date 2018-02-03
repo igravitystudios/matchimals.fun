@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import withStyles from 'react-jss';
-// import TouchBackend from 'react-dnd-touch-backend';
-import HTML5Backend from 'react-dnd-html5-backend';
+import React, { Component, Fragment } from 'react';
 import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+// import TouchBackend from 'react-dnd-touch-backend';
 
 import Board from './Board';
 import Sidebar from './Sidebar';
@@ -54,18 +53,21 @@ class App extends Component {
     const { isMenuVisible } = this.state;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.board}>
-          <Board {...rest} />
-        </div>
-        <div className={classes.sidebar}>
-          <Sidebar
-            ctx={this.props.ctx}
-            players={this.props.G.players}
-            onMenuToggle={this.onMenuToggle}
-            onPass={this.onPass}
-          />
-        </div>
+      <Fragment>
+        <Board {...rest} />
+        <Sidebar
+          ctx={this.props.ctx}
+          players={this.props.G.players}
+          onMenuToggle={this.onMenuToggle}
+          onPass={this.onPass}
+          style={{
+            position: 'fixed',
+            top: '8px',
+            right: '8px',
+            bottom: '8px',
+            width: '220px',
+          }}
+        />
         {isMenuVisible && (
           <Menu
             winner={this.props.ctx.gameover}
@@ -73,19 +75,9 @@ class App extends Component {
             onGameReset={this.onGameReset}
           />
         )}
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default withStyles({
-  root: {},
-  board: {},
-  sidebar: {
-    position: 'fixed',
-    top: '8px',
-    right: '8px',
-    bottom: '8px',
-    width: '220px',
-  },
-})(DragDropContext(HTML5Backend)(App));
+export default DragDropContext(HTML5Backend)(App);

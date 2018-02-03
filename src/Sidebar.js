@@ -6,8 +6,8 @@ import Logo from './components/Logo';
 import Button from './components/Button';
 import Deck from './components/Deck';
 
-const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass }) => (
-  <div className={classes.root}>
+const Sidebar = ({ classes, ctx, players, onMenuToggle, onPass, style }) => (
+  <div className={classes.root} style={style}>
     <div className={classes.logo}>
       <Logo className={classes.logoMark} />
       <div className={classes.tagline}>An animal matching puzzle card game</div>

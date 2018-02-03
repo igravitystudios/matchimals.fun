@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import withStyles from 'react-jss';
 
 import Card from './components/Card';
@@ -6,7 +6,7 @@ import Cell from './components/Cell';
 import { isLegalMove } from './Game';
 import { height, width } from './constants/board';
 
-class Board extends React.Component {
+class Board extends Component {
   onClick = id => {
     const { G, ctx, events, moves } = this.props;
     const cells = [...G.cells];
@@ -19,8 +19,6 @@ class Board extends React.Component {
   };
 
   render() {
-    console.log('Rendered Board');
-
     const { classes, G } = this.props;
     let cells = [];
     for (let i = 0; i < width; i++) {
