@@ -16,8 +16,13 @@ class Cell extends PureComponent {
 
     return connectDropTarget(
       <div
+        id={id}
+        style={{
+          width: '100%',
+          height: '100%',
+          background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',
+        }}
         {...rest}
-        style={{ background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent' }}
       >
         {children}
       </div>
@@ -29,7 +34,7 @@ export default DropTarget(
   'CARD',
   {
     canDrop(props) {
-      return {};
+      return true;
     },
     drop(props) {
       props.onClick(props.id);

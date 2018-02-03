@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'react-jss';
-import classNames from 'classnames';
 import { DragSource } from 'react-dnd';
 
 import Card from '../Card';
 
 const Deck = ({
   cards,
-  classes,
   className,
   connectDragSource,
   flipped,
   isDragging,
   ...rest
 }) => (
-  <div className={classNames(classes.root, className)}>
+  <div
+    className={className}
+    style={{
+      position: 'relative',
+      display: 'inline-flex',
+      zIndex: '101',
+    }}
+  >
     {cards.map(
       (card, i) =>
         i === 0 && flipped ? (
@@ -55,29 +59,19 @@ Deck.defaultProps = {
 
 Deck.propTypes = {
   cards: PropTypes.array.isRequired,
-
-  // Injected by React DnD:
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
 };
 
-export default withStyles({
-  root: {
-    position: 'relative',
-    display: 'inline-flex',
-    zIndex: '101',
-  },
-})(
-  DragSource(
-    'CARD',
-    {
-      beginDrag(props) {
-        return {};
-      },
+export default DragSource(
+  'CARD',
+  {
+    beginDrag(props) {
+      return {};
     },
-    (connect, monitor) => ({
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging(),
-    })
-  )(Deck)
-);
+  },
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  })
+)(Deck);

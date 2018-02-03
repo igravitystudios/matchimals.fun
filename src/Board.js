@@ -28,11 +28,14 @@ class Board extends React.Component {
         const id = width * i + j;
         const value = G.cells[id];
         cells.push(
-          <div key={id}>
-            <Cell id={id} className={classes.cell} onClick={this.onClick}>
-              {value && <Card card={value} flipped />}
-            </Cell>
-          </div>
+          <Cell
+            key={id}
+            id={id}
+            className={classes.cell}
+            onClick={this.onClick}
+          >
+            {value && <Card card={value} flipped />}
+          </Cell>
         );
       }
     }
