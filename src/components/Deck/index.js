@@ -27,12 +27,13 @@ const Deck = ({
             <div key={i}>
               <Card
                 card={card}
+                className={isDragging ? '' : ''}
                 flipped={i === 0 && flipped}
                 style={{
                   position: i ? 'absolute' : 'inherit',
                   left: i,
                   zIndex: -i,
-                  transform: isDragging ? 'scale(1.1)' : 'scale(1)',
+                  transform: isDragging ? 'scale(1.337)' : 'scale(1)',
                 }}
               />
             </div>
@@ -63,15 +64,15 @@ Deck.propTypes = {
   isDragging: PropTypes.bool.isRequired,
 };
 
-export default DragSource(
-  'CARD',
-  {
-    beginDrag(props) {
-      return {};
-    },
+const ohNo = {
+  beginDrag(props) {
+    return {};
   },
-  (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  })
-)(Deck);
+};
+
+const hmmm = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging(),
+});
+
+export default DragSource('CARD', ohNo, hmmm)(Deck);

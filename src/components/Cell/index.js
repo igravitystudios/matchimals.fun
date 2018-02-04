@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 
-const Cell = ({ children, connectDropTarget, id, isOver, canDrop, ...rest }) =>
+const Cell = ({
+  children,
+  connectDropTarget,
+  id,
+  isOver,
+  canDrop,
+  onClick,
+  ...rest
+}) =>
   connectDropTarget(
     <div
       id={id}
       style={{
         background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',
       }}
+      onClick={id => onClick(id)}
       {...rest}
     >
       {children}
@@ -31,9 +40,11 @@ export default DropTarget(
       props.onClick(props.id);
     },
   },
-  (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop(),
-  })
+  function(connect, monitor) {
+    return {
+      connectDropTarget: connect.dropTarget(),
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    };
+  }
 )(Cell);

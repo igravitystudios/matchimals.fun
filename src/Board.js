@@ -9,12 +9,9 @@ import { height, width } from './constants/board';
 class Board extends Component {
   onClick = id => {
     const { G, ctx, events, moves } = this.props;
-    const cells = [...G.cells];
-    if (cells[id] === null) {
-      if (isLegalMove(G, ctx, id)) {
-        moves.clickCell(id);
-        events.endTurn();
-      }
+    if (isLegalMove(G, ctx, id)) {
+      moves.clickCell(id);
+      events.endTurn();
     }
   };
 
