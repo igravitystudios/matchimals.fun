@@ -17,7 +17,7 @@ const Cell = ({
       style={{
         background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',
       }}
-      onClick={id => onClick(id)}
+      onClick={e => onClick(e.target.id)}
       {...rest}
     >
       {children}

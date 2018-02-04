@@ -33,7 +33,7 @@ const Deck = ({
                   position: i ? 'absolute' : 'inherit',
                   left: i,
                   zIndex: -i,
-                  transform: isDragging ? 'scale(1.337)' : 'scale(1)',
+                  transform: isDragging ? 'scale(1.1)' : 'scale(1)',
                 }}
               />
             </div>

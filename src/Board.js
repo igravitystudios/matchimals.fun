@@ -9,8 +9,9 @@ import { height, width } from './constants/board';
 class Board extends Component {
   onClick = id => {
     const { G, ctx, events, moves } = this.props;
-    if (isLegalMove(G, ctx, id)) {
-      moves.clickCell(id);
+    const intId = parseInt(id, 10);
+    if (isLegalMove(G, ctx, intId)) {
+      moves.clickCell(intId);
       events.endTurn();
     }
   };
@@ -51,8 +52,7 @@ export default withStyles({
   cell: {
     width: '100px',
     height: '140px',
-    textAlign: 'center',
-    outline: '2px dashed rgba(255, 255, 255, 0.2)',
+    outline: '2px dashed rgba(255, 255, 255, 0.1)',
     outlineOffset: '-4px',
     borderRadius: '8px',
   },
