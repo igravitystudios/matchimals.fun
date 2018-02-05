@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Orientation from 'react-native-orientation';
 
-import Board from './Board';
+import { deck } from './constants/cards';
+import Card from './components/Card';
+// import Board from './Board';
 // import Sidebar from './Sidebar';
 // import Menu from './Menu';
 
@@ -10,6 +13,10 @@ class App extends Component {
     players: 2,
     isMenuVisible: false,
   };
+
+  componentDidMount() {
+    Orientation.lockToLandscape();
+  }
 
   onGameReset = e => {
     e.preventDefault();
@@ -30,42 +37,41 @@ class App extends Component {
   };
 
   render() {
-    const { ...rest } = this.props;
     const { isMenuVisible } = this.state;
 
     return (
-      <View style={styles.root}>
+      <ScrollView
+        contentContainerStyle={styles.root}
+        minimumZoomScale={0.5}
+        maximumZoomScale={2}
+      >
         <View style={styles.board}>
-          <Board {...rest} />
+          {deck.map((card, i) => (
+            <Card
+              key={i}
+              card={card}
+              flipped
+              style={{
+                margin: 4,
+              }}
+            />
+          ))}
         </View>
-        <View style={styles.sidebar}>
-          {/* <Sidebar
-            ctx={this.props.ctx}
-            players={this.props.G.players}
-            onMenuToggle={this.onMenuToggle}
-            onPass={this.onPass}
-          /> */}
-        </View>
-        {/* {isMenuVisible && (
-          // <Menu
-          //   onMenuToggle={this.onMenuToggle}
-          //   onGameReset={this.onGameReset}
-          // />
-        )} */}
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  root: {},
-  board: {},
-  sidebar: {
-    position: 'fixed',
-    top: '8px',
-    right: '8px',
-    bottom: '8px',
-    width: '220px',
+  root: {
+    width: 1300,
+    height: 1820,
+  },
+  board: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

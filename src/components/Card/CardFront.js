@@ -1,41 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import withStyles from 'react-jss';
+import { StyleSheet, View } from 'react-native';
+import Svg, { Polygon } from 'svgs';
 
 import animals from '../../constants/animals';
 
-const CardFront = ({ card, classes, className }) => (
-  <div className={classNames(classes.root, className)}>
-    <svg
-      width="100%"
-      height="100%"
-      xmlns="http://www.w3.org/2000/svg"
+const CardFront = ({ card, height, style, width }) => (
+  <View
+    style={[
+      styles.root,
+      {
+        width,
+        height,
+      },
+      style,
+    ]}
+  >
+    <Svg
+      width={100}
+      height={140}
+      xmlns="http://www.w3.org/2000/Svg"
       viewBox="0 0 100 140"
     >
-      <polygon
+      <Polygon
         id="top"
         points="50 70 100 0 0 0 50 70"
         fill={animals[card.top] && animals[card.top].color}
       />
-      <polygon
+      <Polygon
         id="right"
         points="50 70 100 140 100 0 50 70"
         fill={animals[card.right] && animals[card.right].color}
       />
-      <polygon
+      <Polygon
         id="bottom"
         points="50 70 0 140 100 140 50 70"
         fill={animals[card.bottom] && animals[card.bottom].color}
       />
-      <polygon
+      <Polygon
         id="left"
         points="50 70 0 0 0 140 50 70"
         fill={animals[card.left] && animals[card.left].color}
       />
-    </svg>
+    </Svg>
     {animals[card.top] && (
-      <div
+      <View
         style={{
           position: 'absolute',
           top: -32,
@@ -45,10 +54,10 @@ const CardFront = ({ card, classes, className }) => (
         }}
       >
         {animals[card.top].icon}
-      </div>
+      </View>
     )}
     {animals[card.right] && (
-      <div
+      <View
         style={{
           position: 'absolute',
           top: 38,
@@ -57,54 +66,52 @@ const CardFront = ({ card, classes, className }) => (
           height: 64,
         }}
       >
-        <div
+        {/* <View
           style={{
             position: 'absolute',
-            top: '-12px',
-            left: '14px',
-            width: '20px',
+            top: -12,
+            left: 14,
+            width: 20,
             color: '#fff',
-            fontSize: '14px',
+            fontSize: 14,
             textAlign: 'center',
-            userSelect: 'none',
-            textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
+            // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
           {animals[card.right].score}
-        </div>
+        </View> */}
         {animals[card.right].icon}
-      </div>
+      </View>
     )}
     {animals[card.bottom] && (
-      <div
+      <View
         style={{
           position: 'absolute',
-          bottom: '-32px',
+          bottom: -32,
           left: 18,
-          width: '64px',
-          height: '64px',
+          width: 64,
+          height: 64,
         }}
       >
-        <div
+        {/* <View
           style={{
             position: 'absolute',
-            top: '-16px',
-            left: '22px',
-            width: '20px',
+            top: -16,
+            left: 22,
+            width: 20,
             color: '#fff',
-            fontSize: '14px',
+            fontSize: 14,
             textAlign: 'center',
-            userSelect: 'none',
-            textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
+            // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
           {animals[card.bottom].score}
-        </div>
+        </View> */}
         {animals[card.bottom].icon}
-      </div>
+      </View>
     )}
     {animals[card.left] && (
-      <div
+      <View
         style={{
           position: 'absolute',
           top: 38,
@@ -114,9 +121,9 @@ const CardFront = ({ card, classes, className }) => (
         }}
       >
         {animals[card.left].icon}
-      </div>
+      </View>
     )}
-  </div>
+  </View>
 );
 
 CardFront.defaultProps = {
@@ -131,9 +138,10 @@ CardFront.propTypes = {
     left: PropTypes.string,
   }).isRequired,
 };
-
-export default withStyles({
+const styles = StyleSheet.create({
   root: {
     position: 'relative',
   },
-})(CardFront);
+});
+
+export default CardFront;

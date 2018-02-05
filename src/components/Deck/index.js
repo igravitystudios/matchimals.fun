@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'react-jss';
-import classNames from 'classnames';
+import { View } from 'react-native';
 
 import Card from '../Card';
 
-const Deck = ({ cards, classes, className, flipped, ...rest }) => (
-  <div className={classNames(classes.root, className)}>
+const Deck = ({ cards, flipped, ...rest }) => (
+  <View {...rest}>
     {cards.map((card, i) => (
       <Card
         key={i}
@@ -19,7 +18,7 @@ const Deck = ({ cards, classes, className, flipped, ...rest }) => (
         }}
       />
     ))}
-  </div>
+  </View>
 );
 
 Deck.defaultProps = {
@@ -30,10 +29,4 @@ Deck.propTypes = {
   cards: PropTypes.array.isRequired,
 };
 
-export default withStyles({
-  root: {
-    position: 'relative',
-    display: 'inline-flex',
-    zIndex: '101',
-  },
-})(Deck);
+export default Deck;

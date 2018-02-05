@@ -1,14 +1,15 @@
 import { AppRegistry } from 'react-native';
-import { Client as BGClient } from 'boardgame.io/client';
+// import { Client as BGClient } from 'boardgame.io/client';
 
+// import lol from './App';
 import App from './src/App';
-import Game from './src/Game';
+// import Game from './src/Game';
 
-const Client = BGClient({
-  board: App,
-  game: Game,
-  numPlayers: 2,
-  debug: false,
-});
+// const Client = BGClient({
+//   board: App,
+//   game: Game,
+//   numPlayers: 2,
+//   debug: false,
+// });
 
-AppRegistry.registerComponent('matchimals', () => Client);
+AppRegistry.registerComponent('matchimals', () => App);

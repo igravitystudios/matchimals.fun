@@ -1,32 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'react-jss';
-import classNames from 'classnames';
+import { StyleSheet, View } from 'react-native';
 
 import CardBack from './CardBack';
 import CardFront from './CardFront';
 
-const Card = ({
-  card,
-  classes,
-  className,
-  flipped,
-  height,
-  style,
-  width,
-  ...props
-}) => (
-  <div
-    className={classNames(classes.root, className)}
-    style={{
-      width,
-      height,
-      ...style,
-    }}
-    {...props}
+const Card = ({ card, flipped, height, style, width, ...rest }) => (
+  <View
+    style={[
+      styles.root,
+      {
+        width,
+        height,
+      },
+      style,
+    ]}
+    {...rest}
   >
     {!flipped ? <CardBack /> : <CardFront card={card} />}
-  </div>
+  </View>
 );
 
 Card.defaultProps = {
@@ -46,13 +38,16 @@ Card.propTypes = {
   }).isRequired,
 };
 
-export default withStyles({
+const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    display: 'inline-flex',
-    background: '#ccc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
     overflow: 'hidden',
-    borderRadius: '8px',
-    boxShadow: '1px 1px 1px rgba(41,26,19,0.420)',
+    borderRadius: 8,
+    // boxShadow: '1px 1px 1px rgba(41,26,19,0.420)',
   },
-})(Card);
+});
+
+export default Card;
