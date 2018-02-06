@@ -65,6 +65,11 @@ export function calculateScore(G, ctx, id) {
 }
 
 export function isLegalMove(G, ctx, id) {
+  // If
+  if (G.cells[id] !== null) {
+    return false;
+  }
+
   const currentPlayer = G.players[ctx.currentPlayer];
   const currentCard = currentPlayer.deck[0];
 
@@ -170,15 +175,13 @@ const Game = BGGame({
       const currentCard = currentDeck[0];
 
       // Ensure we can't overwrite cells.
-      if (cells[id] === null) {
-        if (isLegalMove(G, ctx, id)) {
-          //Lay the card on the board
-          cells[id] = currentCard;
-          players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
+      if (isLegalMove(G, ctx, id)) {
+        //Lay the card on the board
+        cells[id] = currentCard;
+        players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
 
-          //Next card shifts up the deck
-          currentDeck.shift();
-        }
+        //Next card shifts up the deck
+        currentDeck.shift();
       }
 
       // Return a copy of game state, along with updated cells and players state
