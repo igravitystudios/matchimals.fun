@@ -1,11 +1,11 @@
 {
   "name": "matchimals",
   "version": "1.33.7",
-  "private": true,
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "server": "babel-watch --presets es2015 server/index.js",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "test": "react-scripts test --env=jsdom",
