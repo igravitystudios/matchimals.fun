@@ -61,7 +61,10 @@ function registerValidSW(swUrl) {
               // the fresh content will have been added to the cache.
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
-              dispatchToast('App updates are available. Please refresh.');
+              dispatchToast(
+                'App updates are available. Please refresh.',
+                20000
+              );
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a

@@ -12,6 +12,6 @@ if (!dom) {
 }
 
 /* Default toast dispatch action, takes a message and renders to the dom */
-export default message => {
-  render(<Toast>{message}</Toast>, dom);
+export default (message, timeout) => {
+  render(<Toast timeout={timeout}>{message}</Toast>, dom);
 };

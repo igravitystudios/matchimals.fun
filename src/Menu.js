@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import withStyles from 'react-jss';
 import Confetti from 'react-confetti';
 
@@ -14,6 +15,16 @@ const Menu = ({ classes, onMenuToggle, onGameReset, winner }) => (
         Player {parseInt(winner, 10) + 1} Wins!
       </div>
     )}
+    <Button
+      element="a"
+      href="https://github.com/chrisheninger/matchimals.fun"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={classNames(classes.menu, classes.github)}
+      color="blueMedium"
+    >
+      View Code on GitHub
+    </Button>
     <Button className={classes.menu} onClick={onGameReset}>
       Reset Game
     </Button>
@@ -45,6 +56,9 @@ export default withStyles({
   },
   menu: {
     margin: '8px',
+  },
+  github: {
+    marginBottom: '128px',
   },
   winner: {
     fontSize: '48px',

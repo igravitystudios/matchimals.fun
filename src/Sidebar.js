@@ -47,7 +47,7 @@ export default withStyles({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
+    height: 'calc(100% - 16px)',
     backgroundColor: 'rgba(41,26,19,0.420)',
     borderRadius: '8px',
     padding: '8px',
