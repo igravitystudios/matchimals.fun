@@ -4197,6 +4197,16 @@ react-native-orientation@3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-native-orientation/-/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
 
+react-native-pinch-zoom-responder@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-pinch-zoom-responder/-/react-native-pinch-zoom-responder-0.1.2.tgz#18ed3b6c60d7baaca1bbfced8cd841ff46b9a97e"
+
+react-native-pinch-zoom-view@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-pinch-zoom-view/-/react-native-pinch-zoom-view-0.1.3.tgz#b06ac39ce2faf9725ab5ae238d068432c050e3f6"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-svg@6.1.3:
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.1.3.tgz#cd69a554105d49b1071ddae5509e56ce8aaf5034"

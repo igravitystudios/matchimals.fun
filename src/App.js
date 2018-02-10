@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
@@ -40,38 +40,22 @@ class App extends Component {
     const { isMenuVisible } = this.state;
 
     return (
-      <ScrollView
-        contentContainerStyle={styles.root}
-        minimumZoomScale={0.5}
-        maximumZoomScale={2}
-      >
-        <View style={styles.board}>
-          {deck.map((card, i) => (
-            <Card
-              key={i}
-              card={card}
-              flipped
-              style={{
-                margin: 4,
-              }}
-            />
-          ))}
-        </View>
-      </ScrollView>
+      <View style={styles.root}>
+        {deck.map((card, i) => <Card key={i} card={card} flipped />)}
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   root: {
-    width: 1300,
-    height: 1820,
-  },
-  board: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'relative',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });
 
