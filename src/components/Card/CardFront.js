@@ -141,6 +141,7 @@ CardFront.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
+    borderRadius: 8,
   },
 });
 

@@ -6,7 +6,7 @@
     "precommit": "lint-staged",
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPad Air\"",
     "everything": "yarn run start & yarn run android & yarn run ios"
   },
   "dependencies": {
@@ -32,5 +32,8 @@
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "1.10.2"
+  },
+  "rnpm": {
+    "assets": ["./assets/fonts/"]
   }
 }

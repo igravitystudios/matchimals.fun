@@ -40,8 +40,9 @@ class Card extends Component {
     this.card = card;
   };
 
-  _activeDrag(gestureState) {
-    this._cardStyles.style.zIndex = gestureState.dy;
+  _activeDrag(e, gestureState) {
+    this._cardStyles.style.zIndex = e.timeStamp;
+    this._cardStyles.style.transform = [{ scale: 1.1 }];
     this._updateNativeStyles();
   }
 
@@ -60,21 +61,30 @@ class Card extends Component {
   };
 
   _handlePanResponderGrant = (e, gestureState) => {
-    this._activeDrag(gestureState);
+    this._activeDrag(e, gestureState);
   };
 
   _handlePanResponderMove = (e, gestureState) => {
-    this._activeDrag(gestureState);
+    this._activeDrag(e, gestureState);
     this._cardStyles.style.left = this._previousLeft + gestureState.dx;
     this._cardStyles.style.top = this._previousTop + gestureState.dy;
-    this._cardStyles.zIndex = e.timeStamp; // Most recently dragged card always on top
     this._updateNativeStyles();
   };
 
   _handlePanResponderEnd = (e, gestureState) => {
-    this._activeDrag(gestureState);
+    this._activeDrag(e, gestureState);
     this._previousLeft += gestureState.dx;
     this._previousTop += gestureState.dy;
+
+    // Align to nearest 100/140 grid cell
+    const snapLeft = Math.round(this._previousLeft / 100) * 100;
+    const snapTop = Math.round(this._previousTop / 140) * 140;
+    this._previousLeft = snapLeft;
+    this._previousTop = snapTop;
+    this._cardStyles.style.left = snapLeft;
+    this._cardStyles.style.top = snapTop;
+    this._cardStyles.style.transform = [{ scale: 1 }];
+    this._updateNativeStyles();
 
     this.card.measure((x, y, width, height, pageX, pageY) => {
       console.log({ x, y, width, height, pageX, pageY });
@@ -123,12 +133,9 @@ Card.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
     overflow: 'hidden',
     borderRadius: 8,
-    // boxShadow: '1px 1px 1px rgba(41,26,19,0.420)',
   },
 });
 

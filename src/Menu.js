@@ -1,38 +1,38 @@
 import React from 'react';
-import withStyles from 'react-jss';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-import Button from './components/Button';
+// import Button from './components/Button';
 
-const Menu = ({ classes, onMenuToggle, onGameReset }) => (
-  <div className={classes.root}>
-    <Button className={classes.menu} onClick={onGameReset}>
-      Reset Game
-    </Button>
-    <Button color="grayLight" className={classes.menu} onClick={onMenuToggle}>
-      Back to game
-    </Button>
-  </div>
+const Menu = ({ onMenuToggle, onGameReset }) => (
+  <View style={styles.root}>
+    <Button
+      color="#fff"
+      style={styles.menu}
+      onPress={onGameReset}
+      title="Reset game"
+    />
+    <Button
+      color="#fff"
+      style={styles.menu}
+      onPress={onMenuToggle}
+      title="Back to game"
+    />
+  </View>
 );
 
-export default withStyles({
+const styles = StyleSheet.create({
   root: {
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    display: 'flex',
-    flexDirection: 'column',
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(20,13,10,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(20,13,10,0.9)',
-    borderRadius: '8px',
-    padding: '8px',
-    overflowY: 'auto',
+    // borderRadius: '8px',
+    // padding: '8px',
+    // overflowY: 'auto',
   },
   menu: {
     margin: '8px',
   },
-})(Menu);
+});
+
+export default Menu;
