@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import Card from '../Card';
 
-const Deck = ({ cards, onScrollToggle, zoomScale, ...rest }) => (
+const Deck = ({ cards, ...rest }) => (
   <View {...rest}>
     {cards.map((card, i) => (
       <Card
@@ -24,8 +24,6 @@ const Deck = ({ cards, onScrollToggle, zoomScale, ...rest }) => (
           shadowOpacity: 1,
           shadowRadius: 0,
         }}
-        onScrollToggle={onScrollToggle}
-        zoomScale={zoomScale}
         disabled={i !== 0}
       />
     ))}

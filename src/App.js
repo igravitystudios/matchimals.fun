@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {
   Dimensions,
   ImageBackground,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
 import Card from './components/Card';
@@ -27,7 +26,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    Orientation.lockToLandscape();
+    // Orientation.lockToLandscape();
 
     this.scrollToCenter();
   }
@@ -66,7 +65,7 @@ class App extends Component {
   };
 
   render() {
-    const { isMenuVisible, zoomScale } = this.state;
+    const { isMenuVisible } = this.state;
 
     return (
       <View style={styles.root}>
@@ -81,7 +80,7 @@ class App extends Component {
           minimumZoomScale={0.6}
           maximumZoomScale={1.8}
           onScroll={this.onScroll}
-          scrollEventThrottle={0}
+          scrollEventThrottle={1}
         >
           <ImageBackground
             source={require('./artwork/matchimals-native-background.png')}
