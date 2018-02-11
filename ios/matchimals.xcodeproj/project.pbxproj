@@ -1346,7 +1346,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fun.matchimals.native;
+				PRODUCT_BUNDLE_IDENTIFIER = native.matchimals.fun;
 				PRODUCT_NAME = matchimals;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1372,7 +1372,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fun.matchimals.native;
+				PRODUCT_BUNDLE_IDENTIFIER = native.matchimals.fun;
 				PRODUCT_NAME = matchimals;
 				TARGETED_DEVICE_FAMILY = 2;
 				VERSIONING_SYSTEM = "apple-generic";

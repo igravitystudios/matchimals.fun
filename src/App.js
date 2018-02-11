@@ -23,7 +23,6 @@ class App extends Component {
   state = {
     players: 2,
     isMenuVisible: false,
-    isScrollEnabled: true,
     zoomScale: 1,
   };
 
@@ -34,8 +33,8 @@ class App extends Component {
   }
 
   onGamePass = () => {
-    this.props.moves.pass();
-    this.props.events.endTurn();
+    // this.props.moves.pass();
+    // this.props.events.endTurn();
   };
 
   onGameReset = () => {
@@ -50,12 +49,6 @@ class App extends Component {
     }));
   };
 
-  onScrollToggle = () => {
-    this.setState(state => ({
-      isScrollEnabled: !state.isScrollEnabled,
-    }));
-  };
-
   onScroll = e => {
     const newZoomScale = e.nativeEvent.zoomScale;
     this.setState({
@@ -64,30 +57,30 @@ class App extends Component {
   };
 
   scrollToCenter = () => {
+    const { zoomScale } = this.state;
     const width = Dimensions.get('window').width;
     const height = Dimensions.get('window').height;
-    const left = (3000 - width) / 2;
-    const top = (2800 - height) / 2;
+    const left = (3000 * zoomScale - width) / 2;
+    const top = (2800 * zoomScale - height) / 2;
     this.scrollView.scrollTo({ x: left, y: top, animated: true });
   };
 
   render() {
-    const { isMenuVisible, isScrollEnabled, zoomScale } = this.state;
+    const { isMenuVisible, zoomScale } = this.state;
 
     return (
       <View style={styles.root}>
         <StatusBar hidden />
         <ScrollView
+          ref={view => {
+            this.scrollView = view;
+          }}
           bounces={false}
           bouncesZoom={false}
           contentContainerStyle={[styles.root, styles.board]}
           minimumZoomScale={0.6}
           maximumZoomScale={1.8}
           onScroll={this.onScroll}
-          ref={view => {
-            this.scrollView = view;
-          }}
-          scrollEnabled={isScrollEnabled}
           scrollEventThrottle={0}
         >
           <ImageBackground
@@ -97,7 +90,7 @@ class App extends Component {
             <Card
               card={deck[0]}
               flipped
-              style={{ top: 1330, left: 1450 }}
+              style={{ top: 1330, left: 1450 }} // Board center
               disabled
             />
           </ImageBackground>
@@ -111,7 +104,7 @@ class App extends Component {
           }}
         />
         <Button
-          onPress={this.scrollToCenter}
+          onPress={this.onGamePass}
           style={{
             position: 'absolute',
             bottom: 16,
