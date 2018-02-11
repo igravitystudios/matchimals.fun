@@ -12,6 +12,8 @@ import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
 import Card from './components/Card';
+import Deck from './components/Deck';
+import Button from './components/Button';
 import MenuButton from './components/MenuButton';
 // import Board from './Board';
 // import Sidebar from './Sidebar';
@@ -27,6 +29,8 @@ class App extends Component {
 
   componentDidMount() {
     Orientation.lockToLandscape();
+
+    this.scrollToCenter();
   }
 
   onGamePass = () => {
@@ -77,8 +81,8 @@ class App extends Component {
           bounces={false}
           bouncesZoom={false}
           contentContainerStyle={[styles.root, styles.board]}
-          minimumZoomScale={0.5}
-          maximumZoomScale={2}
+          minimumZoomScale={0.6}
+          maximumZoomScale={1.8}
           onScroll={this.onScroll}
           ref={view => {
             this.scrollView = view;
@@ -90,26 +94,49 @@ class App extends Component {
             source={require('./artwork/matchimals-native-background.png')}
             style={styles.board}
           >
-            {deck.map((card, i) => (
-              <Card
-                key={i}
-                card={card}
-                flipped
-                onScrollToggle={this.onScrollToggle}
-                zoomScale={zoomScale}
-              />
-            ))}
+            <Card
+              card={deck[0]}
+              flipped
+              style={{ top: 1330, left: 1450 }}
+              disabled
+            />
           </ImageBackground>
         </ScrollView>
+        <Deck
+          cards={deck}
+          style={{
+            position: 'absolute',
+            bottom: 156,
+            left: 72,
+          }}
+        />
+        <Button
+          onPress={this.scrollToCenter}
+          style={{
+            position: 'absolute',
+            bottom: 16,
+            left: 200,
+          }}
+        >
+          PASS
+        </Button>
         <MenuButton
           onPress={this.scrollToCenter}
-          style={{ position: 'absolute', bottom: 16, right: 96 }}
+          style={{
+            position: 'absolute',
+            bottom: 16,
+            right: 96,
+          }}
         >
-          C
+          ⊕
         </MenuButton>
         <MenuButton
           onPress={this.onMenuToggle}
-          style={{ position: 'absolute', bottom: 16, right: 16 }}
+          style={{
+            position: 'absolute',
+            bottom: 16,
+            right: 16,
+          }}
         >
           ?
         </MenuButton>
@@ -127,6 +154,8 @@ class App extends Component {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   board: {
     width: 3000, // 30

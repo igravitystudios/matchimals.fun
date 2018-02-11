@@ -4,16 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Logo from '../Logo';
 
 const CardBack = ({ height, style, width }) => (
-  <View
-    style={[
-      styles.root,
-      {
-        width,
-        height,
-      },
-      style,
-    ]}
-  >
+  <View style={[styles.root, style]}>
     <Logo width={80} height={24} fill="#9F9FB7" />
   </View>
 );
@@ -25,6 +16,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#eee',
+    overflow: 'hidden',
+    borderRadius: 8,
   },
 });
 

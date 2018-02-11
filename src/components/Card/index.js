@@ -10,8 +10,8 @@ class Card extends Component {
     super(props);
 
     this._panResponder = {};
-    this._previousLeft = 0;
-    this._previousTop = 0;
+    this._previousLeft = (props.style && props.style.left) || 0;
+    this._previousTop = (props.style && props.style.top) || 0;
     this._cardStyles = {};
   }
 
@@ -61,25 +61,20 @@ class Card extends Component {
   };
 
   _handlePanResponderGrant = (e, gestureState) => {
-    this.props.onScrollToggle(); // lock App.js ScrollView scrolling
     this._activeDrag(e, gestureState);
   };
 
   _handlePanResponderMove = (e, gestureState) => {
-    const { zoomScale } = this.props;
     this._activeDrag(e, gestureState);
-    this._cardStyles.style.left =
-      this._previousLeft + gestureState.dx * (1 / zoomScale);
-    this._cardStyles.style.top =
-      this._previousTop + gestureState.dy * (1 / zoomScale);
+    this._cardStyles.style.left = this._previousLeft + gestureState.dx;
+    this._cardStyles.style.top = this._previousTop + gestureState.dy;
     this._updateNativeStyles();
   };
 
   _handlePanResponderEnd = (e, gestureState) => {
-    const { zoomScale } = this.props;
     this._activeDrag(e, gestureState);
-    this._previousLeft += gestureState.dx * (1 / zoomScale);
-    this._previousTop += gestureState.dy * (1 / zoomScale);
+    this._previousLeft += gestureState.dx;
+    this._previousTop += gestureState.dy;
 
     // Align to nearest 100/140 grid cell
     const snapLeft = Math.round(this._previousLeft / 100) * 100;
@@ -94,12 +89,37 @@ class Card extends Component {
     this.card.measure((x, y, width, height, pageX, pageY) => {
       console.log({ x, y, width, height, pageX, pageY, snapLeft, snapTop });
     });
-
-    this.props.onScrollToggle(); // unlock App.js ScrollView scrolling
   };
 
   render() {
-    const { card, flipped, height, style, width, ...rest } = this.props;
+    const {
+      card,
+      disabled,
+      flipped,
+      height,
+      style,
+      width,
+      ...rest
+    } = this.props;
+
+    if (disabled) {
+      return (
+        <View
+          style={[
+            styles.root,
+            {
+              width,
+              height,
+            },
+            style,
+          ]}
+          {...rest}
+        >
+          {!flipped ? <CardBack /> : <CardFront card={card} />}
+        </View>
+      );
+    }
+
     return (
       <View
         ref={this._setCardRef}
@@ -140,9 +160,7 @@ Card.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'absolute',
-    backgroundColor: '#fff',
-    overflow: 'hidden',
-    borderRadius: 8,
+    backgroundColor: 'transparent',
   },
 });
 

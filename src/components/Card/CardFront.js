@@ -5,17 +5,8 @@ import Svg, { Polygon } from 'svgs';
 
 import animals from '../../constants/animals';
 
-const CardFront = ({ card, height, style, width }) => (
-  <View
-    style={[
-      styles.root,
-      {
-        width,
-        height,
-      },
-      style,
-    ]}
-  >
+const CardFront = ({ card, style }) => (
+  <View style={[styles.root, style]}>
     <Svg
       width={100}
       height={140}
@@ -138,9 +129,11 @@ CardFront.propTypes = {
     left: PropTypes.string,
   }).isRequired,
 };
+
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
+    overflow: 'hidden',
     borderRadius: 8,
   },
 });

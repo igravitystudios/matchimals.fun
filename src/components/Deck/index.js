@@ -4,18 +4,29 @@ import { View } from 'react-native';
 
 import Card from '../Card';
 
-const Deck = ({ cards, flipped, ...rest }) => (
+const Deck = ({ cards, onScrollToggle, zoomScale, ...rest }) => (
   <View {...rest}>
     {cards.map((card, i) => (
       <Card
         key={i}
         card={card}
-        flipped={i === 0 && flipped}
+        flipped={i === 0}
         style={{
-          position: i ? 'absolute' : 'inherit',
-          left: i,
+          position: 'absolute',
+          left: i * -3,
+          top: 0,
           zIndex: -i,
+          shadowColor: 'rgba(0,0,0,0.420)',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 1,
+          shadowRadius: 0,
         }}
+        onScrollToggle={onScrollToggle}
+        zoomScale={zoomScale}
+        disabled={i !== 0}
       />
     ))}
   </View>
