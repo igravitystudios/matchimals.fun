@@ -66,7 +66,6 @@ class Card extends Component {
   };
 
   _handlePanResponderMove = (e, gestureState) => {
-    console.log(gestureState);
     const { zoomScale } = this.props;
     this._activeDrag(e, gestureState);
     this._cardStyles.style.left =
@@ -93,7 +92,7 @@ class Card extends Component {
     this._updateNativeStyles();
 
     this.card.measure((x, y, width, height, pageX, pageY) => {
-      console.log({ x, y, width, height, pageX, pageY });
+      console.log({ x, y, width, height, pageX, pageY, snapLeft, snapTop });
     });
 
     this.props.onScrollToggle(); // unlock App.js ScrollView scrolling

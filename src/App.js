@@ -59,14 +59,19 @@ class App extends Component {
     });
   };
 
-  render() {
-    const { isMenuVisible, isScrollEnabled, zoomScale } = this.state;
+  scrollToCenter = () => {
     const width = Dimensions.get('window').width;
     const height = Dimensions.get('window').height;
-    console.log(this.hmm);
+    const left = (3000 - width) / 2;
+    const top = (2800 - height) / 2;
+    this.scrollView.scrollTo({ x: left, y: top, animated: true });
+  };
+
+  render() {
+    const { isMenuVisible, isScrollEnabled, zoomScale } = this.state;
 
     return (
-      <View style={[styles.root, { width, height }]}>
+      <View style={styles.root}>
         <StatusBar hidden />
         <ScrollView
           bounces={false}
@@ -75,10 +80,14 @@ class App extends Component {
           minimumZoomScale={0.5}
           maximumZoomScale={2}
           onScroll={this.onScroll}
+          ref={view => {
+            this.scrollView = view;
+          }}
           scrollEnabled={isScrollEnabled}
+          scrollEventThrottle={0}
         >
           <ImageBackground
-            source={require('./artwork/wood-background-2048×1536.png')}
+            source={require('./artwork/matchimals-native-background.png')}
             style={styles.board}
           >
             {deck.map((card, i) => (
@@ -92,6 +101,12 @@ class App extends Component {
             ))}
           </ImageBackground>
         </ScrollView>
+        <MenuButton
+          onPress={this.scrollToCenter}
+          style={{ position: 'absolute', bottom: 16, right: 96 }}
+        >
+          C
+        </MenuButton>
         <MenuButton
           onPress={this.onMenuToggle}
           style={{ position: 'absolute', bottom: 16, right: 16 }}
@@ -114,8 +129,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   board: {
-    width: 2048,
-    height: 1536,
+    width: 3000, // 30
+    height: 2800, // 20
   },
 });
 
