@@ -1,10 +1,12 @@
-<img src="./matchimals-icon.png" alt="Matchimals logo" width="240" />
+<img src="./assets/app-icons/Icon-App-1024x1024.png" alt="Matchimals logo" width="240" />
 
-# Matchimals.native – the app! 📲 🦁 🃏
+# Matchimals.native – coming soon to the iOS App Store! 📲
+
+Initial implementation only accounts for iOS + iPad. 🚧 🚧 🚧
 
 ### Development
 
-`yarn start`
+`yarn start & yarn run ios`
 
 ---
 
