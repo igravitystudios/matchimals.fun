@@ -12,7 +12,7 @@ import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
 import Card from './components/Card';
-import CircleButton from './components/CircleButton';
+import MenuButton from './components/MenuButton';
 // import Board from './Board';
 // import Sidebar from './Sidebar';
 import Menu from './Menu';
@@ -21,6 +21,8 @@ class App extends Component {
   state = {
     players: 2,
     isMenuVisible: false,
+    isScrollEnabled: true,
+    zoomScale: 1,
   };
 
   componentDidMount() {
@@ -44,44 +46,76 @@ class App extends Component {
     }));
   };
 
+  onScrollToggle = () => {
+    this.setState(state => ({
+      isScrollEnabled: !state.isScrollEnabled,
+    }));
+  };
+
+  onScroll = e => {
+    const newZoomScale = e.nativeEvent.zoomScale;
+    this.setState({
+      zoomScale: newZoomScale,
+    });
+  };
+
   render() {
-    const { isMenuVisible } = this.state;
+    const { isMenuVisible, isScrollEnabled, zoomScale } = this.state;
+    const width = Dimensions.get('window').width;
+    const height = Dimensions.get('window').height;
+    console.log(this.hmm);
 
     return (
-      <Fragment>
+      <View style={[styles.root, { width, height }]}>
         <StatusBar hidden />
-        <ImageBackground
-          source={require('./artwork/wood-background-2048×1536.png')}
-          style={[styles.root, { width, height }]}
+        <ScrollView
+          bounces={false}
+          bouncesZoom={false}
+          contentContainerStyle={[styles.root, styles.board]}
+          minimumZoomScale={0.5}
+          maximumZoomScale={2}
+          onScroll={this.onScroll}
+          scrollEnabled={isScrollEnabled}
         >
-          {deck.map((card, i) => <Card key={i} card={card} flipped />)}
-          <Text style={styles.dimbo}>Matchimals</Text>
-          <CircleButton
-            onPress={this.onMenuToggle}
-            style={{ position: 'absolute', bottom: 16, right: 16 }}
+          <ImageBackground
+            source={require('./artwork/wood-background-2048×1536.png')}
+            style={styles.board}
           >
-            ?
-          </CircleButton>
-        </ImageBackground>
+            {deck.map((card, i) => (
+              <Card
+                key={i}
+                card={card}
+                flipped
+                onScrollToggle={this.onScrollToggle}
+                zoomScale={zoomScale}
+              />
+            ))}
+          </ImageBackground>
+        </ScrollView>
+        <MenuButton
+          onPress={this.onMenuToggle}
+          style={{ position: 'absolute', bottom: 16, right: 16 }}
+        >
+          ?
+        </MenuButton>
         {isMenuVisible && (
           <Menu
             onGameReset={this.onGameReset}
             onMenuToggle={this.onMenuToggle}
           />
         )}
-      </Fragment>
+      </View>
     );
   }
 }
 
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
-
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    width,
-    height,
+  },
+  board: {
+    width: 2048,
+    height: 1536,
   },
 });
 

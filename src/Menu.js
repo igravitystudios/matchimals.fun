@@ -1,22 +1,16 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-// import Button from './components/Button';
+import Button from './components/Button';
 
 const Menu = ({ onMenuToggle, onGameReset }) => (
   <View style={styles.root}>
-    <Button
-      color="#fff"
-      style={styles.menu}
-      onPress={onGameReset}
-      title="Reset game"
-    />
-    <Button
-      color="#fff"
-      style={styles.menu}
-      onPress={onMenuToggle}
-      title="Back to game"
-    />
+    <Button color="#fff" style={styles.menu} onPress={onGameReset}>
+      RESET GAME
+    </Button>
+    <Button color="#fff" style={styles.menu} onPress={onMenuToggle}>
+      BACK TO GAME
+    </Button>
   </View>
 );
 
@@ -26,12 +20,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(20,13,10,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderRadius: '8px',
-    // padding: '8px',
-    // overflowY: 'auto',
   },
   menu: {
-    margin: '8px',
+    margin: 8,
   },
 });
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-class CircleButton extends Component {
+class MenuButton extends Component {
   render() {
     const { children, ...rest } = this.props;
 
@@ -19,14 +19,14 @@ class CircleButton extends Component {
   }
 }
 
-CircleButton.propTypes = {
+MenuButton.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({
   buttonWrapper: {
     width: 64,
-    height: 64,
+    height: 66,
     position: 'relative',
   },
   button: {
@@ -44,10 +44,17 @@ const styles = StyleSheet.create({
     width: 64,
     height: 60,
     borderRadius: 999,
-    backgroundColor: '#8E3C3B',
+    backgroundColor: '#945C5A',
     bottom: 0,
     left: 0,
     zIndex: -1,
+    shadowColor: 'rgba(0,0,0,0.420)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 2,
   },
   buttonText: {
     fontFamily: 'Dimbo',
@@ -62,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CircleButton;
+export default MenuButton;

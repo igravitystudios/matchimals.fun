@@ -61,20 +61,26 @@ class Card extends Component {
   };
 
   _handlePanResponderGrant = (e, gestureState) => {
+    this.props.onScrollToggle(); // lock App.js ScrollView scrolling
     this._activeDrag(e, gestureState);
   };
 
   _handlePanResponderMove = (e, gestureState) => {
+    console.log(gestureState);
+    const { zoomScale } = this.props;
     this._activeDrag(e, gestureState);
-    this._cardStyles.style.left = this._previousLeft + gestureState.dx;
-    this._cardStyles.style.top = this._previousTop + gestureState.dy;
+    this._cardStyles.style.left =
+      this._previousLeft + gestureState.dx * (1 / zoomScale);
+    this._cardStyles.style.top =
+      this._previousTop + gestureState.dy * (1 / zoomScale);
     this._updateNativeStyles();
   };
 
   _handlePanResponderEnd = (e, gestureState) => {
+    const { zoomScale } = this.props;
     this._activeDrag(e, gestureState);
-    this._previousLeft += gestureState.dx;
-    this._previousTop += gestureState.dy;
+    this._previousLeft += gestureState.dx * (1 / zoomScale);
+    this._previousTop += gestureState.dy * (1 / zoomScale);
 
     // Align to nearest 100/140 grid cell
     const snapLeft = Math.round(this._previousLeft / 100) * 100;
@@ -89,6 +95,8 @@ class Card extends Component {
     this.card.measure((x, y, width, height, pageX, pageY) => {
       console.log({ x, y, width, height, pageX, pageY });
     });
+
+    this.props.onScrollToggle(); // unlock App.js ScrollView scrolling
   };
 
   render() {
