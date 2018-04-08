@@ -3,7 +3,7 @@ import App from './App';
 
 AppRegistry.registerComponent('matchimals', () => App);
 
-if (Platform === 'web') {
+if (Platform.OS === 'web') {
   AppRegistry.runApplication('matchimals', {
     rootTag: document.getElementById('root'),
   });

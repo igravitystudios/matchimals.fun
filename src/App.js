@@ -2,33 +2,32 @@ import React, { Component } from 'react';
 import {
   Dimensions,
   ImageBackground,
+  Platform,
   ScrollView,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
-// import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
 import Card from './components/Card';
 import Deck from './components/Deck';
 import Button from './components/Button';
 import MenuButton from './components/MenuButton';
-// import Board from './Board';
-// import Sidebar from './Sidebar';
+import Table from './Table';
 import Menu from './Menu';
 
 class App extends Component {
   state = {
     players: 2,
     isMenuVisible: false,
-    zoomScale: 1,
   };
 
   componentDidMount() {
-    // Orientation.lockToLandscape();
-
-    this.scrollToCenter();
+    if (Platform.OS !== 'web') {
+      Orientation.lockToLandscape();
+    }
   }
 
   onGamePass = () => {
@@ -48,20 +47,9 @@ class App extends Component {
     }));
   };
 
-  onScroll = e => {
-    const newZoomScale = e.nativeEvent.zoomScale;
-    this.setState({
-      zoomScale: newZoomScale,
-    });
-  };
-
-  scrollToCenter = () => {
-    const { zoomScale } = this.state;
-    const width = Dimensions.get('window').width;
-    const height = Dimensions.get('window').height;
-    const left = (3000 * zoomScale - width) / 2;
-    const top = (2800 * zoomScale - height) / 2;
-    this.scrollView.scrollTo({ x: left, y: top, animated: true });
+  onScrollToCenter = () => {
+    console.log(this.table);
+    this.table.scrollToCenter();
   };
 
   render() {
@@ -70,30 +58,11 @@ class App extends Component {
     return (
       <View style={styles.root}>
         <StatusBar hidden />
-        <ScrollView
-          ref={view => {
-            this.scrollView = view;
+        <Table
+          ref={tableComponent => {
+            this.table = tableComponent;
           }}
-          bounces={false}
-          bouncesZoom={false}
-          contentContainerStyle={[styles.root, styles.board]}
-          minimumZoomScale={0.6}
-          maximumZoomScale={1.8}
-          onScroll={this.onScroll}
-          scrollEventThrottle={1}
-        >
-          <ImageBackground
-            source={require('./artwork/matchimals-native-background.png')}
-            style={styles.board}
-          >
-            <Card
-              card={deck[0]}
-              flipped
-              style={{ top: 1330, left: 1450 }} // Board center
-              disabled
-            />
-          </ImageBackground>
-        </ScrollView>
+        />
         <Deck
           cards={deck}
           style={{
@@ -113,7 +82,7 @@ class App extends Component {
           PASS
         </Button>
         <MenuButton
-          onPress={this.scrollToCenter}
+          onPress={this.onScrollToCenter}
           style={{
             position: 'absolute',
             bottom: 16,

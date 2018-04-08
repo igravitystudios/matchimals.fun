@@ -433,7 +433,7 @@ babel-core@6.26.0, babel-core@^6.0.0, babel-core@^6.0.14, babel-core@^6.24.1, ba
     slash "^1.0.0"
     source-map "^0.5.6"
 
-babel-eslint@7.2.3, babel-eslint@^7.2.3:
+babel-eslint@7.2.3:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.3.tgz#b2fe2d80126470f5c19442dc757253a897710827"
   dependencies:
@@ -2904,7 +2904,7 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-react-app@^2.1.0:
+eslint-config-react-app@2.1.0, eslint-config-react-app@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-2.1.0.tgz#23c909f71cbaff76b945b831d2d814b8bde169eb"
 
@@ -2938,13 +2938,13 @@ eslint-plugin-flowtype@2.39.1:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-flowtype@^2.41.0:
+eslint-plugin-flowtype@2.41.0:
   version "2.41.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.41.0.tgz#fd5221c60ba917c059d7ef69686a99cca09fd871"
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-import@2.8.0, eslint-plugin-import@^2.8.0:
+eslint-plugin-import@2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.8.0.tgz#fa1b6ef31fcb3c501c09859c1b86f1fc5b986894"
   dependencies:
@@ -2959,7 +2959,7 @@ eslint-plugin-import@2.8.0, eslint-plugin-import@^2.8.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-jsx-a11y@5.1.1, eslint-plugin-jsx-a11y@^5.1.1:
+eslint-plugin-jsx-a11y@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-5.1.1.tgz#5c96bb5186ca14e94db1095ff59b3e2bd94069b1"
   dependencies:
@@ -2980,7 +2980,7 @@ eslint-plugin-react@7.4.0:
     jsx-ast-utils "^2.0.0"
     prop-types "^15.5.10"
 
-eslint-plugin-react@^7.5.1:
+eslint-plugin-react@7.5.1:
   version "7.5.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.5.1.tgz#52e56e8d80c810de158859ef07b880d2f56ee30b"
   dependencies:
@@ -3042,7 +3042,7 @@ eslint@4.10.0:
     table "^4.0.1"
     text-table "~0.2.0"
 
-eslint@^4.16.0:
+eslint@4.16.0:
   version "4.16.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.16.0.tgz#934ada9e98715e1d7bbfd6f6f0519ed2fab35cc1"
   dependencies:
@@ -4132,7 +4132,7 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
-husky@^0.14.3:
+husky@0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/husky/-/husky-0.14.3.tgz#c69ed74e2d2779769a17ba8399b54ce0b63c12c3"
   dependencies:
@@ -5140,7 +5140,7 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lint-staged@^6.1.0:
+lint-staged@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-6.1.0.tgz#28f600c10a6cbd249ceb003118a1552e53544a93"
   dependencies:
@@ -7003,7 +7003,7 @@ react-devtools-core@3.0.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-dom@^16.2.0:
+react-dom@16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -7028,16 +7028,6 @@ react-native-orientation@3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-native-orientation/-/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
 
-react-native-pinch-zoom-responder@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-pinch-zoom-responder/-/react-native-pinch-zoom-responder-0.1.2.tgz#18ed3b6c60d7baaca1bbfced8cd841ff46b9a97e"
-
-react-native-pinch-zoom-view@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/react-native-pinch-zoom-view/-/react-native-pinch-zoom-view-0.1.3.tgz#b06ac39ce2faf9725ab5ae238d068432c050e3f6"
-  dependencies:
-    prop-types "^15.6.0"
-
 react-native-svg@6.1.3:
   version "6.1.3"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.1.3.tgz#cd69a554105d49b1071ddae5509e56ce8aaf5034"
@@ -7046,7 +7036,7 @@ react-native-svg@6.1.3:
     lodash "^4.16.6"
     pegjs "^0.10.0"
 
-react-native-web@^0.4.0:
+react-native-web@0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.4.0.tgz#5c334fb6eba1623886e162d73174b3cc37826e63"
   dependencies:
@@ -7139,7 +7129,7 @@ react-redux@^5.0.6:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-scripts@^1.1.1:
+react-scripts@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-1.1.1.tgz#279d449f7311fed910506987a1ade014027788a8"
   dependencies:
