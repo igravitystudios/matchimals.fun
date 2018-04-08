@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-class MenuButton extends Component {
+class CircleButton extends Component {
   render() {
     const { children, ...rest } = this.props;
 
@@ -19,7 +19,7 @@ class MenuButton extends Component {
   }
 }
 
-MenuButton.propTypes = {
+CircleButton.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MenuButton;
+export default CircleButton;

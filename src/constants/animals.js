@@ -1,34 +1,36 @@
 import React from 'react';
 import colors from './colors';
 
-import Bat from '../artwork/Bat';
-import Bear from '../artwork/Bear';
-import Boar from '../artwork/Boar';
-import Bunny from '../artwork/Bunny';
-import Butterfly from '../artwork/Butterfly';
-import Cat from '../artwork/Cat';
-import Chick from '../artwork/Chick';
-import Chicken from '../artwork/Chicken';
-import Cow from '../artwork/Cow';
-import Dog from '../artwork/Dog';
-import Fox from '../artwork/Fox';
-import Frog from '../artwork/Frog';
-import Giraffe from '../artwork/Giraffe';
-import Gorilla from '../artwork/Gorilla';
-import Hamster from '../artwork/Hamster';
-import Hedgehog from '../artwork/Hedgehog';
-import Koala from '../artwork/Koala';
-import Lion from '../artwork/Lion';
-import Monkey from '../artwork/Monkey';
-import Mouse from '../artwork/Mouse';
-import Owl from '../artwork/Owl';
-import Panda from '../artwork/Panda';
-import Penguin from '../artwork/Penguin';
-import Pig from '../artwork/Pig';
-import Tiger from '../artwork/Tiger';
-import Turtle from '../artwork/Turtle';
-import Wolf from '../artwork/Wolf';
-import Zebra from '../artwork/Zebra';
+import {
+  Bat,
+  Bear,
+  Boar,
+  Bunny,
+  Butterfly,
+  Cat,
+  Chick,
+  Chicken,
+  Cow,
+  Dog,
+  Fox,
+  Frog,
+  Giraffe,
+  Gorilla,
+  Hamster,
+  Hedgehog,
+  Koala,
+  Lion,
+  Monkey,
+  Mouse,
+  Owl,
+  Panda,
+  Penguin,
+  Pig,
+  Tiger,
+  Turtle,
+  Wolf,
+  Zebra,
+} from '../components/Animals';
 
 export default {
   bat: {

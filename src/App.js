@@ -14,7 +14,7 @@ import { deck } from './constants/cards';
 import Card from './components/Card';
 import Deck from './components/Deck';
 import Button from './components/Button';
-import MenuButton from './components/MenuButton';
+import CircleButton from './components/CircleButton';
 import Table from './Table';
 import Menu from './Menu';
 
@@ -81,7 +81,7 @@ class App extends Component {
         >
           PASS
         </Button>
-        <MenuButton
+        <CircleButton
           onPress={this.onScrollToCenter}
           style={{
             position: 'absolute',
@@ -90,8 +90,8 @@ class App extends Component {
           }}
         >
           ⊕
-        </MenuButton>
-        <MenuButton
+        </CircleButton>
+        <CircleButton
           onPress={this.onMenuToggle}
           style={{
             position: 'absolute',
@@ -100,7 +100,7 @@ class App extends Component {
           }}
         >
           ?
-        </MenuButton>
+        </CircleButton>
         {isMenuVisible && (
           <Menu
             onGameReset={this.onGameReset}
