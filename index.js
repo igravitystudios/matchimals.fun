@@ -1,8 +1,20 @@
-// This is pretty much a copy of ./src/index.js,
-// specifically for the native-build.
-// (web requires index.js to be inside ./src directory)
-
 import { AppRegistry, Platform } from 'react-native';
-import App from './src/App';
+import { Client } from 'boardgame.io/react-native';
 
-AppRegistry.registerComponent('matchimals', () => App);
+import App from './src/App';
+import Game from './src/Game';
+
+const Matchimals = Client({
+  board: App,
+  game: Game,
+  numPlayers: 2,
+  debug: false,
+});
+
+AppRegistry.registerComponent('matchimals', () => Matchimals);
+
+if (Platform.OS === 'web') {
+  AppRegistry.runApplication('matchimals', {
+    rootTag: document.getElementById('root'),
+  });
+}

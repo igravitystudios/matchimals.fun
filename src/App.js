@@ -31,8 +31,9 @@ class App extends Component {
   }
 
   onGamePass = () => {
-    // this.props.moves.pass();
-    // this.props.events.endTurn();
+    console.log(this.props.G, this.props.ctx);
+    this.props.moves.pass(this.props.G, this.props.ctx);
+    this.props.events.endTurn();
   };
 
   onGameReset = () => {
@@ -54,6 +55,7 @@ class App extends Component {
 
   render() {
     const { isMenuVisible } = this.state;
+    const { ...rest } = this.props;
 
     return (
       <View style={styles.root}>
@@ -62,6 +64,7 @@ class App extends Component {
           ref={tableComponent => {
             this.table = tableComponent;
           }}
+          {...rest}
         />
         <Deck
           cards={deck}

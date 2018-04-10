@@ -2,7 +2,7 @@
 
 # Matchimals.native – coming soon to the iOS App Store! 📲
 
-Initial implementation only accounts for iOS + iPad. 🚧 🚧 🚧
+Initial implementation only accounts for iPad on iOS. 🚧 🚧 🚧
 
 ### Development
 

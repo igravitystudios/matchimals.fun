@@ -1,7 +1,17 @@
 import { AppRegistry, Platform } from 'react-native';
-import App from './App';
+import { Client } from 'boardgame.io/react-native';
 
-AppRegistry.registerComponent('matchimals', () => App);
+import App from './App';
+import Game from './Game';
+console.log(Client);
+const Matchimals = Client({
+  board: App,
+  game: Game,
+  numPlayers: 2,
+  debug: false,
+});
+
+AppRegistry.registerComponent('matchimals', () => Matchimals);
 
 if (Platform.OS === 'web') {
   AppRegistry.runApplication('matchimals', {

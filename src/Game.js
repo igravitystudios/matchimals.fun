@@ -65,6 +65,10 @@ export function calculateScore(G, ctx, id) {
 }
 
 export function isLegalMove(G, ctx, id) {
+  if (G.cells[id] !== null) {
+    return false;
+  }
+
   const currentPlayer = G.players[ctx.currentPlayer];
   const currentCard = currentPlayer.deck[0];
 
@@ -97,43 +101,72 @@ export function isLegalMove(G, ctx, id) {
   return false; //Return false if there are no neighboring cards that match
 }
 
-const Game = BGGame({
-  // The setup method is passed numPlayers, which is set in the BGClient
-  setup: numPlayers => {
-    // Initial Game State– `G`
-    const G = {
-      cells: [],
-      players: {},
+function canCardsConnect(card1, card2) {
+  if (
+    card1.top === card2.bottom ||
+    card1.bottom === card2.top ||
+    card1.left === card2.right ||
+    card1.right === card2.left
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+export function getInitialState(ctx) {
+  const G = {
+    cells: [],
+    players: {},
+  };
+
+  // Populate the initial deck
+  let fulldeck = [...deck];
+
+  // Add a deck for every additional player
+  for (let i = 0; i < ctx.numPlayers - 1; i++) {
+    fulldeck = fulldeck.concat(deck);
+  }
+
+  // Shuffle resulting deck using lodash
+  fulldeck = shuffle(fulldeck);
+
+  // Snapshot the length of the entire deck before we chop it up
+  const length = fulldeck.length;
+
+  // Set up the game state for each player, and deal them a part of the deck
+  for (let j = 0; j < ctx.numPlayers; j++) {
+    G.players[j] = {
+      score: 0,
+      deck: fulldeck.splice(0, length / ctx.numPlayers),
     };
+  }
 
-    // Populate the initial deck
-    let fulldeck = [...deck];
+  // Fill the game board
+  G.cells = board.cells;
 
-    // Add a deck for every additional player
-    for (let i = 0; i < numPlayers - 1; i++) {
-      fulldeck = fulldeck.concat(deck);
+  // Set the initial card on the board
+  const initialCard = getRandomCard(deck);
+  // G.cells[board.center] = initialCard;
+  G.cells[43] = initialCard;
+
+  // Ensure each player starts off with a card that is connectable
+  for (let k = 0; k < ctx.numPlayers; k++) {
+    while (!canCardsConnect(G.players[k].deck[0], initialCard)) {
+      const deck = G.players[k].deck;
+      deck.push(deck.shift()); // Place top card to bottom of deck, try again!
     }
+  }
 
-    // Shuffle resulting deck using lodash
-    fulldeck = shuffle(fulldeck);
+  console.log(G, ctx);
 
-    // Snapshot the length of the entire deck before we chop it up
-    const length = fulldeck.length;
+  // Our game state is ready to go– return it!
+  return G;
+}
 
-    // Set up the game state for each player, and deal them a part of the deck
-    for (let j = 0; j < numPlayers; j++) {
-      G.players[j] = {
-        score: 0,
-        deck: fulldeck.splice(0, length / numPlayers),
-      };
-    }
-
-    // Fill the game board
-    G.cells = board.cells;
-    G.cells[board.center] = getRandomCard(deck);
-
-    return G;
-  },
+const Game = BGGame({
+  // The setup method is passed ctx
+  setup: getInitialState,
 
   moves: {
     clickCell(G, ctx, id) {
@@ -144,15 +177,13 @@ const Game = BGGame({
       const currentCard = currentDeck[0];
 
       // Ensure we can't overwrite cells.
-      if (cells[id] === null) {
-        if (isLegalMove(G, ctx, id)) {
-          //Lay the card on the board
-          cells[id] = currentCard;
-          players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
+      if (isLegalMove(G, ctx, id)) {
+        //Lay the card on the board
+        cells[id] = currentCard;
+        players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
 
-          //Next card shifts up the deck
-          currentDeck.shift();
-        }
+        //Next card shifts up the deck
+        currentDeck.shift();
       }
 
       // Return a copy of game state, along with updated cells and players state
@@ -167,21 +198,22 @@ const Game = BGGame({
       // Place top card to bottom of deck
       deck.push(deck.shift());
 
-      // Return a copy of game state, along with updated cells and deck
+      // Return a copy of game state, along with updated deck
       return { ...G, players };
-    },
-
-    resetGame(G, ctx) {
-      return Game.setup(ctx.numPlayers);
     },
   },
 
   flow: {
     endGameIf: (G, ctx) => {
-      // TODO: Logic to end game
-      // if (isVictory(G, ctx)) {
-      //   return ctx.currentPlayer;
-      // }
+      // TODO: Logic should be based on ctx.numPlayers
+      if (G.players[0].deck.length === 0 && G.players[1].deck.length === 0) {
+        if (G.players[0].score > G.players[1].score) {
+          return '0';
+        } else {
+          // TODO: Need to also handle a tie game
+          return '1';
+        }
+      }
     },
   },
 });
