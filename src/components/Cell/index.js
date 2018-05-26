@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
+import { center } from '../../constants/board';
+
+// We'll export a ref to the centerCell so we can use it on our Board
+export let centerCell;
 
 const Cell = ({
   children,
@@ -13,6 +17,13 @@ const Cell = ({
 }) =>
   connectDropTarget(
     <div
+      ref={
+        id === center
+          ? cell => {
+              centerCell = cell;
+            }
+          : null
+      }
       id={id}
       style={{
         background: isOver ? 'rgba(41,26,19,0.420)' : 'transparent',

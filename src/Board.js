@@ -5,8 +5,19 @@ import Card from './components/Card';
 import Cell from './components/Cell';
 import { isLegalMove } from './Game';
 import { height, width } from './constants/board';
+import { centerCell } from './components/Cell';
 
 class Board extends Component {
+  componentDidMount() {
+    if (centerCell && centerCell.scrollIntoView) {
+      centerCell.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    }
+  }
+
   onClick = id => {
     const { G, ctx, events, moves } = this.props;
     const intId = parseInt(id, 10);
