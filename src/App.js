@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
-import {
-  Dimensions,
-  ImageBackground,
-  Platform,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import Orientation from 'react-native-orientation';
 
 import { deck } from './constants/cards';
-import Card from './components/Card';
 import Deck from './components/Deck';
 import Button from './components/Button';
 import CircleButton from './components/CircleButton';
@@ -50,7 +41,6 @@ class App extends Component {
 
   onScrollToCenter = () => {
     console.log(this.table);
-    this.table.scrollToCenter();
   };
 
   render() {
@@ -118,12 +108,8 @@ class App extends Component {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  board: {
-    width: 3000, // 30
-    height: 2800, // 20
+    width: '100%',
+    height: '100%',
   },
 });
 

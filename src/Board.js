@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import Card from './components/Card';
-import { isLegalMove } from './Game';
 import { height, width } from './constants/board';
 
 class Board extends Component {
   render() {
     const { G } = this.props;
     let cells = [];
-    for (let i = 0; i < width; i++) {
-      for (let j = 0; j < height; j++) {
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
         const id = width * i + j;
         const value = G.cells[id];
         cells.push(
@@ -27,17 +26,18 @@ class Board extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    minWidth: 3000, // 30
-    minHeight: 2800, // 20
+    width: 3000, // 30
+    height: 2800, // 20
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   cell: {
     width: 100,
     height: 140,
-    // outline: '2px dashed rgba(255, 255, 255, 0.1)',
-    // outlineOffset: '-4px',
-    // borderRadius: '8px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderWidth: 1,
   },
 });
 

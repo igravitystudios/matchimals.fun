@@ -147,8 +147,7 @@ export function getInitialState(ctx) {
 
   // Set the initial card on the board
   const initialCard = getRandomCard(deck);
-  // G.cells[board.center] = initialCard;
-  G.cells[43] = initialCard;
+  G.cells[board.center] = initialCard;
 
   // Ensure each player starts off with a card that is connectable
   for (let k = 0; k < ctx.numPlayers; k++) {

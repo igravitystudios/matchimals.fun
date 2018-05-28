@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Polygon } from 'svgs';
 
 import animals from '../../constants/animals';
@@ -57,7 +57,7 @@ const CardFront = ({ card, style }) => (
           height: 64,
         }}
       >
-        {/* <View
+        <Text
           style={{
             position: 'absolute',
             top: -12,
@@ -70,7 +70,7 @@ const CardFront = ({ card, style }) => (
           }}
         >
           {animals[card.right].score}
-        </View> */}
+        </Text>
         {animals[card.right].icon}
       </View>
     )}
@@ -84,7 +84,7 @@ const CardFront = ({ card, style }) => (
           height: 64,
         }}
       >
-        {/* <View
+        <Text
           style={{
             position: 'absolute',
             top: -16,
@@ -97,7 +97,7 @@ const CardFront = ({ card, style }) => (
           }}
         >
           {animals[card.bottom].score}
-        </View> */}
+        </Text>
         {animals[card.bottom].icon}
       </View>
     )}
@@ -133,6 +133,11 @@ CardFront.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
+    width: 100,
+    height: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee',
     overflow: 'hidden',
     borderRadius: 8,
   },

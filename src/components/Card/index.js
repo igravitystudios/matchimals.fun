@@ -160,7 +160,21 @@ Card.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'absolute',
+    width: 100,
+    height: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'transparent',
+    overflow: 'hidden',
+    borderRadius: 8,
+    // TODO: Shadow PERF
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 1,
   },
 });
 

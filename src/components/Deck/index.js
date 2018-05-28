@@ -16,13 +16,6 @@ const Deck = ({ cards, ...rest }) => (
           left: i * -3,
           top: 0,
           zIndex: -i,
-          shadowColor: 'rgba(0,0,0,0.420)',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 1,
-          shadowRadius: 0,
         }}
         disabled={i !== 0}
       />
