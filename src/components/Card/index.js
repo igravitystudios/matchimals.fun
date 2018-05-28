@@ -36,7 +36,7 @@ class Card extends Component {
     this._updateNativeStyles();
   }
 
-  _setCardRef = card => {
+  _setCardRef = (card) => {
     this.card = card;
   };
 

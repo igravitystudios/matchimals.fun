@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Ellipse, Path } from 'svgs';
 
-const Pig = props => (
+const Pig = (props) => (
   <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#FFC7D4"

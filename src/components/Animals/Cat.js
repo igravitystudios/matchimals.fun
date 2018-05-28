@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Ellipse, Path } from 'svgs';
 
-const Cat = props => (
+const Cat = (props) => (
   <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#F9C802"

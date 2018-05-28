@@ -109,7 +109,7 @@ const deck = [
   },
 ];
 
-const getRandomCard = deck => deck[Math.floor(Math.random() * deck.length)];
+const getRandomCard = (deck) => deck[Math.floor(Math.random() * deck.length)];
 
 module.exports = {
   deck,

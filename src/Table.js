@@ -52,7 +52,7 @@ class Table extends Component {
     this._updateNativeStyles();
   }
 
-  _setTableRef = table => {
+  _setTableRef = (table) => {
     this.table = table;
   };
 

@@ -7,7 +7,8 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPad Air\"",
-    "web": "react-scripts start"
+    "web": "react-scripts start",
+    "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
     "boardgame.io": "^0.22.0",
@@ -30,8 +31,8 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.5.1",
     "husky": "0.14.3",
-    "lint-staged": "7.0.4",
-    "prettier": "1.11.1",
+    "lint-staged": "7.1.2",
+    "prettier": "1.13.0",
     "react-scripts": "1.1.4"
   },
   "rnpm": {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path } from 'svgs';
 
-const Zebra = props => (
+const Zebra = (props) => (
   <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#99A8AE"

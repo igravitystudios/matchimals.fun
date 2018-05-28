@@ -34,7 +34,7 @@ class App extends Component {
   };
 
   onMenuToggle = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isMenuVisible: !state.isMenuVisible,
     }));
   };
@@ -51,7 +51,7 @@ class App extends Component {
       <View style={styles.root}>
         <StatusBar hidden />
         <Table
-          ref={tableComponent => {
+          ref={(tableComponent) => {
             this.table = tableComponent;
           }}
           {...rest}
