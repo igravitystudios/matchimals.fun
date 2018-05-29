@@ -1,7 +1,7 @@
-const columns = 30;
-const rows = 20;
+const columns = 25; // because lazy math elsewhere, these *must* be odd
+const rows = 19; // because lazy math elsewhere, these *must* be odd
 const cells = Array(columns * rows).fill(null);
-const center = Math.floor(columns * (rows / 2) + columns / 2);
+const center = Math.floor(columns * (rows / 2));
 const cardWidth = 100;
 const cardHeight = 140;
 const boardWidth = cardWidth * columns;

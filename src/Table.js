@@ -22,8 +22,8 @@ class Table extends Component {
       left: 0,
     };
     this._centeredWindow = {
-      top: -((boardHeight - height) / 2 + 140 / 2),
-      left: -((boardWidth - width) / 2 + 100 / 2),
+      top: -((boardHeight - height) / 2),
+      left: -((boardWidth - width) / 2),
     };
 
     this._panResponder = {};

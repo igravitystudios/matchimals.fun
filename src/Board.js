@@ -21,7 +21,11 @@ class Board extends Component {
         const value = G.cells[id];
         cells.push(
           <View key={id} id={id} style={styles.cell}>
-            {value ? <Card card={value} flipped disabled /> : <Text>{id}</Text>}
+            {value ? (
+              <Card card={value} flipped disabled />
+            ) : (
+              <Text style={styles.cellText}>{id}</Text>
+            )}
           </View>
         );
       }
@@ -43,8 +47,11 @@ const styles = StyleSheet.create({
     height: cardHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
     borderWidth: 1,
+  },
+  cellText: {
+    color: 'rgba(255, 255, 255, 0.5)',
   },
 });
 
