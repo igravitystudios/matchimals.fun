@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "precommit": "lint-staged",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/matchimals/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPad Air\"",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "4.16.0",
     "eslint-config-react-app": "2.1.0",
     "eslint-plugin-flowtype": "2.41.0",
@@ -36,6 +38,8 @@
     "react-scripts": "1.1.4"
   },
   "rnpm": {
-    "assets": ["./assets/fonts/"]
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }
