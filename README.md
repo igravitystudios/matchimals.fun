@@ -6,6 +6,7 @@ Initial implementation only accounts for iPad on iOS. 🚧 🚧 🚧
 
 ### Development
 
+`yarn install`
 `yarn start & yarn run ios`
 
 ---

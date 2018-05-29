@@ -46,6 +46,7 @@ class App extends Component {
   render() {
     const { isMenuVisible } = this.state;
     const { ...rest } = this.props;
+    console.log(this.props.G.players);
 
     return (
       <View style={styles.root}>
@@ -57,7 +58,7 @@ class App extends Component {
           {...rest}
         />
         <Deck
-          cards={deck}
+          cards={this.props.G.players[this.props.ctx.currentPlayer].deck}
           style={{
             position: "absolute",
             bottom: 156,
