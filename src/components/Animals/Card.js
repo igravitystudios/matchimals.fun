@@ -1,5 +1,5 @@
-import React from 'react';
-import Svg, { Path } from 'svgs';
+import React from "react";
+import Svg, { Path } from "svgs";
 
 const Card = (props) => (
   <Svg height={140} width={100} viewBox="0 0 100 140" {...props}>

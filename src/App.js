@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import Orientation from 'react-native-orientation';
+import React, { Component } from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import Orientation from "react-native-orientation";
 
-import { deck } from './constants/cards';
-import Deck from './components/Deck';
-import Button from './components/Button';
-import CircleButton from './components/CircleButton';
-import Table from './Table';
-import Menu from './Menu';
+import { deck } from "./constants/cards";
+import Deck from "./components/Deck";
+import Button from "./components/Button";
+import CircleButton from "./components/CircleButton";
+import Table from "./Table";
+import Menu from "./Menu";
 
 class App extends Component {
   state = {
@@ -16,7 +16,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (Platform.OS !== 'web') {
+    if (Platform.OS !== "web") {
       Orientation.lockToLandscape();
     }
   }
@@ -59,7 +59,7 @@ class App extends Component {
         <Deck
           cards={deck}
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 156,
             left: 72,
           }}
@@ -67,7 +67,7 @@ class App extends Component {
         <Button
           onPress={this.onGamePass}
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 16,
             left: 200,
           }}
@@ -77,7 +77,7 @@ class App extends Component {
         <CircleButton
           onPress={this.onScrollToCenter}
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 16,
             right: 96,
           }}
@@ -87,7 +87,7 @@ class App extends Component {
         <CircleButton
           onPress={this.onMenuToggle}
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 16,
             right: 16,
           }}
@@ -107,9 +107,9 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    position: 'relative',
-    width: '100%',
-    height: '100%',
+    position: "relative",
+    width: "100%",
+    height: "100%",
   },
 });
 

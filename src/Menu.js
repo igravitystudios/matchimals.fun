@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from "react";
+import { StyleSheet, View } from "react-native";
 
-import Button from './components/Button';
+import Button from "./components/Button";
 
 const Menu = ({ onMenuToggle, onGameReset }) => (
   <View style={styles.root}>
@@ -17,9 +17,9 @@ const Menu = ({ onMenuToggle, onGameReset }) => (
 const styles = StyleSheet.create({
   root: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(20,13,10,0.9)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(20,13,10,0.9)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   menu: {
     margin: 8,

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, View } from "react-native";
 
-import Card from '../Card';
+import Card from "../Card";
 
 const Deck = ({ cards, style, ...rest }) => (
   <View style={[styles.root, style]} {...rest}>
@@ -12,7 +12,7 @@ const Deck = ({ cards, style, ...rest }) => (
         card={card}
         flipped={i === 0}
         style={{
-          position: 'absolute',
+          position: "absolute",
           left: i * -3,
           top: 0,
           zIndex: -i,
@@ -33,7 +33,7 @@ Deck.propTypes = {
 
 const styles = StyleSheet.create({
   root: {
-    position: 'relative',
+    position: "relative",
   },
 });
 

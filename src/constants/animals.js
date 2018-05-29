@@ -1,5 +1,5 @@
-import React from 'react';
-import colors from './colors';
+import React from "react";
+import colors from "./colors";
 
 import {
   Bat,
@@ -30,7 +30,7 @@ import {
   Turtle,
   Wolf,
   Zebra,
-} from '../components/Animals';
+} from "../components/Animals";
 
 export default {
   bat: {

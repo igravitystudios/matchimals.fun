@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
-import Svg, { Polygon } from 'svgs';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyleSheet, Text, View } from "react-native";
+import Svg, { Polygon } from "svgs";
 
-import animals from '../../constants/animals';
-import { cardHeight, cardWidth } from '../../constants/board';
+import animals from "../../constants/animals";
+import { cardHeight, cardWidth } from "../../constants/board";
 
 const CardFront = ({ card, style }) => (
   <View style={[styles.root, style]}>
@@ -38,7 +38,7 @@ const CardFront = ({ card, style }) => (
     {animals[card.top] && (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: -32,
           left: 18,
           width: 64,
@@ -51,7 +51,7 @@ const CardFront = ({ card, style }) => (
     {animals[card.right] && (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 38,
           right: -32,
           width: 64,
@@ -60,13 +60,13 @@ const CardFront = ({ card, style }) => (
       >
         <Text
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: -12,
             left: 14,
             width: 20,
-            color: '#fff',
+            color: "#fff",
             fontSize: 14,
-            textAlign: 'center',
+            textAlign: "center",
             // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
@@ -78,7 +78,7 @@ const CardFront = ({ card, style }) => (
     {animals[card.bottom] && (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: -32,
           left: 18,
           width: 64,
@@ -87,13 +87,13 @@ const CardFront = ({ card, style }) => (
       >
         <Text
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: -16,
             left: 22,
             width: 20,
-            color: '#fff',
+            color: "#fff",
             fontSize: 14,
-            textAlign: 'center',
+            textAlign: "center",
             // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
           }}
         >
@@ -105,7 +105,7 @@ const CardFront = ({ card, style }) => (
     {animals[card.left] && (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 38,
           left: -32,
           width: 64,
@@ -133,13 +133,13 @@ CardFront.propTypes = {
 
 const styles = StyleSheet.create({
   root: {
-    position: 'relative',
+    position: "relative",
     width: cardWidth,
     height: cardHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eee',
-    overflow: 'hidden',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#eee",
+    overflow: "hidden",
     borderRadius: 8,
   },
 });

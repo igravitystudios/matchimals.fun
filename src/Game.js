@@ -1,8 +1,8 @@
-import { Game as BGGame } from 'boardgame.io/core';
-import shuffle from 'lodash/shuffle';
-import animals from './constants/animals';
-import board from './constants/board';
-import { deck, getRandomCard } from './constants/cards';
+import { Game as BGGame } from "boardgame.io/core";
+import shuffle from "lodash/shuffle";
+import animals from "./constants/animals";
+import board from "./constants/board";
+import { deck, getRandomCard } from "./constants/cards";
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -207,10 +207,10 @@ const Game = BGGame({
       // TODO: Logic should be based on ctx.numPlayers
       if (G.players[0].deck.length === 0 && G.players[1].deck.length === 0) {
         if (G.players[0].score > G.players[1].score) {
-          return '0';
+          return "0";
         } else {
           // TODO: Need to also handle a tie game
-          return '1';
+          return "1";
         }
       }
     },

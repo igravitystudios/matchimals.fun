@@ -1,5 +1,5 @@
-import React from 'react';
-import Svg, { Path } from 'svgs';
+import React from "react";
+import Svg, { Path } from "svgs";
 
 const Frog = (props) => (
   <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>

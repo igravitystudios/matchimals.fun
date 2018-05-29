@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Dimensions,
   ImageBackground,
   PanResponder,
   StyleSheet,
   View,
-} from 'react-native';
+} from "react-native";
 
-import { boardHeight, boardWidth } from './constants/board';
-import Board from './Board';
+import { boardHeight, boardWidth } from "./constants/board";
+import Board from "./Board";
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
-    const { height, width } = Dimensions.get('window');
+    const { height, width } = Dimensions.get("window");
     this._boundaries = {
       top: 0,
       right: -(boardWidth - width),
@@ -138,7 +138,7 @@ class Table extends Component {
         {...this._panResponder.panHandlers}
       >
         <ImageBackground
-          source={require('./artwork/matchimals-native-background.png')}
+          source={require("./artwork/matchimals-native-background.png")}
           style={styles.root}
         >
           <Board {...rest} />

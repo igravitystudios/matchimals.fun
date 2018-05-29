@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { Component } from "react";
+import { Text, View, StyleSheet } from "react-native";
 
-import Card from './components/Card';
+import Card from "./components/Card";
 import {
   boardHeight,
   boardWidth,
@@ -9,7 +9,7 @@ import {
   cardWidth,
   columns,
   rows,
-} from './constants/board';
+} from "./constants/board";
 
 class Board extends Component {
   render() {
@@ -39,19 +39,19 @@ const styles = StyleSheet.create({
   root: {
     width: boardWidth,
     height: boardHeight,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   cell: {
     width: cardWidth,
     height: cardHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "rgba(255, 255, 255, 0.2)",
     borderWidth: 1,
   },
   cellText: {
-    color: 'rgba(255, 255, 255, 0.5)',
+    color: "rgba(255, 255, 255, 0.5)",
   },
 });
 

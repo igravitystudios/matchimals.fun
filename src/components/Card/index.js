@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { PanResponder, StyleSheet, View } from 'react-native';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { PanResponder, StyleSheet, View } from "react-native";
 
-import { cardHeight, cardWidth } from '../../constants/board';
-import CardBack from './CardBack';
-import CardFront from './CardFront';
+import { cardHeight, cardWidth } from "../../constants/board";
+import CardBack from "./CardBack";
+import CardFront from "./CardFront";
 
 class Card extends Component {
   constructor(props) {
@@ -122,13 +122,13 @@ Card.propTypes = {
 
 const styles = StyleSheet.create({
   root: {
-    position: 'absolute',
+    position: "absolute",
     width: cardWidth,
     height: cardHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    overflow: 'hidden',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    overflow: "hidden",
     borderRadius: 8,
     // TODO: Shadow throws performance warnings
     // shadowColor: '#000',
