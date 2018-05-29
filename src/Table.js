@@ -7,27 +7,30 @@ import {
   View,
 } from 'react-native';
 
+import { boardHeight, boardWidth } from './constants/board';
 import Board from './Board';
 
 class Table extends Component {
   constructor(props) {
     super(props);
+
     const { height, width } = Dimensions.get('window');
-    const centeredWindow = {
-      top: -((2800 - height) / 2 + 140 / 2),
-      left: -((3000 - width) / 2 + 100 / 2),
-    };
     this._boundaries = {
       top: 0,
-      right: -(3000 - width),
-      bottom: -(2800 - height),
+      right: -(boardWidth - width),
+      bottom: -(boardHeight - height),
       left: 0,
     };
+    this._centeredWindow = {
+      top: -((boardHeight - height) / 2 + 140 / 2),
+      left: -((boardWidth - width) / 2 + 100 / 2),
+    };
+
     this._panResponder = {};
     this._previousLeft =
-      (props.style && props.style.left) || centeredWindow.left || 0;
+      (props.style && props.style.left) || this._centeredWindow.left || 0;
     this._previousTop =
-      (props.style && props.style.top) || centeredWindow.top || 0;
+      (props.style && props.style.top) || this._centeredWindow.top || 0;
     this._tableStyles = {};
   }
 
@@ -147,8 +150,8 @@ class Table extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    width: 3000, // 30
-    height: 2800, // 20
+    width: boardWidth,
+    height: boardHeight,
   },
 });
 

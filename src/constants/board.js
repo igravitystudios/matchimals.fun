@@ -1,11 +1,19 @@
-const height = 20;
-const width = 30;
-const cells = Array(width * height).fill(null);
-const center = Math.floor(width * (height / 2) + width / 2);
+const columns = 30;
+const rows = 20;
+const cells = Array(columns * rows).fill(null);
+const center = Math.floor(columns * (rows / 2) + columns / 2);
+const cardWidth = 100;
+const cardHeight = 140;
+const boardWidth = cardWidth * columns;
+const boardHeight = cardHeight * rows;
 
 module.exports = {
-  width,
-  height,
+  columns,
+  rows,
   cells,
   center,
+  cardWidth,
+  cardHeight,
+  boardWidth,
+  boardHeight,
 };

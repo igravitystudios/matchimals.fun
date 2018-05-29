@@ -4,12 +4,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Polygon } from 'svgs';
 
 import animals from '../../constants/animals';
+import { cardHeight, cardWidth } from '../../constants/board';
 
 const CardFront = ({ card, style }) => (
   <View style={[styles.root, style]}>
     <Svg
-      width={100}
-      height={140}
+      width={cardWidth}
+      height={cardHeight}
       xmlns="http://www.w3.org/2000/Svg"
       viewBox="0 0 100 140"
     >
@@ -133,8 +134,8 @@ CardFront.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'relative',
-    width: 100,
-    height: 140,
+    width: cardWidth,
+    height: cardHeight,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#eee',

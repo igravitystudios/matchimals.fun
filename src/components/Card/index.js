@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { PanResponder, StyleSheet, View } from 'react-native';
 
+import { cardHeight, cardWidth } from '../../constants/board';
 import CardBack from './CardBack';
 import CardFront from './CardFront';
 
@@ -76,45 +77,22 @@ class Card extends Component {
     this._previousLeft += gestureState.dx;
     this._previousTop += gestureState.dy;
 
-    // Align to nearest 100/140 grid cell
-    const snapLeft = Math.round(this._previousLeft / 100) * 100;
-    const snapTop = Math.round(this._previousTop / 140) * 140;
-    this._previousLeft = snapLeft;
-    this._previousTop = snapTop;
-    this._cardStyles.style.left = snapLeft;
-    this._cardStyles.style.top = snapTop;
+    this._cardStyles.style.left = this._previousLeft;
+    this._cardStyles.style.top = this._previousTop;
     this._cardStyles.style.transform = [{ scale: 1 }];
     this._updateNativeStyles();
 
     this.card.measure((x, y, width, height, pageX, pageY) => {
-      console.log({ x, y, width, height, pageX, pageY, snapLeft, snapTop });
+      console.log({ x, y, width, height, pageX, pageY });
     });
   };
 
   render() {
-    const {
-      card,
-      disabled,
-      flipped,
-      height,
-      style,
-      width,
-      ...rest
-    } = this.props;
+    const { card = {}, disabled, flipped, style, ...rest } = this.props;
 
     if (disabled) {
       return (
-        <View
-          style={[
-            styles.root,
-            {
-              width,
-              height,
-            },
-            style,
-          ]}
-          {...rest}
-        >
+        <View style={[styles.root, style]} {...rest}>
           {!flipped ? <CardBack /> : <CardFront card={card} />}
         </View>
       );
@@ -123,14 +101,7 @@ class Card extends Component {
     return (
       <View
         ref={this._setCardRef}
-        style={[
-          styles.root,
-          {
-            width,
-            height,
-          },
-          style,
-        ]}
+        style={[styles.root, style]}
         {...this._panResponder.panHandlers}
         {...rest}
       >
@@ -140,15 +111,7 @@ class Card extends Component {
   }
 }
 
-Card.defaultProps = {
-  width: 100,
-  height: 140,
-  card: {},
-};
-
 Card.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   card: PropTypes.shape({
     top: PropTypes.string,
     right: PropTypes.string,
@@ -160,14 +123,14 @@ Card.propTypes = {
 const styles = StyleSheet.create({
   root: {
     position: 'absolute',
-    width: 100,
-    height: 140,
+    width: cardWidth,
+    height: cardHeight,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
     overflow: 'hidden',
     borderRadius: 8,
-    // TODO: Shadow PERF
+    // TODO: Shadow throws performance warnings
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,

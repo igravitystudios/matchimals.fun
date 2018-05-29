@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { cardHeight, cardWidth } from '../../constants/board';
 import Logo from '../Logo';
 
 const CardBack = ({ height, style, width }) => (
@@ -11,8 +12,8 @@ const CardBack = ({ height, style, width }) => (
 
 const styles = StyleSheet.create({
   root: {
-    width: 100,
-    height: 140,
+    width: cardWidth,
+    height: cardHeight,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#eee',

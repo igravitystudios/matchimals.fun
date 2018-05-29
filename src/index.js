@@ -3,7 +3,7 @@ import { Client } from 'boardgame.io/react-native';
 
 import App from './App';
 import Game from './Game';
-console.log(Client);
+
 const Matchimals = Client({
   board: App,
   game: Game,

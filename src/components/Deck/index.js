@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Card from '../Card';
 
-const Deck = ({ cards, ...rest }) => (
-  <View {...rest}>
+const Deck = ({ cards, style, ...rest }) => (
+  <View style={[styles.root, style]} {...rest}>
     {cards.map((card, i) => (
       <Card
         key={i}
@@ -30,5 +30,11 @@ Deck.defaultProps = {
 Deck.propTypes = {
   cards: PropTypes.array.isRequired,
 };
+
+const styles = StyleSheet.create({
+  root: {
+    position: 'relative',
+  },
+});
 
 export default Deck;
