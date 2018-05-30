@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import Orientation from "react-native-orientation";
 
-import { deck } from "./constants/cards";
+import { cardHeight, cardWidth, columns, rows } from "./constants/board";
 import Deck from "./components/Deck";
 import Button from "./components/Button";
 import CircleButton from "./components/CircleButton";
@@ -21,9 +21,19 @@ class App extends Component {
     }
   }
 
+  onCardDrop = (measurements) => {
+    const cardLeft = measurements.pageX;
+    const cardTop = measurements.pagey;
+    const tableLeft = this._table._previousLeft;
+    const tableTop = this._table._previousTop;
+
+    // console.log(this._table);
+    const targetCell = 236;
+    this.props.moves.clickCell(targetCell);
+  };
+
   onGamePass = () => {
-    console.log(this.props.G, this.props.ctx);
-    this.props.moves.pass(this.props.G, this.props.ctx);
+    this.props.moves.pass();
     this.props.events.endTurn();
   };
 
@@ -40,7 +50,7 @@ class App extends Component {
   };
 
   onScrollToCenter = () => {
-    console.log(this.table);
+    console.log(this._table);
   };
 
   render() {
@@ -53,12 +63,13 @@ class App extends Component {
         <StatusBar hidden />
         <Table
           ref={(tableComponent) => {
-            this.table = tableComponent;
+            this._table = tableComponent;
           }}
           {...rest}
         />
         <Deck
           cards={this.props.G.players[this.props.ctx.currentPlayer].deck}
+          onCardDrop={this.onCardDrop}
           style={{
             position: "absolute",
             bottom: 156,

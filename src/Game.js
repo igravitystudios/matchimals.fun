@@ -157,7 +157,7 @@ export function getInitialState(ctx) {
     }
   }
 
-  console.log(G, ctx);
+  console.log("Initial Game State", G, "Initial ctx", ctx);
 
   // Our game state is ready to go– return it!
   return G;
@@ -168,7 +168,8 @@ const Game = BGGame({
   setup: getInitialState,
 
   moves: {
-    clickCell(G, ctx, id) {
+    clickCell: (G, ctx, id, id2, id3, id4) => {
+      console.log("hello", G, ctx, id, id2, id3, id4);
       // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
       const players = { ...G.players };
@@ -189,7 +190,7 @@ const Game = BGGame({
       return { ...G, cells, players };
     },
 
-    pass(G, ctx) {
+    pass: (G, ctx) => {
       // Clone players state so we don't mutate values
       const players = { ...G.players };
       const deck = players[ctx.currentPlayer].deck;

@@ -83,7 +83,8 @@ class Card extends Component {
     this._updateNativeStyles();
 
     this.card.measure((x, y, width, height, pageX, pageY) => {
-      console.log({ x, y, width, height, pageX, pageY });
+      console.log("glhf");
+      this.props.onCardDrop({ x, y, width, height, pageX, pageY });
     });
   };
 

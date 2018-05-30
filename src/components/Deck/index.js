@@ -4,12 +4,13 @@ import { StyleSheet, View } from "react-native";
 
 import Card from "../Card";
 
-const Deck = ({ cards, style, ...rest }) => (
+const Deck = ({ cards, onCardDrop, style, ...rest }) => (
   <View style={[styles.root, style]} {...rest}>
     {cards.map((card, i) => (
       <Card
         key={i}
         card={card}
+        onCardDrop={onCardDrop}
         flipped={i === 0}
         style={{
           position: "absolute",

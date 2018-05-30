@@ -1384,9 +1384,9 @@ bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
 
-boardgame.io@^0.22.0:
-  version "0.22.0"
-  resolved "https://registry.yarnpkg.com/boardgame.io/-/boardgame.io-0.22.0.tgz#0bb5c7a8a2879a86673c5e43476eaf780aa03ebe"
+boardgame.io@0.22.1:
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/boardgame.io/-/boardgame.io-0.22.1.tgz#baca3cded66ae71f9920e416663c50ff8c0b9ca1"
   dependencies:
     koa "^2.3.0"
     koa-router "^7.2.1"
