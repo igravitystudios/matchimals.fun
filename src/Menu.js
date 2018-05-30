@@ -2,9 +2,11 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import Button from "./components/Button";
+import Confetti from "./components/Confetti";
 
 const Menu = ({ onMenuToggle, onGameReset }) => (
   <View style={styles.root}>
+    <Confetti />
     <Button color="#fff" style={styles.menu} onPress={onGameReset}>
       RESET GAME
     </Button>
