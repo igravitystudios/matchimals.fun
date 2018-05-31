@@ -121,9 +121,7 @@ class Table extends Component {
     this._tableStyles.style.left = this._previousLeft;
     this._tableStyles.style.top = this._previousTop;
 
-    this.table.measure((x, y, width, height, pageX, pageY) => {
-      console.log({ x, y, width, height, pageX, pageY });
-    });
+    this.table.measure((x, y, width, height, pageX, pageY) => {});
 
     this._updateNativeStyles();
   };

@@ -8,6 +8,7 @@ import Button from "./components/Button";
 import CircleButton from "./components/CircleButton";
 import Table from "./Table";
 import Menu from "./Menu";
+import { isLegalMove } from "./Game";
 
 class App extends Component {
   state = {
@@ -23,12 +24,26 @@ class App extends Component {
 
   onCardDrop = (measurements) => {
     const cardLeft = measurements.pageX;
-    const cardTop = measurements.pagey;
+    const cardTop = measurements.pageY;
     const tableLeft = this._table._previousLeft;
     const tableTop = this._table._previousTop;
 
-    // console.log(this._table);
-    const targetCell = 236;
+    console.log({ cardLeft, cardTop, tableLeft, tableTop });
+
+    const distanceLeft = tableLeft - cardLeft;
+    const distanceTop = tableTop - cardTop;
+    const cellsFromLeft = Math.abs(Math.round(distanceLeft / cardWidth));
+    const cellsFromTop = Math.abs(Math.round(distanceTop / cardHeight));
+    const targetCell = cellsFromTop * columns + cellsFromLeft;
+
+    console.log({
+      distanceLeft,
+      distanceTop,
+      cellsFromLeft,
+      cellsFromTop,
+      targetCell,
+    });
+
     this.props.moves.clickCell(targetCell);
   };
 
@@ -49,14 +64,11 @@ class App extends Component {
     }));
   };
 
-  onScrollToCenter = () => {
-    console.log(this._table);
-  };
+  onScrollToCenter = () => {};
 
   render() {
     const { isMenuVisible } = this.state;
     const { ...rest } = this.props;
-    console.log(this.props.G.players);
 
     return (
       <View style={styles.root}>

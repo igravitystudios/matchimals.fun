@@ -1,7 +1,7 @@
 import { Game as BGGame } from "boardgame.io/core";
 import shuffle from "lodash/shuffle";
 import animals from "./constants/animals";
-import board from "./constants/board";
+import { cells as emptyCells, center, columns } from "./constants/board";
 import { deck, getRandomCard } from "./constants/cards";
 
 export function getNeighbors(G, id) {
@@ -14,10 +14,10 @@ export function getNeighbors(G, id) {
     leftCard = null;
 
   // Find neighbor indices
-  const topIndex = id - board.width,
+  const topIndex = id - columns,
     rightIndex = id + 1,
     leftIndex = id - 1,
-    bottomIndex = id + board.width;
+    bottomIndex = id + columns;
 
   // Set as a neighbor card only if within board boundaries
   if (topIndex >= 0) {
@@ -26,10 +26,10 @@ export function getNeighbors(G, id) {
   if (bottomIndex < cells.length) {
     bottomCard = cells[bottomIndex];
   }
-  if (rightIndex % board.width !== 0 && rightIndex < cells.length - 1) {
+  if (rightIndex % columns !== 0 && rightIndex < cells.length - 1) {
     rightCard = cells[rightIndex];
   }
-  if (leftIndex % board.width !== board.width - 1 && leftIndex >= 0) {
+  if (leftIndex % columns !== columns - 1 && leftIndex >= 0) {
     leftCard = cells[leftIndex];
   }
 
@@ -143,11 +143,11 @@ export function getInitialState(ctx) {
   }
 
   // Fill the game board
-  G.cells = board.cells;
+  G.cells = emptyCells;
 
   // Set the initial card on the board
   const initialCard = getRandomCard(deck);
-  G.cells[board.center] = initialCard;
+  G.cells[center] = initialCard;
 
   // Ensure each player starts off with a card that is connectable
   for (let k = 0; k < ctx.numPlayers; k++) {
@@ -168,8 +168,8 @@ const Game = BGGame({
   setup: getInitialState,
 
   moves: {
-    clickCell: (G, ctx, id, id2, id3, id4) => {
-      console.log("hello", G, ctx, id, id2, id3, id4);
+    // Can be like: `this.props.moves.clickCell(id)` G and ctx are provided automatically
+    clickCell: (G, ctx, id) => {
       // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
       const players = { ...G.players };
