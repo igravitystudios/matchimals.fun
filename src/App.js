@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import Orientation from "react-native-orientation";
 
-import { cardHeight, cardWidth, columns, rows } from "./constants/board";
+import { cardHeight, cardWidth, columns } from "./constants/board";
 import Deck from "./components/Deck";
 import Button from "./components/Button";
 import CircleButton from "./components/CircleButton";
 import Table from "./Table";
 import Menu from "./Menu";
-import { isLegalMove } from "./Game";
 
 class App extends Component {
   state = {
@@ -30,10 +29,10 @@ class App extends Component {
 
     console.log({ cardLeft, cardTop, tableLeft, tableTop });
 
-    const distanceLeft = tableLeft - cardLeft;
-    const distanceTop = tableTop - cardTop;
-    const cellsFromLeft = Math.abs(Math.round(distanceLeft / cardWidth));
-    const cellsFromTop = Math.abs(Math.round(distanceTop / cardHeight));
+    const distanceLeft = Math.abs(tableLeft - cardLeft);
+    const distanceTop = Math.abs(tableTop - cardTop);
+    const cellsFromLeft = Math.round(distanceLeft / cardWidth);
+    const cellsFromTop = Math.round(distanceTop / cardHeight);
     const targetCell = cellsFromTop * columns + cellsFromLeft;
 
     console.log({
@@ -44,7 +43,7 @@ class App extends Component {
       targetCell,
     });
 
-    this.props.moves.clickCell(targetCell);
+    this.props.moves.placeCard(targetCell);
   };
 
   onGamePass = () => {

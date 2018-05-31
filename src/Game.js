@@ -168,8 +168,8 @@ const Game = BGGame({
   setup: getInitialState,
 
   moves: {
-    // Can be like: `this.props.moves.clickCell(id)` G and ctx are provided automatically
-    clickCell: (G, ctx, id) => {
+    // G and ctx are provided automatically when calling from App– `this.props.moves.placeCard(id)`
+    placeCard: (G, ctx, id) => {
       // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
       const players = { ...G.players };

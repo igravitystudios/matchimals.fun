@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import Card from "./components/Card";
 import {
@@ -21,11 +21,7 @@ class Board extends Component {
         const value = G.cells[id];
         cells.push(
           <View key={id} id={id} style={styles.cell}>
-            {value ? (
-              <Card card={value} flipped disabled />
-            ) : (
-              <Text style={styles.cellText}>{id}</Text>
-            )}
+            {value && <Card card={value} flipped disabled />}
           </View>
         );
       }
@@ -47,11 +43,6 @@ const styles = StyleSheet.create({
     height: cardHeight,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "rgba(255, 255, 255, 0.2)",
-    borderWidth: 1,
-  },
-  cellText: {
-    color: "rgba(255, 255, 255, 0.5)",
   },
 });
 
