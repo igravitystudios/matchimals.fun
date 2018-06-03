@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import Orientation from "react-native-orientation";
 
 import { cardHeight, cardWidth, columns } from "./constants/board";
@@ -8,6 +8,14 @@ import Button from "./components/Button";
 import CircleButton from "./components/CircleButton";
 import Table from "./Table";
 import Menu from "./Menu";
+
+// lol– these'll be fixed soon.
+// 1. https://github.com/facebook/react-native/issues/18868
+// 2. https://github.com/facebook/react-native/issues/17504
+YellowBox.ignoreWarnings([
+  "Warning: isMounted(...) is deprecated",
+  "Module RCTImageLoader requires main queue",
+]);
 
 class App extends Component {
   state = {
