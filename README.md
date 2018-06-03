@@ -1,13 +1,12 @@
 <img src="./assets/app-icons/Icon-App-1024x1024.png" alt="Matchimals logo" width="240" />
 
-# Matchimals.native – coming soon to the iOS App Store! 📲
-
-Initial implementation only accounts for iPad on iOS. 🚧 🚧 🚧
+# Matchimals.native – coming soon to the Apple App Store and Google Play Store! 📲
 
 ### Development
 
-`yarn install`
-`yarn start & yarn run ios`
+Install dependencies: `yarn`
+Start bundler: `yarn start`
+In a seperate tab, start emulators: `yarn run ios` or `yarn run android`
 
 ---
 

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  YellowBox,
+} from "react-native";
 import Orientation from "react-native-orientation";
 
 import { cardHeight, cardWidth, columns } from "./constants/board";
@@ -76,6 +83,8 @@ class App extends Component {
   render() {
     const { isMenuVisible } = this.state;
     const { ...rest } = this.props;
+    const players = this.props.G.players;
+    const currentPlayer = this.props.ctx.currentPlayer;
 
     return (
       <View style={styles.root}>
@@ -86,8 +95,32 @@ class App extends Component {
           }}
           {...rest}
         />
+        <View
+          style={{
+            position: "absolute",
+            top: 72,
+            left: 72,
+            backgroundColor: "rgba(255, 255, 255, 0.25)",
+          }}
+        >
+          <Text>Player {parseInt(currentPlayer, 10) + 1}'s Turn</Text>
+
+          {Object.keys(players).map((playerIndex) => {
+            const isPlayerActive = playerIndex === currentPlayer;
+            return (
+              <View key={playerIndex}>
+                <View>
+                  <Text>Player {parseInt(playerIndex, 10) + 1} </Text>
+                </View>
+                <View>
+                  <Text>{players[playerIndex].score}</Text>
+                </View>
+              </View>
+            );
+          })}
+        </View>
         <Deck
-          cards={this.props.G.players[this.props.ctx.currentPlayer].deck}
+          cards={players[currentPlayer].deck}
           onCardDrop={this.onCardDrop}
           style={{
             position: "absolute",

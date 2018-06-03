@@ -6,6 +6,19 @@ import Svg, { Polygon } from "svgs";
 import animals from "../../constants/animals";
 import { cardHeight, cardWidth } from "../../constants/board";
 
+const pointStyles = {
+  width: 20,
+  color: "#fff",
+  fontSize: 14,
+  fontWeight: "700",
+  textAlign: "center",
+  textShadowColor: "rgba(0,0,0,0.69)",
+  textShadowRadius: 0,
+  textShadowOffset: {
+    width: 1,
+    height: 1,
+  },
+};
 const CardFront = ({ card, style }) => (
   <View style={[styles.root, style]}>
     <Svg
@@ -61,13 +74,9 @@ const CardFront = ({ card, style }) => (
         <Text
           style={{
             position: "absolute",
-            top: -12,
+            top: -14,
             left: 14,
-            width: 20,
-            color: "#fff",
-            fontSize: 14,
-            textAlign: "center",
-            // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
+            ...pointStyles,
           }}
         >
           {animals[card.right].score}
@@ -90,11 +99,7 @@ const CardFront = ({ card, style }) => (
             position: "absolute",
             top: -16,
             left: 22,
-            width: 20,
-            color: "#fff",
-            fontSize: 14,
-            textAlign: "center",
-            // textShadow: '1px 1px 0 rgba(41,26,19,0.69)',
+            ...pointStyles,
           }}
         >
           {animals[card.bottom].score}
