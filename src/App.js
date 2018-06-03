@@ -78,7 +78,9 @@ class App extends Component {
     }));
   };
 
-  onScrollToCenter = () => {};
+  onScrollToCenter = () => {
+    this._table.scrollToCenter();
+  };
 
   render() {
     const { isMenuVisible } = this.state;

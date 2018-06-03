@@ -55,6 +55,16 @@ class Table extends Component {
     this._updateNativeStyles();
   }
 
+  scrollToCenter() {
+    this._previousLeft = this._centeredWindow.left || 0;
+    this._previousTop = this._centeredWindow.top || 0;
+
+    this._tableStyles.style.left = this._previousLeft;
+    this._tableStyles.style.top = this._previousTop;
+
+    this._updateNativeStyles();
+  }
+
   _setTableRef = (table) => {
     this.table = table;
   };
