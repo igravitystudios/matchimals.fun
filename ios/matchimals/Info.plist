@@ -37,16 +37,16 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSMainNibFile</key>
-	<string>LaunchScreen</string>
-	<key>NSMainNibFile~ipad</key>
-	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Dimbo.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>Launch Screen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Launch Screen</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
