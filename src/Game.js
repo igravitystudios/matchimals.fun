@@ -146,7 +146,7 @@ export function getInitialState(ctx) {
   G.cells = emptyCells;
 
   // Set the initial card on the board
-  const initialCard = getRandomCard(deck);
+  const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function
   G.cells[center] = initialCard;
 
   // Ensure each player starts off with a card that is connectable
@@ -215,6 +215,7 @@ const Game = BGGame({
         }
       }
     },
+    movesPerTurn: 1,
   },
 });
 

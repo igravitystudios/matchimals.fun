@@ -97,6 +97,7 @@ class Table extends Component {
     this._tableStyles.style.left = this._previousLeft + gestureState.dx;
     this._tableStyles.style.top = this._previousTop + gestureState.dy;
 
+    // Block the viewport from panning outside table boundaries
     if (this._tableStyles.style.left > this._boundaries.left) {
       this._tableStyles.style.left = this._boundaries.left;
     } else if (this._tableStyles.style.left < this._boundaries.right) {
@@ -117,6 +118,7 @@ class Table extends Component {
     this._previousLeft += gestureState.dx;
     this._previousTop += gestureState.dy;
 
+    // Block the viewport from panning outside table boundaries
     if (this._previousLeft > this._boundaries.left) {
       this._previousLeft = this._boundaries.left;
     } else if (this._previousLeft < this._boundaries.right) {

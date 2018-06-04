@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: "Dimbo",
     fontSize: 52,
+    lineHeight: 60,
     color: "#fff",
+    textAlign: "center",
     textShadowColor: "rgba(0,0,0,0.420)",
     textShadowRadius: 0,
     textShadowOffset: {

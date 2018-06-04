@@ -26,7 +26,6 @@ YellowBox.ignoreWarnings([
 
 class App extends Component {
   state = {
-    players: 2,
     isMenuVisible: false,
   };
 
@@ -42,21 +41,11 @@ class App extends Component {
     const tableLeft = this._table._previousLeft;
     const tableTop = this._table._previousTop;
 
-    console.log({ cardLeft, cardTop, tableLeft, tableTop });
-
     const distanceLeft = Math.abs(tableLeft - cardLeft);
     const distanceTop = Math.abs(tableTop - cardTop);
     const cellsFromLeft = Math.round(distanceLeft / cardWidth);
     const cellsFromTop = Math.round(distanceTop / cardHeight);
     const targetCell = cellsFromTop * columns + cellsFromLeft;
-
-    console.log({
-      distanceLeft,
-      distanceTop,
-      cellsFromLeft,
-      cellsFromTop,
-      targetCell,
-    });
 
     this.props.moves.placeCard(targetCell);
   };
@@ -108,7 +97,7 @@ class App extends Component {
           <Text>Player {parseInt(currentPlayer, 10) + 1}'s Turn</Text>
 
           {Object.keys(players).map((playerIndex) => {
-            const isPlayerActive = playerIndex === currentPlayer;
+            // const isPlayerActive = playerIndex === currentPlayer;
             return (
               <View key={playerIndex}>
                 <View>
