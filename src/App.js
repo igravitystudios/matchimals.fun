@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import {
-  Platform,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  YellowBox,
-} from "react-native";
+import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import Orientation from "react-native-orientation";
 
 import { cardHeight, cardWidth, columns } from "./constants/board";
 import Deck from "./components/Deck";
 import Button from "./components/Button";
 import CircleButton from "./components/CircleButton";
+import Nameplate from "./components/Nameplate";
 import Table from "./Table";
 import Menu from "./Menu";
+import { isLegalMove } from "./Game";
 
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
@@ -27,6 +22,18 @@ YellowBox.ignoreWarnings([
 class App extends Component {
   state = {
     isMenuVisible: false,
+    playerConfig: {
+      "0": {
+        name: "Player 1",
+        animal: "Monkey",
+        color: "#CAE1C3",
+      },
+      "1": {
+        name: "Player 2",
+        animal: "Lion",
+        color: "#C5E5F0",
+      },
+    },
   };
 
   componentDidMount() {
@@ -47,12 +54,14 @@ class App extends Component {
     const cellsFromTop = Math.round(distanceTop / cardHeight);
     const targetCell = cellsFromTop * columns + cellsFromLeft;
 
-    this.props.moves.placeCard(targetCell);
+    const { ctx, G } = this.props;
+    if (isLegalMove(G, ctx, targetCell)) {
+      this.props.moves.placeCard(targetCell);
+    }
   };
 
   onGamePass = () => {
     this.props.moves.pass();
-    this.props.events.endTurn();
   };
 
   onGameReset = () => {
@@ -72,7 +81,7 @@ class App extends Component {
   };
 
   render() {
-    const { isMenuVisible } = this.state;
+    const { isMenuVisible, playerConfig } = this.state;
     const { ...rest } = this.props;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
@@ -89,26 +98,18 @@ class App extends Component {
         <View
           style={{
             position: "absolute",
-            top: 72,
-            left: 72,
-            backgroundColor: "rgba(255, 255, 255, 0.25)",
+            top: 20,
+            left: 24,
           }}
         >
-          <Text>Player {parseInt(currentPlayer, 10) + 1}'s Turn</Text>
-
-          {Object.keys(players).map((playerIndex) => {
-            // const isPlayerActive = playerIndex === currentPlayer;
-            return (
-              <View key={playerIndex}>
-                <View>
-                  <Text>Player {parseInt(playerIndex, 10) + 1} </Text>
-                </View>
-                <View>
-                  <Text>{players[playerIndex].score}</Text>
-                </View>
-              </View>
-            );
-          })}
+          {Object.keys(players).map((playerIndex) => (
+            <Nameplate
+              key={playerIndex}
+              active={playerIndex === currentPlayer}
+              player={players[playerIndex]}
+              playerConfig={playerConfig[playerIndex]}
+            />
+          ))}
         </View>
         <Deck
           cards={players[currentPlayer].deck}
