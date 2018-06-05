@@ -30,7 +30,7 @@ class App extends Component {
       },
       "1": {
         name: "Player 2",
-        animal: "Lion",
+        animal: "Wolf",
         color: "#C5E5F0",
       },
     },
@@ -138,7 +138,7 @@ class App extends Component {
             right: 96,
           }}
         >
-          ⊕
+          +
         </CircleButton>
         <CircleButton
           onPress={this.onMenuToggle}

@@ -27,7 +27,7 @@ import Turtle from "./Turtle";
 import Wolf from "./Wolf";
 import Zebra from "./Zebra";
 
-export {
+module.exports = {
   Bat,
   Bear,
   Boar,

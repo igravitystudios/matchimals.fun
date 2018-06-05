@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Monkey from "../Animals/Monkey";
+import Animals from "../Animals";
 
 const Nameplate = ({ active, player, playerConfig, style, ...rest }) => (
   <View
@@ -15,7 +15,10 @@ const Nameplate = ({ active, player, playerConfig, style, ...rest }) => (
         },
       ]}
     >
-      <Monkey width={48} height={48} />
+      {React.createElement(Animals[playerConfig.animal], {
+        width: 48,
+        height: 48,
+      })}
     </View>
     <View style={styles.details}>
       <Text style={styles.name}>{playerConfig.name}</Text>
