@@ -6,21 +6,37 @@ import Card from "../Card";
 
 const Deck = ({ cards, onCardDrop, style, ...rest }) => (
   <View style={[styles.root, style]} {...rest}>
-    {cards.map((card, i) => (
-      <Card
-        key={i}
-        card={card}
-        onCardDrop={onCardDrop}
-        flipped={i === 0}
-        style={{
-          position: "absolute",
-          left: i * -3,
-          top: 0,
-          zIndex: -i,
-        }}
-        disabled={i !== 0}
-      />
-    ))}
+    {cards.map((card, i) => {
+      let shadow;
+      if (i !== 0) {
+        shadow = {
+          shadowColor: "#fff",
+          shadowOffset: {
+            width: -1,
+            height: 0,
+          },
+          shadowOpacity: 0.5,
+          shadowRadius: 0,
+        };
+      }
+
+      return (
+        <Card
+          key={i}
+          card={card}
+          onCardDrop={onCardDrop}
+          flipped={i === 0}
+          style={{
+            position: "absolute",
+            left: i * -6,
+            top: 0,
+            zIndex: -i,
+          }}
+          disabled={i !== 0}
+          {...shadow}
+        />
+      );
+    })}
   </View>
 );
 

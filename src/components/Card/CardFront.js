@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
     height: cardHeight,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#eee",
     overflow: "hidden",
     borderRadius: 8,
   },

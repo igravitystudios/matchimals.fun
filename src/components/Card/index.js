@@ -136,16 +136,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
-    overflow: "hidden",
+    // overflow: "hidden",
     borderRadius: 8,
-    // TODO: Shadow throws performance warnings
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 1,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 1,
   },
 });
 

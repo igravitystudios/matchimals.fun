@@ -1,12 +1,17 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet, View } from "react-native";
 
 import { cardHeight, cardWidth } from "../../constants/board";
 import Logo from "../Logo";
 
 const CardBack = ({ height, style, width }) => (
   <View style={[styles.root, style]}>
-    <Logo width={80} height={24} fill="#9F9FB7" />
+    <ImageBackground
+      source={require("../../artwork/card-back.png")}
+      style={styles.root}
+    >
+      <Logo width={80} height={24} fill="#fff" />
+    </ImageBackground>
   </View>
 );
 
@@ -16,7 +21,6 @@ const styles = StyleSheet.create({
     height: cardHeight,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#eee",
     overflow: "hidden",
     borderRadius: 8,
   },
