@@ -12,7 +12,7 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
         shadow = {
           shadowColor: "#fff",
           shadowOffset: {
-            width: -1,
+            width: 1,
             height: 0,
           },
           shadowOpacity: 0.8,
@@ -28,9 +28,8 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
           flipped={i === 0}
           style={{
             position: "absolute",
-            left: i * -6,
+            right: i * 6,
             top: 0,
-            zIndex: -i,
           }}
           disabled={i !== 0}
           {...shadow}
@@ -50,7 +49,7 @@ Deck.propTypes = {
 
 const styles = StyleSheet.create({
   root: {
-    position: "relative",
+    position: "absolute",
   },
 });
 

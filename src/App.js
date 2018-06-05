@@ -83,6 +83,7 @@ class App extends Component {
   render() {
     const { isMenuVisible, playerConfig } = this.state;
     const { ...rest } = this.props;
+    const deck = this.props.G.deck;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
 
@@ -112,12 +113,12 @@ class App extends Component {
           ))}
         </View>
         <Deck
-          cards={players[currentPlayer].deck}
+          cards={deck}
           onCardDrop={this.onCardDrop}
           style={{
             position: "absolute",
             bottom: 156,
-            left: 72,
+            right: 116,
           }}
         />
         <Button
@@ -125,7 +126,7 @@ class App extends Component {
           style={{
             position: "absolute",
             bottom: 16,
-            left: 200,
+            right: 356,
           }}
         >
           PASS
@@ -134,7 +135,7 @@ class App extends Component {
           onPress={this.onScrollToCenter}
           style={{
             position: "absolute",
-            bottom: 16,
+            top: 16,
             right: 96,
           }}
         >
@@ -144,7 +145,7 @@ class App extends Component {
           onPress={this.onMenuToggle}
           style={{
             position: "absolute",
-            bottom: 16,
+            top: 16,
             right: 16,
           }}
         >

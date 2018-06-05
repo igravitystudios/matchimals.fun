@@ -43,7 +43,7 @@ class Card extends Component {
 
   _activeDrag(e, gestureState) {
     this._cardStyles.style.zIndex = e.timeStamp;
-    this._cardStyles.style.transform = [{ scale: 1.1 }];
+    this._cardStyles.style.transform = [{ scale: 1.05 }];
     this._updateNativeStyles();
   }
 

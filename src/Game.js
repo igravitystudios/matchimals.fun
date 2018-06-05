@@ -2,7 +2,7 @@ import { Game as BGGame } from "boardgame.io/core";
 import shuffle from "lodash/shuffle";
 import animals from "./constants/animals";
 import { cells as emptyCells, center, columns } from "./constants/board";
-import { deck, getRandomCard } from "./constants/cards";
+import { deck as DECK, getRandomCard } from "./constants/cards";
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -37,8 +37,7 @@ export function getNeighbors(G, id) {
 }
 
 export function calculateScore(G, ctx, id) {
-  const currentPlayer = G.players[ctx.currentPlayer];
-  const currentCard = currentPlayer.deck[0];
+  const currentCard = G.deck[0];
 
   //Assign neighbors
   const neighbors = getNeighbors(G, id);
@@ -69,8 +68,7 @@ export function isLegalMove(G, ctx, id) {
     return false;
   }
 
-  const currentPlayer = G.players[ctx.currentPlayer];
-  const currentCard = currentPlayer.deck[0];
+  const currentCard = G.deck[0];
 
   //Assign neighbors
   const neighbors = getNeighbors(G, id);
@@ -117,28 +115,22 @@ function canCardsConnect(card1, card2) {
 export function getInitialState(ctx) {
   const G = {
     cells: [],
+    deck: [],
     players: {},
   };
 
-  // Populate the initial deck
-  let fulldeck = [...deck];
-
-  // Add a deck for every additional player
-  for (let i = 0; i < ctx.numPlayers - 1; i++) {
-    fulldeck = fulldeck.concat(deck);
+  // Add a deck for every player
+  for (let i = 0; i < ctx.numPlayers; i++) {
+    G.deck = G.deck.concat(DECK);
   }
 
   // Shuffle resulting deck using lodash
-  fulldeck = shuffle(fulldeck);
+  G.deck = shuffle(G.deck); // TODO: Use boardgame.io provided random shuffle function
 
-  // Snapshot the length of the entire deck before we chop it up
-  const length = fulldeck.length;
-
-  // Set up the game state for each player, and deal them a part of the deck
+  // Set up the game state for each player
   for (let j = 0; j < ctx.numPlayers; j++) {
     G.players[j] = {
       score: 0,
-      deck: fulldeck.splice(0, length / ctx.numPlayers),
     };
   }
 
@@ -146,15 +138,12 @@ export function getInitialState(ctx) {
   G.cells = emptyCells;
 
   // Set the initial card on the board
-  const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function
+  const initialCard = getRandomCard(DECK); // TODO: Use boardgame.io provided random function
   G.cells[center] = initialCard;
 
-  // Ensure each player starts off with a card that is connectable
-  for (let k = 0; k < ctx.numPlayers; k++) {
-    while (!canCardsConnect(G.players[k].deck[0], initialCard)) {
-      const deck = G.players[k].deck;
-      deck.push(deck.shift()); // Place top card to bottom of deck, try again!
-    }
+  // Ensure the first card is connectable
+  while (!canCardsConnect(G.deck[0], initialCard)) {
+    G.deck.push(G.deck.shift()); // Place top card to bottom of deck, try again!
   }
 
   console.log("Initial Game State", G, "Initial ctx", ctx);
@@ -173,8 +162,8 @@ const Game = BGGame({
       // Clone cells and players state so we don't mutate values
       const cells = [...G.cells];
       const players = { ...G.players };
-      const currentDeck = players[ctx.currentPlayer].deck;
-      const currentCard = currentDeck[0];
+      const deck = [...G.deck];
+      const currentCard = deck[0];
 
       // Ensure we can't overwrite cells.
       if (isLegalMove(G, ctx, id)) {
@@ -183,30 +172,29 @@ const Game = BGGame({
         players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
 
         //Next card shifts up the deck
-        currentDeck.shift();
+        deck.shift();
       }
 
       // Return a copy of game state, along with updated cells and players state
-      return { ...G, cells, players };
+      return { ...G, cells, deck, players };
     },
 
     pass: (G, ctx) => {
       // Clone players state so we don't mutate values
-      const players = { ...G.players };
-      const deck = players[ctx.currentPlayer].deck;
+      const deck = [...G.deck];
 
       // Place top card to bottom of deck
       deck.push(deck.shift());
 
       // Return a copy of game state, along with updated deck
-      return { ...G, players };
+      return { ...G, deck };
     },
   },
 
   flow: {
     endGameIf: (G, ctx) => {
       // TODO: Logic should be based on ctx.numPlayers
-      if (G.players[0].deck.length === 0 && G.players[1].deck.length === 0) {
+      if (G.deck.length === 0) {
         if (G.players[0].score > G.players[1].score) {
           return "0";
         } else {
