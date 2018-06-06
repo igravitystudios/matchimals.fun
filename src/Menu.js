@@ -7,9 +7,9 @@ import Confetti from "./components/Confetti";
 const Menu = ({ onMenuToggle, onGameReset }) => (
   <View style={styles.root}>
     <Confetti />
-    <Button color="#fff" style={styles.menu} onPress={onGameReset}>
+    {/* <Button color="#fff" style={styles.menu} onPress={onGameReset}>
       RESET GAME
-    </Button>
+    </Button> */}
     <Button color="#fff" style={styles.menu} onPress={onMenuToggle}>
       BACK TO GAME
     </Button>

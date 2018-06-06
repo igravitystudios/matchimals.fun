@@ -118,7 +118,7 @@ class App extends Component {
           style={{
             position: "absolute",
             bottom: 156,
-            right: 116,
+            left: 16,
           }}
         />
         <Button
@@ -126,7 +126,7 @@ class App extends Component {
           style={{
             position: "absolute",
             bottom: 16,
-            right: 356,
+            right: 16,
           }}
         >
           PASS
