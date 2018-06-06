@@ -12,6 +12,7 @@
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "boardgame.io": "0.22.1",
     "lodash": "4.17.5",
     "prop-types": "15.6.1",

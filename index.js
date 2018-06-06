@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import { AppRegistry, Platform } from "react-native";
 import { Client } from "boardgame.io/react-native";
 
