@@ -7,8 +7,8 @@ import {
   View,
 } from "react-native";
 
-import { boardHeight, boardWidth } from "./constants/board";
-import Board from "./Board";
+import { boardHeight, boardWidth } from "../constants/board";
+import Board from "../Board";
 
 class Table extends Component {
   constructor(props) {
@@ -148,7 +148,7 @@ class Table extends Component {
         {...this._panResponder.panHandlers}
       >
         <ImageBackground
-          source={require("./artwork/matchimals-native-background.png")}
+          source={require("./matchimals-native-background.png")}
           style={styles.root}
         >
           <Board {...rest} />

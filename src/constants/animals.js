@@ -30,7 +30,7 @@ import {
   Turtle,
   Wolf,
   Zebra,
-} from "../components/Animals";
+} from "../Animals";
 
 export default {
   bat: {

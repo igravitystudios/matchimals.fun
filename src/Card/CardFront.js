@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
 import Svg, { Polygon } from "svgs";
 
-import animals from "../../constants/animals";
-import { cardHeight, cardWidth } from "../../constants/board";
+import animals from "../constants/animals";
+import { cardHeight, cardWidth } from "../constants/board";
 
 const pointStyles = {
   width: 20,

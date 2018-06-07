@@ -3,10 +3,10 @@ import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import Orientation from "react-native-orientation";
 
 import { cardHeight, cardWidth, columns } from "./constants/board";
-import Deck from "./components/Deck";
-import Button from "./components/Button";
-import CircleButton from "./components/CircleButton";
-import Nameplate from "./components/Nameplate";
+import Deck from "./Deck";
+import Button from "./Button";
+import CircleButton from "./CircleButton";
+import Nameplate from "./Nameplate";
 import Table from "./Table";
 import Menu from "./Menu";
 import { isLegalMove } from "./Game";

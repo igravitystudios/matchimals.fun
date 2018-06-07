@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import Button from "./components/Button";
-import Confetti from "./components/Confetti";
+import Button from "../Button";
+import Confetti from "../Confetti";
 
 const Menu = ({ onMenuToggle, onGameReset }) => (
   <View style={styles.root}>

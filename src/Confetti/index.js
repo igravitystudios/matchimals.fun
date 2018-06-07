@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import ConfettiView from "./ConfettiView";
 
-import colors from "../../constants/colors";
+import colors from "../constants/colors";
 
 class Confetti extends Component {
   componentDidMount() {

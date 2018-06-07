@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import Card from "./components/Card";
+import Card from "../Card";
 import {
   boardHeight,
   boardWidth,
@@ -9,7 +9,7 @@ import {
   cardWidth,
   columns,
   rows,
-} from "./constants/board";
+} from "../constants/board";
 
 const Board = ({ G }) => {
   let cells = [];

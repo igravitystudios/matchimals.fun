@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { PanResponder, StyleSheet, View } from "react-native";
 
-import { cardHeight, cardWidth } from "../../constants/board";
+import { cardHeight, cardWidth } from "../constants/board";
 import CardBack from "./CardBack";
 import CardFront from "./CardFront";
 
