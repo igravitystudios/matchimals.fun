@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
-import Orientation from "react-native-orientation";
 
 import { cardHeight, cardWidth, columns } from "./constants/board";
 import Deck from "./Deck";
@@ -37,12 +36,6 @@ class App extends Component {
       },
     },
   };
-
-  componentDidMount() {
-    // if (Platform.OS !== "web") {
-    //   Orientation.lockToLandscape();
-    // }
-  }
 
   onCardDrop = (measurements) => {
     const { ctx, G } = this.props;
