@@ -39,30 +39,39 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (Platform.OS !== "web") {
-      Orientation.lockToLandscape();
-    }
+    // if (Platform.OS !== "web") {
+    //   Orientation.lockToLandscape();
+    // }
   }
 
   onCardDrop = (measurements) => {
+    const { ctx, G } = this.props;
+
+    // Get the top left corner of the card in relation to the viewport
     const cardLeft = measurements.pageX;
     const cardTop = measurements.pageY;
+
+    // Get the top left corner of the viewport in relation to the entire table
     const tableLeft = this._table._previousLeft;
     const tableTop = this._table._previousTop;
 
+    // Calculate the total distance from the table's edge to the card's edge
     const distanceLeft = Math.abs(tableLeft - cardLeft);
     const distanceTop = Math.abs(tableTop - cardTop);
+
+    // Calculate the total distance in "cells"
     const cellsFromLeft = Math.round(distanceLeft / cardWidth);
     const cellsFromTop = Math.round(distanceTop / cardHeight);
+
+    // Calculate the target cell's id
     const targetCell = cellsFromTop * columns + cellsFromLeft;
 
-    console.log(measurements, targetCell);
-
-    const { ctx, G } = this.props;
-    if (isLegalMove(G, ctx, targetCell)) {
-      console.log("hello?");
-      this.props.moves.placeCard(targetCell);
-    }
+    return new Promise((resolve) => {
+      if (isLegalMove(G, ctx, targetCell)) {
+        this.props.moves.placeCard(targetCell);
+      }
+      resolve();
+    });
   };
 
   onGamePass = () => {

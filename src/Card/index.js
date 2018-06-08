@@ -83,16 +83,15 @@ class Card extends Component {
     this._updateNativeStyles();
 
     this.card.measure((x, y, width, height, pageX, pageY) => {
-      this.props.onCardDrop({ x, y, width, height, pageX, pageY });
+      this.props.onCardDrop({ x, y, width, height, pageX, pageY }).then(() => {
+        // Reset card position back to default (top of deck)
+        this._previousLeft = 0;
+        this._previousTop = 0;
+        this._cardStyles.style.left = 0;
+        this._cardStyles.style.top = 0;
+        this._updateNativeStyles();
+      });
     });
-
-    // Reset card position back to default (top of deck)
-    // this._previousLeft = 0;
-    // this._previousTop = 0;
-    // this._cardStyles.style.left = 0;
-    // this._cardStyles.style.top = 0;
-    // TODO: Only reset after `onCardDrop` logic has ran
-    // this._updateNativeStyles();
   };
 
   render() {
