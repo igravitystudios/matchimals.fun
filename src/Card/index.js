@@ -87,16 +87,23 @@ class Card extends Component {
     });
 
     // Reset card position back to default (top of deck)
-    this._previousLeft = 0;
-    this._previousTop = 0;
-    this._cardStyles.style.left = 0;
-    this._cardStyles.style.top = 0;
+    // this._previousLeft = 0;
+    // this._previousTop = 0;
+    // this._cardStyles.style.left = 0;
+    // this._cardStyles.style.top = 0;
     // TODO: Only reset after `onCardDrop` logic has ran
-    this._updateNativeStyles();
+    // this._updateNativeStyles();
   };
 
   render() {
-    const { card = {}, disabled, flipped, style, ...rest } = this.props;
+    const {
+      card = {},
+      disabled,
+      flipped,
+      onCardDrop, // prevent from being applied to ...rest
+      style,
+      ...rest
+    } = this.props;
 
     if (disabled) {
       return (

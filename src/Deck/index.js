@@ -30,9 +30,9 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
             position: "absolute",
             left: i === 0 ? 0 : i * 6 + 100,
             top: 0,
+            ...shadow,
           }}
           disabled={i !== 0}
-          {...shadow}
         />
       );
     })}

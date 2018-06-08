@@ -1,7 +1,9 @@
 import React from "react";
 import colors from "./colors";
 
-import {
+import Animals from "../Animals";
+
+const {
   Bat,
   Bear,
   Boar,
@@ -30,7 +32,7 @@ import {
   Turtle,
   Wolf,
   Zebra,
-} from "../Animals";
+} = Animals;
 
 export default {
   bat: {

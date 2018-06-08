@@ -7,7 +7,9 @@ import Logo from "../Logo";
 const CardBack = ({ height, style, width }) => (
   <View style={[styles.root, style]}>
     <ImageBackground source={require("./card-back.png")} style={styles.root}>
-      <Logo width={80} height={24} fill="#fff" />
+      <View>
+        <Logo width={80} height={24} fill="#fff" />
+      </View>
     </ImageBackground>
   </View>
 );

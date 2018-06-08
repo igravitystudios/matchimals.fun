@@ -27,7 +27,7 @@ import Turtle from "./Turtle";
 import Wolf from "./Wolf";
 import Zebra from "./Zebra";
 
-module.exports = {
+const Animals = {
   Bat,
   Bear,
   Boar,
@@ -57,3 +57,5 @@ module.exports = {
   Wolf,
   Zebra,
 };
+
+export default Animals;

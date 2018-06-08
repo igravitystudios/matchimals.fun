@@ -14,10 +14,12 @@ import { isLegalMove } from "./Game";
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
 // 2. https://github.com/facebook/react-native/issues/17504
-YellowBox.ignoreWarnings([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader requires main queue",
-]);
+if (Platform.OS !== "web") {
+  YellowBox.ignoreWarnings([
+    "Warning: isMounted(...) is deprecated",
+    "Module RCTImageLoader requires main queue",
+  ]);
+}
 
 class App extends Component {
   state = {
@@ -54,8 +56,11 @@ class App extends Component {
     const cellsFromTop = Math.round(distanceTop / cardHeight);
     const targetCell = cellsFromTop * columns + cellsFromLeft;
 
+    console.log(measurements, targetCell);
+
     const { ctx, G } = this.props;
     if (isLegalMove(G, ctx, targetCell)) {
+      console.log("hello?");
       this.props.moves.placeCard(targetCell);
     }
   };
@@ -167,6 +172,7 @@ const styles = StyleSheet.create({
     position: "relative",
     width: "100%",
     height: "100%",
+    overflow: "hidden",
   },
 });
 
