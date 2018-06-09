@@ -146,6 +146,9 @@ export function getInitialState(ctx) {
     G.deck.push(G.deck.shift()); // Place top card to bottom of deck, try again!
   }
 
+  // For debugging "game over" state– this sets the deck to only have a single card
+  // G.deck = new Array(G.deck[0]);
+
   console.log("Initial Game State", G, "Initial ctx", ctx);
 
   // Our game state is ready to go– return it!

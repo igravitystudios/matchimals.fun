@@ -8,6 +8,7 @@ import CircleButton from "./CircleButton";
 import Nameplate from "./Nameplate";
 import Table from "./Table";
 import Menu from "./Menu";
+import Confetti from "./Confetti";
 import { isLegalMove } from "./Game";
 
 // lol– these'll be fixed soon.
@@ -93,6 +94,8 @@ class App extends Component {
     const deck = this.props.G.deck;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
+    const gameover = this.props.ctx.gameover;
+    console.log(gameover);
 
     return (
       <View style={styles.root}>
@@ -158,6 +161,7 @@ class App extends Component {
         >
           ?
         </CircleButton>
+        {gameover && <Confetti />}
         {isMenuVisible && (
           <Menu
             onGameReset={this.onGameReset}

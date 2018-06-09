@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Card from "../Card";
 import {
@@ -19,13 +19,7 @@ const Board = ({ G }) => {
       const value = G.cells[id];
       cells.push(
         <View key={id} id={id} style={styles.cell}>
-          {value ? (
-            <Card card={value} flipped disabled />
-          ) : (
-            <View>
-              <Text>{id}</Text>
-            </View>
-          )}
+          {value ? <Card card={value} flipped disabled /> : null}
         </View>
       );
     }

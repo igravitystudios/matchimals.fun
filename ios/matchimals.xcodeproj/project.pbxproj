@@ -36,7 +36,6 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		4C48DFEC102F49E5A50F4BA1 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A777ADDE9C99482191C1C2C5 /* libRNSVG-tvOS.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		8114A91C8B7847298AE31F08 /* libRCTOrientation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E5C60FC03546449577D35F /* libRCTOrientation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		83259C9420C4A023006EF0F1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83259C9320C4A023006EF0F1 /* Launch Screen.storyboard */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -401,7 +400,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				8114A91C8B7847298AE31F08 /* libRCTOrientation.a in Frameworks */,
 				0E3AD398C7F549FC87F96EBB /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
