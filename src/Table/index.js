@@ -66,7 +66,7 @@ class Table extends Component {
   }
 
   _setTableRef = (table) => {
-    this.table = table;
+    this._table = table;
   };
 
   _activeDrag(e, gestureState) {
@@ -74,7 +74,7 @@ class Table extends Component {
   }
 
   _updateNativeStyles() {
-    this.table && this.table.setNativeProps(this._tableStyles);
+    this._table && this._table.setNativeProps(this._tableStyles);
   }
 
   _handleStartShouldSetPanResponder = (e, gestureState) => {
@@ -133,9 +133,12 @@ class Table extends Component {
     this._tableStyles.style.left = this._previousLeft;
     this._tableStyles.style.top = this._previousTop;
 
-    this.table.measure((x, y, width, height, pageX, pageY) => {});
-
     this._updateNativeStyles();
+
+    // For Debugging:
+    // this._table.measure((x, y, width, height, pageX, pageY) => {
+    //   console.log(x, y, width, height, pageX, pageY);
+    // });
   };
 
   render() {

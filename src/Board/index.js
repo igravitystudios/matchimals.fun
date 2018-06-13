@@ -19,7 +19,7 @@ const Board = ({ G }) => {
       const value = G.cells[id];
       cells.push(
         <View key={id} id={id} style={styles.cell}>
-          {value ? <Card card={value} flipped disabled /> : null}
+          {value && <Card card={value} flipped disabled />}
         </View>
       );
     }

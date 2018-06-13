@@ -85,6 +85,7 @@ class Card extends Component {
     this.card.measure((x, y, width, height, pageX, pageY) => {
       this.props.onCardDrop({ x, y, width, height, pageX, pageY }).then(() => {
         // Reset card position back to default (top of deck)
+        console.log(x, y, width, height, pageX, pageY);
         this._previousLeft = 0;
         this._previousTop = 0;
         this._cardStyles.style.left = 0;
