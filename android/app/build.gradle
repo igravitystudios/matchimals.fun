@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     compile project(':react-native-svg')
     compile project(':react-native-orientation')
     compile fileTree(dir: "libs", include: ["*.jar"])

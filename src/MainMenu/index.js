@@ -3,11 +3,11 @@ import { ImageBackground, StyleSheet, View } from "react-native";
 
 import Button from "../Button";
 
-const Menu = ({}) => (
+const Menu = ({ startGame }) => (
   <View style={styles.root}>
     <ImageBackground source={require("./trianglify.png")} style={styles.root}>
-      <Button color="#fff" style={styles.menu}>
-        LOL
+      <Button color="#fff" style={styles.menu} onPress={startGame}>
+        Start Game
       </Button>
     </ImageBackground>
   </View>
@@ -16,7 +16,6 @@ const Menu = ({}) => (
 const styles = StyleSheet.create({
   root: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(20,13,10,0.9)",
     justifyContent: "center",
     alignItems: "center",
   },

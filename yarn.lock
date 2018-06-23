@@ -7988,6 +7988,10 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-native-splash-screen@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.0.9.tgz#5cdd026ae414d60cd86bcaa897bffacd16395bed"
+
 react-native-svg@6.3.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-6.3.1.tgz#06a573f17c59ce953a56fd62e776fd79d632d765"

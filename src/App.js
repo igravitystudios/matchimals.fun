@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import { Client } from "boardgame.io/react-native";
+import SplashScreen from "react-native-splash-screen";
 
 import Matchimals from "./Matchimals";
 import Game from "./Game";
@@ -33,6 +34,16 @@ class App extends Component {
     },
   };
 
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
+  startGame = () => {
+    this.setState({
+      isMenuVisible: false,
+    });
+  };
+
   render() {
     const { isMenuVisible } = this.state;
     const MatchimalsClient = Client({
@@ -45,7 +56,11 @@ class App extends Component {
     return (
       <View style={styles.root}>
         <StatusBar hidden />
-        {isMenuVisible ? <MainMenu /> : <MatchimalsClient />}
+        {isMenuVisible ? (
+          <MainMenu startGame={this.startGame} />
+        ) : (
+          <MatchimalsClient />
+        )}
       </View>
     );
   }
