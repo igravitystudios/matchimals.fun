@@ -125,7 +125,7 @@ export function getInitialState(ctx) {
   }
 
   // Shuffle resulting deck using lodash
-  G.deck = shuffle(G.deck); // TODO: Use boardgame.io provided random shuffle function
+  G.deck = shuffle(G.deck); // TODO: Use boardgame.io provided random shuffle function, which will be important when we are running a server
 
   // Set up the game state for each player
   for (let j = 0; j < ctx.numPlayers; j++) {

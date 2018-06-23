@@ -4,6 +4,7 @@ import { Client } from "boardgame.io/react-native";
 
 import Matchimals from "./Matchimals";
 import Game from "./Game";
+import MainMenu from "./MainMenu";
 
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
@@ -17,7 +18,7 @@ if (Platform.OS !== "web") {
 
 class App extends Component {
   state = {
-    isMenuVisible: false,
+    isMenuVisible: true,
     playerConfig: {
       "0": {
         name: "Player 1",
@@ -33,6 +34,7 @@ class App extends Component {
   };
 
   render() {
+    const { isMenuVisible } = this.state;
     const MatchimalsClient = Client({
       board: Matchimals,
       game: Game,
@@ -43,7 +45,7 @@ class App extends Component {
     return (
       <View style={styles.root}>
         <StatusBar hidden />
-        <MatchimalsClient />
+        {isMenuVisible ? <MainMenu /> : <MatchimalsClient />}
       </View>
     );
   }
