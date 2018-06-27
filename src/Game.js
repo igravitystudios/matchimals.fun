@@ -163,6 +163,8 @@ export function getInitialState(numPlayers) {
 }
 
 const Game = BGGame({
+  name: 'matchimals',
+
   // The setup method is passed numPlayers, which is set in the BGClient
   setup: getInitialState,
 

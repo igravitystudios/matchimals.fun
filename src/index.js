@@ -13,13 +13,16 @@ import './index.css';
 const Client = BGClient({
   board: App,
   game: Game,
+  multiplayer: { server: 'localhost:3333' },
   numPlayers: 2,
   debug: false,
 });
 
 ReactDOM.render(
   <ThemeProvider theme={{}}>
-    <Client />
+    <div>
+      <Client gameID="default" playerID="0" />
+    </div>
   </ThemeProvider>,
   document.getElementById('root')
 );

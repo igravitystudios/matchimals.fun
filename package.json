@@ -1,18 +1,18 @@
 {
   "name": "matchimals",
   "version": "1.33.7",
-  "private": true,
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "server": "babel-watch --presets es2015 server/index.js",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "boardgame.io": "0.16.7",
+    "boardgame.io": "0.17.1",
     "classnames": "2.2.5",
     "lodash": "4.17.5",
     "prop-types": "15.6.0",
@@ -24,6 +24,12 @@
     "react-jss": "8.2.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-watch": "^2.0.7",
     "husky": "0.14.3",
     "lint-staged": "6.1.0",
     "prettier": "1.10.2",
