@@ -9,6 +9,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPad Air\"",
     "web": "react-scripts start",
+    "deploy:beta": "cd ios && fastlane beta",
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
