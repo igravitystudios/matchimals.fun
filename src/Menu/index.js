@@ -3,9 +3,12 @@ import { StyleSheet, View } from "react-native";
 
 import Button from "../Button";
 
-const Menu = ({ onMenuToggle, onGameReset }) => (
+const Menu = ({ backToMainMenu, onMenuToggle }) => (
   <View style={styles.root}>
-    <Button color="#fff" style={styles.menu} onPress={onMenuToggle}>
+    <Button color="#fff" onPress={backToMainMenu}>
+      EXIT TO MAIN MENU
+    </Button>
+    <Button color="#fff" onPress={onMenuToggle}>
       BACK TO GAME
     </Button>
   </View>

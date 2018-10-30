@@ -19,7 +19,8 @@ if (Platform.OS !== "web") {
 
 class App extends Component {
   state = {
-    isMenuVisible: true,
+    isMainMenuVisible: true,
+    numPlayers: 1,
     playerConfig: {
       "0": {
         name: "Player 1",
@@ -35,17 +36,31 @@ class App extends Component {
   };
 
   componentDidMount() {
-    SplashScreen.hide();
+    if (Platform.OS !== "web") {
+      SplashScreen.hide();
+    }
   }
+
+  onNumPlayersChange = (numPlayers) => {
+    this.setState({
+      numPlayers,
+    });
+  };
+
+  backToMainMenu = () => {
+    this.setState({
+      isMainMenuVisible: true,
+    });
+  };
 
   startGame = () => {
     this.setState({
-      isMenuVisible: false,
+      isMainMenuVisible: false,
     });
   };
 
   render() {
-    const { isMenuVisible } = this.state;
+    const { isMainMenuVisible, numPlayers } = this.state;
     const MatchimalsClient = Client({
       board: Matchimals,
       game: Game,
@@ -56,10 +71,14 @@ class App extends Component {
     return (
       <View style={styles.root}>
         <StatusBar hidden />
-        {isMenuVisible ? (
-          <MainMenu startGame={this.startGame} />
+        {isMainMenuVisible ? (
+          <MainMenu
+            numPlayers={numPlayers}
+            onNumPlayersChange={this.onNumPlayersChange}
+            startGame={this.startGame}
+          />
         ) : (
-          <MatchimalsClient />
+          <MatchimalsClient backToMainMenu={this.backToMainMenu} />
         )}
       </View>
     );

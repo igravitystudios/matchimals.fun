@@ -72,25 +72,15 @@ class Matchimals extends Component {
     this.props.moves.pass();
   };
 
-  onGameReset = () => {
-    // e.preventDefault();
-    // this.props.moves.resetGame();
-    this.onMenuToggle();
-  };
-
   onMenuToggle = () => {
     this.setState((state) => ({
       isMenuVisible: !state.isMenuVisible,
     }));
   };
 
-  onScrollToCenter = () => {
-    this._table.scrollToCenter();
-  };
-
   render() {
     const { isMenuVisible, playerConfig } = this.state;
-    const { ...rest } = this.props;
+    const { backToMainMenu, ...rest } = this.props;
     const deck = this.props.G.deck;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
@@ -140,16 +130,6 @@ class Matchimals extends Component {
         >
           PASS
         </Button>
-        {/* <CircleButton
-          onPress={this.onScrollToCenter}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 96,
-          }}
-        >
-          +
-        </CircleButton> */}
         <CircleButton
           onPress={this.onMenuToggle}
           style={{
@@ -163,7 +143,7 @@ class Matchimals extends Component {
         {gameover && <Confetti />}
         {isMenuVisible && (
           <Menu
-            onGameReset={this.onGameReset}
+            backToMainMenu={backToMainMenu}
             onMenuToggle={this.onMenuToggle}
           />
         )}
