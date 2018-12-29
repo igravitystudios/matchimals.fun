@@ -111,23 +111,8 @@ class Matchimals extends Component {
             />
           ))}
         </View>
-        <Deck
-          cards={deck}
-          onCardDrop={this.onCardDrop}
-          style={{
-            position: "absolute",
-            bottom: 156,
-            left: 16,
-          }}
-        />
-        <Button
-          onPress={this.onGamePass}
-          style={{
-            position: "absolute",
-            bottom: 16,
-            right: 16,
-          }}
-        >
+        <Deck cards={deck} onCardDrop={this.onCardDrop} style={styles.deck} />
+        <Button onPress={this.onGamePass} style={styles.pass}>
           PASS
         </Button>
         <CircleButton
@@ -158,6 +143,16 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     overflow: "hidden",
+  },
+  deck: {
+    position: "absolute",
+    bottom: 156,
+    left: 16,
+  },
+  pass: {
+    position: "absolute",
+    bottom: 16,
+    right: 16,
   },
 });
 

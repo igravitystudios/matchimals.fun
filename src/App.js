@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   root: {
     position: "relative",
     width: "100%",
-    height: "100%",
+    height: Platform.OS === "web" ? "100vh" : "100%",
     overflow: "hidden",
   },
 });

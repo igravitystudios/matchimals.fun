@@ -4,12 +4,12 @@ import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
 class Button extends Component {
   render() {
-    const { children, style, ...rest } = this.props;
+    const { children, ...rest } = this.props;
 
     return (
       <TouchableHighlight underlayColor="transparent" {...rest}>
         <View style={styles.buttonWrapper}>
-          <View style={[styles.button, style]}>
+          <View style={styles.button}>
             <Text style={styles.buttonText}>{children}</Text>
           </View>
           <View style={styles.buttonShadow} />
