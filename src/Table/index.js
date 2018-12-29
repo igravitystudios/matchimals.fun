@@ -31,6 +31,7 @@ class Table extends Component {
       (props.style && props.style.left) || this._centeredWindow.left || 0;
     this._previousTop =
       (props.style && props.style.top) || this._centeredWindow.top || 0;
+    this._previousScale = 1;
     this._tableStyles = {};
   }
 
@@ -47,6 +48,7 @@ class Table extends Component {
       style: {
         left: this._previousLeft,
         top: this._previousTop,
+        transform: [{ scale: this._previousScale }],
       },
     };
   }
@@ -88,25 +90,66 @@ class Table extends Component {
   };
 
   _handlePanResponderGrant = (e, gestureState) => {
+    if (gestureState.numberActiveTouches === 2) {
+      let dx = Math.abs(
+        e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX
+      );
+      let dy = Math.abs(
+        e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY
+      );
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      this.distance = distance;
+    }
+
     this._activeDrag(e, gestureState);
   };
 
   _handlePanResponderMove = (e, gestureState) => {
-    this._activeDrag(e, gestureState);
+    // Zoom
+    if (gestureState.numberActiveTouches === 2) {
+      console.log("hit");
+      let dx = Math.abs(
+        e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX
+      );
+      let dy = Math.abs(
+        e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY
+      );
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      let scale = (distance / this.distance) * this._previousScale;
 
-    this._tableStyles.style.left = this._previousLeft + gestureState.dx;
-    this._tableStyles.style.top = this._previousTop + gestureState.dy;
-
-    // Block the viewport from panning outside table boundaries
-    if (this._tableStyles.style.left > this._boundaries.left) {
-      this._tableStyles.style.left = this._boundaries.left;
-    } else if (this._tableStyles.style.left < this._boundaries.right) {
-      this._tableStyles.style.left = this._boundaries.right;
+      // minScale to maxScale
+      if (scale > 0.5 && scale < 2) {
+        // this.setState({ scale, lastMovePinch: true });
+        this._tableStyles.style.transform = [{ scale }];
+      }
     }
-    if (this._tableStyles.style.top > this._boundaries.top) {
-      this._tableStyles.style.top = this._boundaries.top;
-    } else if (this._tableStyles.style.top < this._boundaries.bottom) {
-      this._tableStyles.style.top = this._boundaries.bottom;
+    // Pan
+    else if (gestureState.numberActiveTouches === 1) {
+      // if (this.state.lastMovePinch) {
+      //   gestureState.dx = 0;
+      //   gestureState.dy = 0;
+      // }
+      // let offsetX = this.state.lastX + gestureState.dx / this.state.scale;
+      // let offsetY = this.state.lastY + gestureState.dy / this.state.scale;
+      // // if ( offsetX < 0  || offsetY <  0 )
+      // this.setState({ offsetX, offsetY, lastMovePinch: false });
+
+      this._activeDrag(e, gestureState);
+
+      this._tableStyles.style.left = this._previousLeft + gestureState.dx;
+      this._tableStyles.style.top = this._previousTop + gestureState.dy;
+
+      // Block the viewport from panning outside table boundaries
+      if (this._tableStyles.style.left > this._boundaries.left) {
+        this._tableStyles.style.left = this._boundaries.left;
+      } else if (this._tableStyles.style.left < this._boundaries.right) {
+        this._tableStyles.style.left = this._boundaries.right;
+      }
+      if (this._tableStyles.style.top > this._boundaries.top) {
+        this._tableStyles.style.top = this._boundaries.top;
+      } else if (this._tableStyles.style.top < this._boundaries.bottom) {
+        this._tableStyles.style.top = this._boundaries.bottom;
+      }
     }
 
     this._updateNativeStyles();
@@ -117,6 +160,7 @@ class Table extends Component {
 
     this._previousLeft += gestureState.dx;
     this._previousTop += gestureState.dy;
+    this._previousScale = this._tableStyles.style.transform[0].scale;
 
     // Block the viewport from panning outside table boundaries
     if (this._previousLeft > this._boundaries.left) {
