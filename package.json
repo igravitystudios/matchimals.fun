@@ -13,6 +13,9 @@
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
+    "appcenter": "^1.13.0",
+    "appcenter-analytics": "^1.13.0",
+    "appcenter-crashes": "^1.13.0",
     "babel-polyfill": "6.26.0",
     "boardgame.io": "0.22.1",
     "lodash": "4.17.11",
@@ -29,11 +32,8 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
-    "babel-jest": "^24.7.1",
-    "jest": "^24.7.1",
-    "metro-react-native-babel-preset": "^0.53.1",
-    "react-test-renderer": "16.8.3",
     "babel-eslint": "7.2.3",
+    "babel-jest": "^24.7.1",
     "eslint": "4.16.0",
     "eslint-config-react-app": "2.1.0",
     "eslint-plugin-flowtype": "2.41.0",
@@ -42,9 +42,12 @@
     "eslint-plugin-react": "7.5.1",
     "flow-bin": "^0.73.0",
     "husky": "0.14.3",
+    "jest": "^24.7.1",
     "lint-staged": "7.1.2",
+    "metro-react-native-babel-preset": "^0.53.1",
     "prettier": "1.13.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
