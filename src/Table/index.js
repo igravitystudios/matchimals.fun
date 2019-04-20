@@ -106,25 +106,26 @@ class Table extends Component {
 
   _handlePanResponderMove = (e, gestureState) => {
     // Zoom
-    if (gestureState.numberActiveTouches === 2) {
-      console.log("hit");
-      let dx = Math.abs(
-        e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX
-      );
-      let dy = Math.abs(
-        e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY
-      );
-      let distance = Math.sqrt(dx * dx + dy * dy);
-      let scale = (distance / this.distance) * this._previousScale;
+    // if (gestureState.numberActiveTouches === 2) {
+    //   // WIP: Requires significant updates to the way we're handling card drop
+    //   let dx = Math.abs(
+    //     e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX
+    //   );
+    //   let dy = Math.abs(
+    //     e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY
+    //   );
+    //   let distance = Math.sqrt(dx * dx + dy * dy);
+    //   let scale = (distance / this.distance) * this._previousScale;
 
-      // minScale to maxScale
-      if (scale > 0.5 && scale < 2) {
-        // this.setState({ scale, lastMovePinch: true });
-        this._tableStyles.style.transform = [{ scale }];
-      }
-    }
+    //   // minScale to maxScale
+    //   if (scale > 0.5 && scale < 2) {
+    //     // this.setState({ scale, lastMovePinch: true });
+    //     this._tableStyles.style.transform = [{ scale }];
+    //   }
+    // }
+
     // Pan
-    else if (gestureState.numberActiveTouches === 1) {
+    if (gestureState.numberActiveTouches === 1) {
       // if (this.state.lastMovePinch) {
       //   gestureState.dx = 0;
       //   gestureState.dy = 0;

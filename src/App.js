@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import { Client } from "boardgame.io/react-native";
 import SplashScreen from "react-native-splash-screen";
+import colors from "./constants/colors";
 
 import Matchimals from "./Matchimals";
 import Game from "./Game";
@@ -25,12 +26,22 @@ class App extends Component {
       "0": {
         name: "Player 1",
         animal: "Monkey",
-        color: "#CAE1C3",
+        color: colors.greenLight,
       },
       "1": {
         name: "Player 2",
         animal: "Wolf",
-        color: "#C5E5F0",
+        color: colors.blueLight,
+      },
+      "2": {
+        name: "Player 3",
+        animal: "Gorilla",
+        color: colors.redLight,
+      },
+      "3": {
+        name: "Player 4",
+        animal: "Mouse",
+        color: colors.yellowLight,
       },
     },
   };
@@ -60,11 +71,11 @@ class App extends Component {
   };
 
   render() {
-    const { isMainMenuVisible, numPlayers } = this.state;
+    const { isMainMenuVisible, numPlayers, playerConfig } = this.state;
     const MatchimalsClient = Client({
       board: Matchimals,
       game: Game,
-      numPlayers: 2,
+      numPlayers,
       debug: false,
     });
 
@@ -78,7 +89,10 @@ class App extends Component {
             startGame={this.startGame}
           />
         ) : (
-          <MatchimalsClient backToMainMenu={this.backToMainMenu} />
+          <MatchimalsClient
+            backToMainMenu={this.backToMainMenu}
+            playerConfig={playerConfig}
+          />
         )}
       </View>
     );

@@ -24,18 +24,6 @@ if (Platform.OS !== "web") {
 class Matchimals extends Component {
   state = {
     isMenuVisible: false,
-    playerConfig: {
-      "0": {
-        name: "Player 1",
-        animal: "Monkey",
-        color: "#CAE1C3",
-      },
-      "1": {
-        name: "Player 2",
-        animal: "Wolf",
-        color: "#C5E5F0",
-      },
-    },
   };
 
   onCardDrop = (measurements) => {
@@ -79,8 +67,8 @@ class Matchimals extends Component {
   };
 
   render() {
-    const { isMenuVisible, playerConfig } = this.state;
-    const { backToMainMenu, ...rest } = this.props;
+    const { isMenuVisible } = this.state;
+    const { backToMainMenu, playerConfig, ...rest } = this.props;
     const deck = this.props.G.deck;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
