@@ -162,35 +162,26 @@ const Game = BGGame({
   moves: {
     // G and ctx are provided automatically when calling from App– `this.props.moves.placeCard(id)`
     placeCard: (G, ctx, id) => {
-      // Clone cells and players state so we don't mutate values
-      const cells = [...G.cells];
-      const players = { ...G.players };
-      const deck = [...G.deck];
-      const currentCard = deck[0];
-
       // Ensure we can't overwrite cells.
       if (isLegalMove(G, ctx, id)) {
         //Lay the card on the board
-        cells[id] = currentCard;
-        players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
+        G.cells[id] = G.deck[0];
+        G.players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
 
         //Next card shifts up the deck
-        deck.shift();
+        G.deck.shift();
       }
 
-      // Return a copy of game state, along with updated cells and players state
-      return { ...G, cells, deck, players };
+      // Return the updated game state- because G is an Immer object we can mutate it directly
+      return G;
     },
 
     pass: (G, ctx) => {
-      // Clone players state so we don't mutate values
-      const deck = [...G.deck];
-
       // Place top card to bottom of deck
-      deck.push(deck.shift());
+      G.deck.push(G.deck.shift());
 
-      // Return a copy of game state, along with updated deck
-      return { ...G, deck };
+      // Return the updated game state- because G is an Immer object we can mutate it directly
+      return G;
     },
   },
 

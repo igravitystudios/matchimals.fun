@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { PanResponder, StyleSheet, View } from "react-native";
 
 import { cardHeight, cardWidth } from "../constants/board";
@@ -125,15 +124,6 @@ class Card extends Component {
     );
   }
 }
-
-Card.propTypes = {
-  card: PropTypes.shape({
-    top: PropTypes.string,
-    right: PropTypes.string,
-    bottom: PropTypes.string,
-    left: PropTypes.string,
-  }).isRequired,
-};
 
 const styles = StyleSheet.create({
   root: {

@@ -10,6 +10,4 @@ In a seperate tab, start emulators: `yarn run ios` or `yarn run android`
 
 ---
 
-This project is built on Google's [boardgame.io](https://github.com/google/boardgame.io) engine.
-
-This project utilizes Facebook's [React Native](https://facebook.github.io/react-native/).
+This project is built on the open-source turn-based game engine [boardgame.io](https://github.com/nicolodavis/boardgame.io) and [React Native](https://facebook.github.io/react-native/).

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { StyleSheet, View } from "react-native";
 
 import Card from "../Card";
@@ -41,10 +40,6 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
 
 Deck.defaultProps = {
   cards: [],
-};
-
-Deck.propTypes = {
-  cards: PropTypes.array.isRequired,
 };
 
 const styles = StyleSheet.create({

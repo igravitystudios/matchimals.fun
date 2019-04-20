@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
 class Button extends Component {
@@ -18,10 +17,6 @@ class Button extends Component {
     );
   }
 }
-
-Button.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 const styles = StyleSheet.create({
   buttonWrapper: {

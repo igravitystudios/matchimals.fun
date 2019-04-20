@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { StyleSheet, Text, View } from "react-native";
 import Svg, { Polygon } from "svgs";
 
@@ -19,6 +18,7 @@ const pointStyles = {
     height: 1,
   },
 };
+
 const CardFront = ({ card, style }) => (
   <View style={[styles.root, style]}>
     <Svg
@@ -125,15 +125,6 @@ const CardFront = ({ card, style }) => (
 
 CardFront.defaultProps = {
   card: {},
-};
-
-CardFront.propTypes = {
-  card: PropTypes.shape({
-    top: PropTypes.string,
-    right: PropTypes.string,
-    bottom: PropTypes.string,
-    left: PropTypes.string,
-  }).isRequired,
 };
 
 const styles = StyleSheet.create({
