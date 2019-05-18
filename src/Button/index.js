@@ -1,66 +1,58 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import colors from "../constants/colors";
 
 class Button extends Component {
   render() {
-    const { children, ...rest } = this.props;
+    const { children, color, selected, ...rest } = this.props;
 
     return (
-      <TouchableHighlight underlayColor="transparent" {...rest}>
-        <View style={styles.buttonWrapper}>
-          <View style={styles.button}>
+      <TouchableOpacity activeOpacity={0.8} {...rest}>
+        <View
+          style={[
+            styles.button,
+            color && { backgroundColor: color },
+            selected && styles.selected,
+          ]}
+        >
+          <View style={styles.buttonInner}>
             <Text style={styles.buttonText}>{children}</Text>
           </View>
-          <View style={styles.buttonShadow} />
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  buttonWrapper: {
-    width: 240,
-    height: 66,
-    position: "relative",
-  },
   button: {
     alignItems: "center",
     justifyContent: "center",
-    width: 240,
-    height: 60,
+    height: 64,
+    backgroundColor: "#C5E5F0",
     borderRadius: 16,
-    backgroundColor: "#DB7270",
     borderWidth: 4,
-    borderColor: "#FF9E9C",
+    borderColor: "#fff",
   },
-  buttonShadow: {
-    position: "absolute",
-    width: 240,
-    height: 60,
-    borderRadius: 16,
-    backgroundColor: "#945C5A",
-    bottom: 0,
-    left: 0,
-    zIndex: -1,
-    shadowColor: "rgba(0,0,0,0.420)",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 2,
+  selected: {
+    // borderColor: colors.greenLight,
+    backgroundColor: colors.yellowLight,
+  },
+  buttonInner: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 4,
+    borderColor: colors.grayDark,
+    borderRadius: 12,
+    paddingHorizontal: 32,
   },
   buttonText: {
     fontFamily: "Dimbo",
     fontSize: 32,
-    color: "#fff",
-    textShadowColor: "rgba(0,0,0,0.420)",
-    textShadowRadius: 0,
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    color: colors.grayDark,
   },
 });
 

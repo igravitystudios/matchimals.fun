@@ -86,8 +86,8 @@ class Matchimals extends Component {
         <View
           style={{
             position: "absolute",
-            top: 20,
-            left: 24,
+            top: 16,
+            left: 16,
           }}
         >
           {Object.keys(players).map((playerIndex) => (

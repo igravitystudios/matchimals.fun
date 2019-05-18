@@ -27,7 +27,7 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
           flipped={i === 0}
           style={{
             position: "absolute",
-            left: i === 0 ? 0 : i * 6 + 100,
+            left: i === 0 ? 0 : i * 4 + 100,
             top: 0,
             ...shadow,
           }}

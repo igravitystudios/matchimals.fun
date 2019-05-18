@@ -11,4 +11,5 @@ module.exports = {
   purpleMedium: "#94638D",
   grayLight: "#9F9FB7",
   grayMedium: "#5D5D6B",
+  grayDark: "#17171b",
 };
