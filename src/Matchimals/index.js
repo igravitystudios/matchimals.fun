@@ -1,5 +1,12 @@
-import React, { Component } from "react";
-import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
+import React, { Component, Fragment } from "react";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  YellowBox,
+} from "react-native";
 
 import { cardHeight, cardWidth, columns } from "../constants/board";
 import Deck from "../Deck";
@@ -76,44 +83,52 @@ class Matchimals extends Component {
     const gameover = this.props.ctx.gameover;
 
     return (
-      <View style={styles.root}>
-        <StatusBar hidden />
-        <Table
-          ref={(tableComponent) => {
-            this._table = tableComponent;
-          }}
-          {...rest}
-        />
-        <View
-          style={{
-            position: "absolute",
-            top: 16,
-            left: 16,
-          }}
-        >
-          {Object.keys(players).map((playerIndex) => (
-            <Nameplate
-              key={playerIndex}
-              active={playerIndex === currentPlayer}
-              player={players[playerIndex]}
-              playerConfig={playerConfig[playerIndex]}
+      <Fragment>
+        <SafeAreaView style={styles.root}>
+          <View style={styles.root}>
+            <StatusBar hidden />
+            <Table
+              ref={(tableComponent) => {
+                this._table = tableComponent;
+              }}
+              {...rest}
             />
-          ))}
-        </View>
-        <Deck cards={deck} onCardDrop={this.onCardDrop} style={styles.deck} />
-        <Button onPress={this.onGamePass} style={styles.pass}>
-          PASS
-        </Button>
-        <CircleButton
-          onPress={this.onMenuToggle}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-          }}
-        >
-          ?
-        </CircleButton>
+            <View
+              style={{
+                position: "absolute",
+                top: 16,
+                left: 16,
+              }}
+            >
+              {Object.keys(players).map((playerIndex) => (
+                <Nameplate
+                  key={playerIndex}
+                  active={playerIndex === currentPlayer}
+                  player={players[playerIndex]}
+                  playerConfig={playerConfig[playerIndex]}
+                />
+              ))}
+            </View>
+            <Deck
+              cards={deck}
+              onCardDrop={this.onCardDrop}
+              style={styles.deck}
+            />
+            <Button onPress={this.onGamePass} style={styles.pass}>
+              PASS
+            </Button>
+            <CircleButton
+              onPress={this.onMenuToggle}
+              style={{
+                position: "absolute",
+                top: 16,
+                right: 16,
+              }}
+            >
+              ?
+            </CircleButton>
+          </View>
+        </SafeAreaView>
         {gameover && <Confetti onPress={this.onMenuToggle} />}
         {isMenuVisible && (
           <Menu
@@ -121,17 +136,14 @@ class Matchimals extends Component {
             onMenuToggle={this.onMenuToggle}
           />
         )}
-      </View>
+      </Fragment>
     );
   }
 }
 
 const styles = StyleSheet.create({
   root: {
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
+    flex: 1,
   },
   deck: {
     position: "absolute",
