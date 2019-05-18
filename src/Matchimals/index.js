@@ -10,6 +10,7 @@ import Table from "../Table";
 import Menu from "../Menu";
 import Confetti from "../Confetti";
 import { isLegalMove } from "../Game";
+import colors from "../constants/colors";
 
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
@@ -113,7 +114,7 @@ class Matchimals extends Component {
         >
           ?
         </CircleButton>
-        {gameover && <Confetti />}
+        {gameover && <Confetti onPress={this.onMenuToggle} />}
         {isMenuVisible && (
           <Menu
             backToMainMenu={backToMainMenu}
