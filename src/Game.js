@@ -188,13 +188,13 @@ const Game = BGGame({
   flow: {
     endGameIf: (G, ctx) => {
       if (G.deck.length === 0) {
-        // TODO: Logic should be based on ctx.numPlayers
-        if (G.players[0].score > G.players[1].score) {
-          return "0";
-        } else {
-          // TODO: Need to also handle a tie game
-          return "1";
-        }
+        const winner = Object.keys(G.players).reduce(
+          (previousPlayer, currentPlayer) =>
+            G.players[previousPlayer].score > G.players[currentPlayer].score
+              ? previousPlayer
+              : currentPlayer
+        );
+        return winner;
       }
     },
     movesPerTurn: 1,
