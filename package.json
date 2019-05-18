@@ -13,9 +13,6 @@
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
-    "appcenter": "1.13.0",
-    "appcenter-analytics": "1.13.0",
-    "appcenter-crashes": "1.13.0",
     "babel-polyfill": "6.26.0",
     "boardgame.io": "0.31.4",
     "lodash": "4.17.11",

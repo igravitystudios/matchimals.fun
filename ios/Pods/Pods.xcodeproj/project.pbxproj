@@ -6,74 +6,22 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		397BBDFEBE9CC818487FA8ABB7623A33 /* AppCenter */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = D0944D0DEFF9CDF0CBE6D4A41B195020 /* Build configuration list for PBXAggregateTarget "AppCenter" */;
-			buildPhases = (
-			);
-			dependencies = (
-			);
-			name = AppCenter;
-		};
-		ED8B76EC90CA1D894B6D38663D04C292 /* AppCenterReactNativeShared */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = B1AADDABC0FF92BF51AC88E6BD57DB25 /* Build configuration list for PBXAggregateTarget "AppCenterReactNativeShared" */;
-			buildPhases = (
-			);
-			dependencies = (
-				0051E4214884EF5346A2A55966EC832B /* PBXTargetDependency */,
-			);
-			name = AppCenterReactNativeShared;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		C45E124114D72BBB2BFF760D9274CF30 /* Pods-matchimals-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B4A48832DE0C712B5E96D420ED5360 /* Pods-matchimals-dummy.m */; };
+		29A0DBB1C671EE15DAC377521E7C8790 /* Pods-matchimals-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B4A48832DE0C712B5E96D420ED5360 /* Pods-matchimals-dummy.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1A486CE64BD80468AEB218DCA953882C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 397BBDFEBE9CC818487FA8ABB7623A33;
-			remoteInfo = AppCenter;
-		};
-		CB4624526E914152665B2395CA404163 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ED8B76EC90CA1D894B6D38663D04C292;
-			remoteInfo = AppCenterReactNativeShared;
-		};
-		D96B09CB6F7CDF72F3099DD83AD5AB87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 397BBDFEBE9CC818487FA8ABB7623A33;
-			remoteInfo = AppCenter;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		101086D48961A1F5D174F74008C809D8 /* AppCenterReactNativeShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterReactNativeShared.framework; path = AppCenterReactNativeShared/AppCenterReactNativeShared.framework; sourceTree = "<group>"; };
 		1DC7AF88DE83068C954E414EB1A3BB73 /* Pods-matchimals-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-matchimals-acknowledgements.markdown"; sourceTree = "<group>"; };
 		256B27AEE877CAD2B7E7925F2D417F76 /* libPods-matchimals.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-matchimals.a"; path = "libPods-matchimals.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		259A51087349695F5B93EE5070F4CE70 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenter.framework; path = "AppCenter-SDK-Apple/iOS/AppCenter.framework"; sourceTree = "<group>"; };
-		57447041E60F2B2A34B159A833C2254C /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterAnalytics.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterAnalytics.framework"; sourceTree = "<group>"; };
 		57ABD478BE692C37036DC8A505D26EBC /* Pods-matchimals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-matchimals.debug.xcconfig"; sourceTree = "<group>"; };
-		59CE2BED226D8BACCDFB3EEC78580EC1 /* AppCenter.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenter.xcconfig; sourceTree = "<group>"; };
 		71B4A48832DE0C712B5E96D420ED5360 /* Pods-matchimals-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-matchimals-dummy.m"; sourceTree = "<group>"; };
 		98AD386B1EA7D158A84CCDEACB22BF01 /* Pods-matchimals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-matchimals.release.xcconfig"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B949CDF652086A792464DA9B3CE2C9FA /* AppCenterReactNativeShared.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AppCenterReactNativeShared.xcconfig; sourceTree = "<group>"; };
 		E6617529084D3B055F2E5ED4F1BEBAB2 /* Pods-matchimals-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-matchimals-acknowledgements.plist"; sourceTree = "<group>"; };
-		F4CE7345C6137AF49A54827B4AEA2E17 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppCenterCrashes.framework; path = "AppCenter-SDK-Apple/iOS/AppCenterCrashes.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D35B2DEFEF09050A76B16E33500DAC48 /* Frameworks */ = {
+		0402EA653AA6A940D5ABF6FEA021577A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -83,32 +31,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E40D94BB364328FBE96A84A9A48CC14 /* AppCenterReactNativeShared */ = {
-			isa = PBXGroup;
-			children = (
-				ED7F0E7602AAB87E8282D7EE77A128F2 /* Frameworks */,
-				C2F79BBE68CAC64203149AF75B3502BF /* Support Files */,
-			);
-			name = AppCenterReactNativeShared;
-			path = AppCenterReactNativeShared;
-			sourceTree = "<group>";
-		};
-		23977631E0E947775B0FF421D89FC310 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				259A51087349695F5B93EE5070F4CE70 /* AppCenter.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2D46366A65DDC0794CEBC0FE82BB8A8A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				57447041E60F2B2A34B159A833C2254C /* AppCenterAnalytics.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		30733AB1521134E91A3ECA098661102C /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,77 +52,14 @@
 			path = "Target Support Files/Pods-matchimals";
 			sourceTree = "<group>";
 		};
-		5D0D3521F21C1BB5DCE82B8CAEF9692B /* AppCenter */ = {
-			isa = PBXGroup;
-			children = (
-				6EDB0407D90518B826ED8A5E5A0B7C09 /* Analytics */,
-				94182EE150168D8F091F83224D20C0A4 /* Core */,
-				9B7151692B2AC286B115FA8800335CA1 /* Crashes */,
-				D7E2631FD0126E1F8A2EF339F5A433A9 /* Support Files */,
-			);
-			name = AppCenter;
-			path = AppCenter;
-			sourceTree = "<group>";
-		};
-		6EDB0407D90518B826ED8A5E5A0B7C09 /* Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				2D46366A65DDC0794CEBC0FE82BB8A8A /* Frameworks */,
-			);
-			name = Analytics;
-			sourceTree = "<group>";
-		};
-		94182EE150168D8F091F83224D20C0A4 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				23977631E0E947775B0FF421D89FC310 /* Frameworks */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		9B7151692B2AC286B115FA8800335CA1 /* Crashes */ = {
-			isa = PBXGroup;
-			children = (
-				BB344F108DF82A6C8E5EC1D35D0DE13C /* Frameworks */,
-			);
-			name = Crashes;
-			sourceTree = "<group>";
-		};
-		BB344F108DF82A6C8E5EC1D35D0DE13C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F4CE7345C6137AF49A54827B4AEA2E17 /* AppCenterCrashes.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C2F79BBE68CAC64203149AF75B3502BF /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B949CDF652086A792464DA9B3CE2C9FA /* AppCenterReactNativeShared.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/AppCenterReactNativeShared";
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
-				EE373CD21EE89767163B4F9D8A04C324 /* Pods */,
 				E8EE2BDAE3ED35C92A5B9CD09CFAAFA7 /* Products */,
 				30733AB1521134E91A3ECA098661102C /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		D7E2631FD0126E1F8A2EF339F5A433A9 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				59CE2BED226D8BACCDFB3EEC78580EC1 /* AppCenter.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/AppCenter";
 			sourceTree = "<group>";
 		};
 		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
@@ -218,27 +77,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED7F0E7602AAB87E8282D7EE77A128F2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				101086D48961A1F5D174F74008C809D8 /* AppCenterReactNativeShared.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EE373CD21EE89767163B4F9D8A04C324 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				5D0D3521F21C1BB5DCE82B8CAEF9692B /* AppCenter */,
-				1E40D94BB364328FBE96A84A9A48CC14 /* AppCenterReactNativeShared */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		63A235670BCECBD8980EA1B29EE01CBE /* Headers */ = {
+		5E13B32766646FFAC863CCDE5B42E950 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -248,19 +90,17 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8046CE5D1E8C912D5CC288D91DB19B2D /* Pods-matchimals */ = {
+		129D9B8D3A099394FEC589415EDF4847 /* Pods-matchimals */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 23A0117E41F8ECB6647D366C9C5493D4 /* Build configuration list for PBXNativeTarget "Pods-matchimals" */;
+			buildConfigurationList = D665DF63DDD76D9839F1DA4650F02CB4 /* Build configuration list for PBXNativeTarget "Pods-matchimals" */;
 			buildPhases = (
-				63A235670BCECBD8980EA1B29EE01CBE /* Headers */,
-				CFF9EB1F16E9B06C170BC3E4E64D588D /* Sources */,
-				D35B2DEFEF09050A76B16E33500DAC48 /* Frameworks */,
+				5E13B32766646FFAC863CCDE5B42E950 /* Headers */,
+				4E9515B3B8087DA7E4DB7BCEC89C66B2 /* Sources */,
+				0402EA653AA6A940D5ABF6FEA021577A /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0562FCCE931176740CCFFDF2768131CE /* PBXTargetDependency */,
-				246EC4BEEDCA555015ACE5DCB5EC9CE7 /* PBXTargetDependency */,
 			);
 			name = "Pods-matchimals";
 			productName = "Pods-matchimals";
@@ -288,44 +128,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				397BBDFEBE9CC818487FA8ABB7623A33 /* AppCenter */,
-				ED8B76EC90CA1D894B6D38663D04C292 /* AppCenterReactNativeShared */,
-				8046CE5D1E8C912D5CC288D91DB19B2D /* Pods-matchimals */,
+				129D9B8D3A099394FEC589415EDF4847 /* Pods-matchimals */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CFF9EB1F16E9B06C170BC3E4E64D588D /* Sources */ = {
+		4E9515B3B8087DA7E4DB7BCEC89C66B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C45E124114D72BBB2BFF760D9274CF30 /* Pods-matchimals-dummy.m in Sources */,
+				29A0DBB1C671EE15DAC377521E7C8790 /* Pods-matchimals-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0051E4214884EF5346A2A55966EC832B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppCenter;
-			target = 397BBDFEBE9CC818487FA8ABB7623A33 /* AppCenter */;
-			targetProxy = D96B09CB6F7CDF72F3099DD83AD5AB87 /* PBXContainerItemProxy */;
-		};
-		0562FCCE931176740CCFFDF2768131CE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppCenter;
-			target = 397BBDFEBE9CC818487FA8ABB7623A33 /* AppCenter */;
-			targetProxy = 1A486CE64BD80468AEB218DCA953882C /* PBXContainerItemProxy */;
-		};
-		246EC4BEEDCA555015ACE5DCB5EC9CE7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppCenterReactNativeShared;
-			target = ED8B76EC90CA1D894B6D38663D04C292 /* AppCenterReactNativeShared */;
-			targetProxy = CB4624526E914152665B2395CA404163 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		07488D4657FB0A78086563621D425F8A /* Debug */ = {
@@ -392,34 +209,7 @@
 			};
 			name = Debug;
 		};
-		44DA8D30A185CF39FF38CACD51676CDD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B949CDF652086A792464DA9B3CE2C9FA /* AppCenterReactNativeShared.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		6F4D25CB9F599D775DBC451590213731 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59CE2BED226D8BACCDFB3EEC78580EC1 /* AppCenter.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		797E69F4E1C65B7685CF9E6960F0F85E /* Debug */ = {
+		12BA97D78BF7DC51FBF81F0D374FE844 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57ABD478BE692C37036DC8A505D26EBC /* Pods-matchimals.debug.xcconfig */;
 			buildSettings = {
@@ -439,20 +229,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		8A791558A6CAD52F6A29BE7CDFC70C4B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59CE2BED226D8BACCDFB3EEC78580EC1 /* AppCenter.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
 		};
 		A1962E6FF39BBAC201A2E5DDF99557DF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -514,7 +290,7 @@
 			};
 			name = Release;
 		};
-		BF2DA98137098CD33412DC6BF0D59756 /* Release */ = {
+		E0B87ACF56955AEF23E6E959230AA842 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98AD386B1EA7D158A84CCDEACB22BF01 /* Pods-matchimals.release.xcconfig */;
 			buildSettings = {
@@ -536,31 +312,9 @@
 			};
 			name = Release;
 		};
-		C4939254D9B12C5F8E84CFE6C51D11AE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B949CDF652086A792464DA9B3CE2C9FA /* AppCenterReactNativeShared.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		23A0117E41F8ECB6647D366C9C5493D4 /* Build configuration list for PBXNativeTarget "Pods-matchimals" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				797E69F4E1C65B7685CF9E6960F0F85E /* Debug */,
-				BF2DA98137098CD33412DC6BF0D59756 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -570,20 +324,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1AADDABC0FF92BF51AC88E6BD57DB25 /* Build configuration list for PBXAggregateTarget "AppCenterReactNativeShared" */ = {
+		D665DF63DDD76D9839F1DA4650F02CB4 /* Build configuration list for PBXNativeTarget "Pods-matchimals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C4939254D9B12C5F8E84CFE6C51D11AE /* Debug */,
-				44DA8D30A185CF39FF38CACD51676CDD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D0944D0DEFF9CDF0CBE6D4A41B195020 /* Build configuration list for PBXAggregateTarget "AppCenter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6F4D25CB9F599D775DBC451590213731 /* Debug */,
-				8A791558A6CAD52F6A29BE7CDFC70C4B /* Release */,
+				12BA97D78BF7DC51FBF81F0D374FE844 /* Debug */,
+				E0B87ACF56955AEF23E6E959230AA842 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

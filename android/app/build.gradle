@@ -138,9 +138,6 @@ android {
 }
 
 dependencies {
-    implementation project(':appcenter-crashes')
-    implementation project(':appcenter-analytics')
-    implementation project(':appcenter')
     compile project(':react-native-svg')
     compile project(':react-native-splash-screen')
     implementation fileTree(dir: "libs", include: ["*.jar"])
