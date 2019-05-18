@@ -9,13 +9,9 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
       let shadow;
       if (i !== 0) {
         shadow = {
-          shadowColor: "#fff",
-          shadowOffset: {
-            width: -1,
-            height: 0,
-          },
-          shadowOpacity: 0.8,
-          shadowRadius: 0,
+          // Shadow props were causing performance issues- let's use a solid border instead of a white shadow
+          borderLeftWidth: 1,
+          borderLeftColor: "#fff",
         };
       }
 
