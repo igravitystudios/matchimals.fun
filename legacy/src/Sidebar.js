@@ -58,6 +58,7 @@ export default withStyles({
     marginBottom: '24px',
   },
   logoMark: {
+    height: '60px',
     padding: '8px',
     filter: 'drop-shadow(1px 1px 0 rgba(41,26,19,0.420))',
   },

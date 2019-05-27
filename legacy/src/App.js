@@ -67,6 +67,20 @@ class App extends Component {
             width: '220px',
           }}
         />
+        <a
+          href="https://www.matchimals.app"
+          style={{
+            position: 'fixed',
+            top: '8px',
+            left: '8px',
+            color: '#fff',
+            fontWeight: 'bold',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            padding: 16,
+          }}
+        >
+          Download the App Here
+        </a>
         {isMenuVisible && (
           <Menu
             winner={this.props.ctx.gameover}
