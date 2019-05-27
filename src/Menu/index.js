@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 9999999999, // active card will have a zIndex of `e.timeStamp`- so this needs to be larger
   },
   // Hacky way to have an opaque background without using rgba
   underlay: {
