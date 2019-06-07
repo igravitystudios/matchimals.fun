@@ -1,15 +1,14 @@
 {
   "name": "matchimals",
   "version": "1.33.7",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
-    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/matchimals/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPad Air\"",
     "web": "react-scripts start",
-    "deploy:beta": "cd ios && fastlane beta",
+    "build": "react-scripts build",
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
