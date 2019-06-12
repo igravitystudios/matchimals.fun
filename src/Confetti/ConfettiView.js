@@ -74,7 +74,7 @@ class ConfettiView extends Component {
 }
 
 ConfettiView.defaultProps = {
-  confettiCount: 100,
+  confettiCount: 120,
   timeout: 30,
   untilStopped: false,
 };

@@ -15,7 +15,7 @@ import CircleButton from "../CircleButton";
 import Nameplate from "../Nameplate";
 import Table from "../Table";
 import Menu from "../Menu";
-import Confetti from "../Confetti";
+import Victory from "../Victory";
 import { isLegalMove } from "../Game";
 
 // lol– these'll be fixed soon.
@@ -128,7 +128,13 @@ class Matchimals extends Component {
             </CircleButton>
           </View>
         </SafeAreaView>
-        {gameover && <Confetti onPress={this.onMenuToggle} />}
+        {gameover && (
+          <Victory
+            backToMainMenu={backToMainMenu}
+            player={players[gameover]}
+            playerConfig={playerConfig[gameover]}
+          />
+        )}
         {isMenuVisible && (
           <Menu
             backToMainMenu={backToMainMenu}

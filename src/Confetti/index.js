@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ConfettiView from "./ConfettiView";
 
 import colors from "../constants/colors";
@@ -19,16 +19,15 @@ class Confetti extends Component {
   }
 
   render() {
-    const { onPress } = this.props;
     return (
-      <TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.root}>
+      <View style={styles.root}>
         <ConfettiView
           ref={(node) => (this._confettiView = node)}
           colors={colorValues}
           size={3}
           {...this.props}
         />
-      </TouchableOpacity>
+      </View>
     );
   }
 }
