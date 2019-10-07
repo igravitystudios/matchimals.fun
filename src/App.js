@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View, YellowBox } from "react-native";
 import { Client } from "boardgame.io/react-native";
-import SplashScreen from "react-native-splash-screen";
 import colors from "./constants/colors";
 
 import Matchimals from "./Matchimals";
@@ -45,12 +44,6 @@ class App extends Component {
       },
     },
   };
-
-  componentDidMount() {
-    if (Platform.OS !== "web") {
-      SplashScreen.hide();
-    }
-  }
 
   onNumPlayersChange = (numPlayers) => {
     this.setState({
