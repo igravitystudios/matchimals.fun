@@ -131,8 +131,8 @@ android {
         applicationId "com.matchimals"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 20191006
+        versionName "0.3.0"
     }
     splits {
         abi {
