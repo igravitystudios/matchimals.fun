@@ -17,6 +17,7 @@ import Table from "../Table";
 import Menu from "../Menu";
 import Victory from "../Victory";
 import { isLegalMove } from "../Game";
+import { MusicContext } from "../Music";
 
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
@@ -29,6 +30,8 @@ if (Platform.OS !== "web") {
 }
 
 class Matchimals extends Component {
+  static contextType = MusicContext;
+
   state = {
     isMenuVisible: false,
   };
@@ -57,13 +60,17 @@ class Matchimals extends Component {
 
     return new Promise((resolve) => {
       if (isLegalMove(G, ctx, targetCell)) {
+        this.context.playSoundEffect1(); // Play card drop sound effect
         this.props.moves.placeCard(targetCell);
+      } else {
+        this.context.playSoundEffect3(); // Play mismatched card sound effect
       }
       resolve();
     });
   };
 
   onGamePass = () => {
+    this.context.playSoundEffect2(); // Play pass card sound effect
     this.props.moves.pass();
   };
 
