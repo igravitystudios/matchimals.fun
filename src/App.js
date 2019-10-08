@@ -6,6 +6,7 @@ import colors from "./constants/colors";
 import Matchimals from "./Matchimals";
 import Game from "./Game";
 import MainMenu from "./MainMenu";
+import Music from "./Music";
 
 // lol– these'll be fixed soon.
 // 1. https://github.com/facebook/react-native/issues/18868
@@ -73,21 +74,23 @@ class App extends Component {
     });
 
     return (
-      <View style={styles.root}>
-        <StatusBar hidden />
-        {isMainMenuVisible ? (
-          <MainMenu
-            numPlayers={numPlayers}
-            onNumPlayersChange={this.onNumPlayersChange}
-            startGame={this.startGame}
-          />
-        ) : (
-          <MatchimalsClient
-            backToMainMenu={this.backToMainMenu}
-            playerConfig={playerConfig}
-          />
-        )}
-      </View>
+      <Music>
+        <View style={styles.root}>
+          <StatusBar hidden />
+          {isMainMenuVisible ? (
+            <MainMenu
+              numPlayers={numPlayers}
+              onNumPlayersChange={this.onNumPlayersChange}
+              startGame={this.startGame}
+            />
+          ) : (
+            <MatchimalsClient
+              backToMainMenu={this.backToMainMenu}
+              playerConfig={playerConfig}
+            />
+          )}
+        </View>
+      </Music>
     );
   }
 }
