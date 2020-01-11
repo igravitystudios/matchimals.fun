@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import colors from "../constants/colors";
 import Button from "../Button";
@@ -49,7 +55,7 @@ const Menu = ({ numPlayers, onNumPlayersChange, startGame }) => {
             START GAME
           </Button>
 
-          {music && (
+          {Platform.OS !== "web" && music && (
             <Button
               onPress={() => music.setPaused(!music.paused)}
               style={{ position: "absolute", bottom: 8, right: 8 }}
