@@ -44,7 +44,6 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for connecting cards */}
         <Video
           audioOnly
-          repeat
           paused={pauseSoundEffect1}
           source={soundEffect1}
           onEnd={() => setPauseSoundEffect1(true)}
@@ -53,7 +52,6 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for passing a card */}
         <Video
           audioOnly
-          repeat
           paused={pauseSoundEffect2}
           source={soundEffect2}
           onEnd={() => setPauseSoundEffect2(true)}
@@ -62,7 +60,6 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for a mismatched card */}
         <Video
           audioOnly
-          repeat
           paused={pauseSoundEffect3}
           source={soundEffect3}
           onEnd={() => setPauseSoundEffect3(true)}
