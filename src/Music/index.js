@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Platform } from "react-native";
 import Video from "react-native-video";
 
 const backgroundMusic = require("./background-music.mp4");
@@ -44,6 +45,7 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for connecting cards */}
         <Video
           audioOnly
+          repeat={Platform.OS === "ios" ? true : false}
           paused={pauseSoundEffect1}
           source={soundEffect1}
           onEnd={() => setPauseSoundEffect1(true)}
@@ -52,6 +54,7 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for passing a card */}
         <Video
           audioOnly
+          repeat={Platform.OS === "ios" ? true : false}
           paused={pauseSoundEffect2}
           source={soundEffect2}
           onEnd={() => setPauseSoundEffect2(true)}
@@ -60,6 +63,7 @@ const MusicProvider = ({ children }) => {
         {/* Sound effect for a mismatched card */}
         <Video
           audioOnly
+          repeat={Platform.OS === "ios" ? true : false}
           paused={pauseSoundEffect3}
           source={soundEffect3}
           onEnd={() => setPauseSoundEffect3(true)}

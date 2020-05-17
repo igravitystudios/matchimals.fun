@@ -6,6 +6,8 @@
 	<array>
 		<string>applinks:matchimals.fun</string>
 		<string>applinks:www.matchimals.fun</string>
+		<string>applinks:matchimals.com</string>
+		<string>applinks:www.matchimals.com</string>
 	</array>
 </dict>
 </plist>

@@ -58,7 +58,7 @@
 		2911B4F47571A7A5C031076B /* Pods-matchimals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matchimals.release.xcconfig"; path = "Target Support Files/Pods-matchimals/Pods-matchimals.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* matchimals-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "matchimals-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* matchimals-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "matchimals-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8387D5252470D1AE00D82E4F /* matchimalsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = matchimalsDebug.entitlements; path = matchimals/matchimalsDebug.entitlements; sourceTree = "<group>"; };
+		83BFF7DC2470F31800153C23 /* Matchimals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Matchimals.entitlements; path = matchimals/Matchimals.entitlements; sourceTree = "<group>"; };
 		847DD2085B526A4CDEDCC372 /* libPods-matchimals-matchimalsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-matchimals-matchimalsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A408D693BC2CA8315BA04A2C /* Pods-matchimals-matchimalsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matchimals-matchimalsTests.release.xcconfig"; path = "Target Support Files/Pods-matchimals-matchimalsTests/Pods-matchimals-matchimalsTests.release.xcconfig"; sourceTree = "<group>"; };
 		A635B8090D14BEF5AA50D7B2 /* libPods-matchimals-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-matchimals-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,7 +128,7 @@
 		13B07FAE1A68108700A75B9A /* matchimals */ = {
 			isa = PBXGroup;
 			children = (
-				8387D5252470D1AE00D82E4F /* matchimalsDebug.entitlements */,
+				83BFF7DC2470F31800153C23 /* Matchimals.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -387,7 +387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BINARY=$(which node)\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -643,7 +643,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = matchimals/matchimalsDebug.entitlements;
+				CODE_SIGN_ENTITLEMENTS = matchimals/Matchimals.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 22ZH5U6APW;
 				ENABLE_BITCODE = NO;
@@ -674,7 +674,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = matchimals/Matchimals.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 22ZH5U6APW;
 				INFOPLIST_FILE = matchimals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 0.4.0;
