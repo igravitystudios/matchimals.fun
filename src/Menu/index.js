@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
 import colors from "../constants/colors";
 import Button from "../Button";
@@ -15,7 +15,7 @@ const Menu = ({ backToMainMenu, onMenuToggle }) => {
     >
       <View style={styles.underlay} />
       <View style={styles.root}>
-        {music && (
+        {Platform.OS !== "web" && music && (
           <Button
             onPress={() => music.setPaused(!music.paused)}
             style={{ marginBottom: 128 }}
