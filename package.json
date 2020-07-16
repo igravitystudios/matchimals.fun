@@ -15,7 +15,7 @@
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "boardgame.io": "0.31.7",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "react": "16.11.0",
     "react-art": "16.11.0",
     "react-dom": "16.11.0",
