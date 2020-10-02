@@ -71,13 +71,18 @@
         font-weight: normal;
         font-style: normal;
       }
+      html,
+      body {
+        -webkit-user-select: none; /* Chrome all / Safari all */
+        -moz-user-select: none; /* Firefox all */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Likely future */
+      }
     </style>
   </head>
 
   <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
   </body>
 </html>

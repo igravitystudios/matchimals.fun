@@ -15,7 +15,7 @@ class Card extends Component {
     this._cardStyles = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
       onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,

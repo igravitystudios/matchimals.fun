@@ -35,7 +35,7 @@ class Table extends Component {
     this._tableStyles = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
       onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,

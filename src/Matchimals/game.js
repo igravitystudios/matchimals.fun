@@ -1,8 +1,7 @@
-import { Game as BGGame } from "boardgame.io/core";
 import shuffle from "lodash/shuffle";
-import animals from "./constants/animals";
-import { cells as emptyCells, center, columns } from "./constants/board";
-import { deck as DECK, getRandomCard } from "./constants/cards";
+import animals from "../constants/animals";
+import { cells as emptyCells, center, columns } from "../constants/board";
+import { deck as DECK, getRandomCard } from "../constants/cards";
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -99,7 +98,7 @@ export function isLegalMove(G, ctx, id) {
   return false; //Return false if there are no neighboring cards that match
 }
 
-function canCardsConnect(card1, card2) {
+export function canCardsConnect(card1, card2) {
   if (
     card1.top === card2.bottom ||
     card1.bottom === card2.top ||
@@ -155,7 +154,7 @@ export function getInitialState(ctx) {
   return G;
 }
 
-const Game = BGGame({
+const game = {
   // The setup method is passed ctx
   setup: getInitialState,
 
@@ -185,20 +184,20 @@ const Game = BGGame({
     },
   },
 
-  flow: {
-    endGameIf: (G, ctx) => {
-      if (G.deck.length === 0) {
-        const winner = Object.keys(G.players).reduce(
-          (previousPlayer, currentPlayer) =>
-            G.players[previousPlayer].score > G.players[currentPlayer].score
-              ? previousPlayer
-              : currentPlayer
-        );
-        return winner;
-      }
-    },
-    movesPerTurn: 1,
+  endIf: (G, ctx) => {
+    if (G.deck.length === 0) {
+      const winner = Object.keys(
+        G.players
+      ).reduce((previousPlayer, currentPlayer) =>
+        G.players[previousPlayer].score > G.players[currentPlayer].score
+          ? previousPlayer
+          : currentPlayer
+      );
+      return winner;
+    }
   },
-});
 
-export default Game;
+  movesPerTurn: 1,
+};
+
+export default game;
