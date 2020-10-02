@@ -1,12 +1,5 @@
 import React, { Component, Fragment } from "react";
-import {
-  Platform,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  View,
-  YellowBox,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 
 import { cardHeight, cardWidth, columns } from "../constants/board";
 import Deck from "../Deck";
@@ -16,18 +9,8 @@ import Nameplate from "../Nameplate";
 import Table from "../Table";
 import Menu from "../Menu";
 import Victory from "../Victory";
-import { isLegalMove } from "../Game";
+import { isLegalMove } from "../game";
 import { MusicContext } from "../Music";
-
-// lol– these'll be fixed soon.
-// 1. https://github.com/facebook/react-native/issues/18868
-// 2. https://github.com/facebook/react-native/issues/17504
-if (Platform.OS !== "web") {
-  YellowBox.ignoreWarnings([
-    "Warning: isMounted(...) is deprecated",
-    "Module RCTImageLoader requires main queue",
-  ]);
-}
 
 class Matchimals extends Component {
   static contextType = MusicContext;

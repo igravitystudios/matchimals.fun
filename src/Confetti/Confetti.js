@@ -12,7 +12,7 @@ class Confetti extends Component {
     this.left = this.randomValue(0, windowWidth);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let rotationOutput = this.randomValue(-220, 220) + "deg";
     this._rotateAnimation = this._yAnimation.interpolate({
       inputRange: [0, windowHeight / 2, windowHeight],
