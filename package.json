@@ -7,7 +7,7 @@
     "pods": "cd ios && pod install && cd ..",
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator=\"iPad Air (3rd generation)\"",
+    "ios": "react-native run-ios --simulator=\"iPad (8th generation)\"",
     "web": "react-scripts start",
     "build": "react-scripts build",
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
