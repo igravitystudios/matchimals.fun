@@ -9,7 +9,7 @@ import Nameplate from "../Nameplate";
 import Table from "../Table";
 import Menu from "../Menu";
 import Victory from "../Victory";
-import { isLegalMove } from "../game";
+import { isLegalMove } from "./game";
 import { MusicContext } from "../Music";
 
 class Matchimals extends Component {
