@@ -1,32 +1,37 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Animals from "../Animals";
+import { usePlayerConfig } from "../hooks/players";
 
-const Nameplate = ({ active, player, playerConfig, style, ...rest }) => (
-  <View
-    style={[styles.root, active ? styles.active : styles.inactive, style]}
-    transition={["opacity", "scaleX", "scaleY"]}
-    {...rest}
-  >
+const Nameplate = ({ player, players, currentPlayer, style }) => {
+  const [playerConfig] = usePlayerConfig();
+  const active = player === currentPlayer;
+  const score = players[player]?.score;
+  const name = playerConfig[player]?.name;
+  const backgroundColor = playerConfig[player]?.color;
+  const Icon = Animals[playerConfig[player]?.animal];
+
+  return (
     <View
-      style={[
-        styles.animal,
-        {
-          backgroundColor: playerConfig.color || "#9F9FB7",
-        },
-      ]}
+      style={[styles.root, active ? styles.active : styles.inactive, style]}
     >
-      {React.createElement(Animals[playerConfig.animal], {
-        width: 60,
-        height: 60,
-      })}
+      <View
+        style={[
+          styles.animal,
+          {
+            backgroundColor: backgroundColor || "#9F9FB7",
+          },
+        ]}
+      >
+        <Icon width={60} height={60} />
+      </View>
+      <View style={styles.details}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.score}>{score}</Text>
+      </View>
     </View>
-    <View style={styles.details}>
-      <Text style={styles.name}>{playerConfig.name}</Text>
-      <Text style={styles.score}>{player.score}</Text>
-    </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   root: {

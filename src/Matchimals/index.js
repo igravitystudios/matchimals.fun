@@ -65,7 +65,7 @@ class Matchimals extends Component {
 
   render() {
     const { isMenuVisible } = this.state;
-    const { backToMainMenu, playerConfig, ...rest } = this.props;
+    const { backToMainMenu, ...rest } = this.props;
     const deck = this.props.G.deck;
     const players = this.props.G.players;
     const currentPlayer = this.props.ctx.currentPlayer;
@@ -92,9 +92,9 @@ class Matchimals extends Component {
               {Object.keys(players).map((playerIndex) => (
                 <Nameplate
                   key={playerIndex}
-                  active={playerIndex === currentPlayer}
-                  player={players[playerIndex]}
-                  playerConfig={playerConfig[playerIndex]}
+                  player={playerIndex}
+                  players={players}
+                  currentPlayer={currentPlayer}
                 />
               ))}
             </View>
@@ -121,8 +121,8 @@ class Matchimals extends Component {
         {gameover && (
           <Victory
             backToMainMenu={backToMainMenu}
-            player={players[gameover]}
-            playerConfig={playerConfig[gameover]}
+            player={gameover}
+            players={players}
           />
         )}
         {isMenuVisible && (

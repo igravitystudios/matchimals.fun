@@ -12,34 +12,6 @@ class App extends Component {
   state = {
     isMainMenuVisible: true,
     numPlayers: 1,
-    playerConfig: {
-      0: {
-        name: "Player 1",
-        animal: "Monkey",
-        color: colors.greenLight,
-      },
-      1: {
-        name: "Player 2",
-        animal: "Wolf",
-        color: colors.blueLight,
-      },
-      2: {
-        name: "Player 3",
-        animal: "Gorilla",
-        color: colors.redLight,
-      },
-      3: {
-        name: "Player 4",
-        animal: "Mouse",
-        color: colors.yellowLight,
-      },
-    },
-  };
-
-  onNumPlayersChange = (numPlayers) => {
-    this.setState({
-      numPlayers,
-    });
   };
 
   backToMainMenu = () => {
@@ -48,14 +20,15 @@ class App extends Component {
     });
   };
 
-  startGame = () => {
+  startGame = (numPlayers) => {
     this.setState({
+      numPlayers,
       isMainMenuVisible: false,
     });
   };
 
   render() {
-    const { isMainMenuVisible, numPlayers, playerConfig } = this.state;
+    const { isMainMenuVisible, numPlayers } = this.state;
     const MatchimalsClient = Client({
       board: Matchimals,
       game,
@@ -68,16 +41,9 @@ class App extends Component {
         <View style={styles.root}>
           <StatusBar hidden />
           {isMainMenuVisible ? (
-            <MainMenu
-              numPlayers={numPlayers}
-              onNumPlayersChange={this.onNumPlayersChange}
-              startGame={this.startGame}
-            />
+            <MainMenu startGame={this.startGame} />
           ) : (
-            <MatchimalsClient
-              backToMainMenu={this.backToMainMenu}
-              playerConfig={playerConfig}
-            />
+            <MatchimalsClient backToMainMenu={this.backToMainMenu} />
           )}
         </View>
       </Music>

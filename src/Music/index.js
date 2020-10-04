@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Platform } from "react-native";
 import Video from "react-native-video";
 
@@ -14,6 +14,8 @@ export const MusicContext = React.createContext({
   playSoundEffect2: () => {},
   playSoundEffect3: () => {},
 });
+
+export const useMusic = () => useContext(MusicContext);
 
 // TODO: This was quick and dirty,
 // everything could probably be refactored/renamed to be more clear
