@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 export const MusicContext = React.createContext({
   paused: true,
@@ -7,6 +7,8 @@ export const MusicContext = React.createContext({
   playSoundEffect2: () => {},
   playSoundEffect3: () => {},
 });
+
+export const useMusic = () => useContext(MusicContext);
 
 // Didn't want to spend the time building sound for the web- so this file sets
 // up an empty provider for the web so it doesn't crash
