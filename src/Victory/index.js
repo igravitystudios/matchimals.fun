@@ -5,38 +5,43 @@ import colors from "../constants/colors";
 import Animals from "../Animals";
 import Button from "../Button";
 import Confetti from "../Confetti";
+import { usePlayerConfig } from "../hooks/players";
 
-const Victory = ({ backToMainMenu, player, playerConfig, style, ...rest }) => (
-  <View style={[styles.root, style]} {...rest}>
-    <Confetti />
-    <View style={styles.modal}>
-      <View
-        style={[
-          styles.animal,
-          {
-            backgroundColor: playerConfig.color || "#9F9FB7",
-          },
-        ]}
-      >
-        {React.createElement(Animals[playerConfig.animal], {
-          width: 80,
-          height: 80,
-        })}
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.name}>{playerConfig.name} Wins!</Text>
-        <Text style={styles.score}>{player.score}</Text>
-        <Button
-          color={colors.redLight}
-          onPress={backToMainMenu}
-          style={{ marginBottom: 16 }}
+const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
+  const [playerConfig] = usePlayerConfig();
+  const score = players[player]?.score;
+  const name = playerConfig[player]?.name;
+  const backgroundColor = playerConfig[player]?.color;
+  const Icon = Animals[playerConfig[player]?.animal];
+  return (
+    <View style={[styles.root, style]} {...rest}>
+      <Confetti />
+      <View style={styles.modal}>
+        <View
+          style={[
+            styles.animal,
+            {
+              backgroundColor: backgroundColor || "#9F9FB7",
+            },
+          ]}
         >
-          EXIT TO MAIN MENU
-        </Button>
+          <Icon width={80} height={80} />
+        </View>
+        <View style={styles.details}>
+          <Text style={styles.name}>{name} Wins!</Text>
+          <Text style={styles.score}>{score}</Text>
+          <Button
+            color={colors.redLight}
+            onPress={backToMainMenu}
+            style={{ marginBottom: 16 }}
+          >
+            EXIT TO MAIN MENU
+          </Button>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   root: {

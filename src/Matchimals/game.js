@@ -158,6 +158,11 @@ const game = {
   // The setup method is passed ctx
   setup: getInitialState,
 
+  // End turn after a single move, whether it's placeCard or pass
+  turn: {
+    moveLimit: 1,
+  },
+
   moves: {
     // G and ctx are provided automatically when calling from App– `this.props.moves.placeCard(id)`
     placeCard: (G, ctx, id) => {
@@ -196,8 +201,6 @@ const game = {
       return winner;
     }
   },
-
-  movesPerTurn: 1,
 };
 
 export default game;

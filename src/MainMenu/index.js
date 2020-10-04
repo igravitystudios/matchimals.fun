@@ -9,51 +9,53 @@ import {
 
 import colors from "../constants/colors";
 import Button from "../Button";
-import { MusicContext } from "../Music";
+import PlayerButton from "../PlayerButton";
+import { useMusic } from "../Music";
 
 const Menu = ({ numPlayers, onNumPlayersChange, startGame }) => {
-  const music = useContext(MusicContext);
+  const music = useMusic();
+
   return (
     <View style={styles.root}>
       <ImageBackground source={require("./trianglify.png")} style={styles.root}>
         <>
           <Text style={styles.text}>HOW MANY PLAYERS?</Text>
-          <Button
-            onPress={() => onNumPlayersChange(1)}
-            selected={numPlayers === 1}
-            style={styles.button}
+          <View
+            style={{
+              width: 280,
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
           >
-            1
-          </Button>
-          <Button
-            onPress={() => onNumPlayersChange(2)}
-            selected={numPlayers === 2}
-            style={styles.button}
-          >
-            2
-          </Button>
-          <Button
-            onPress={() => onNumPlayersChange(3)}
-            selected={numPlayers === 3}
-            style={styles.button}
-          >
-            3
-          </Button>
-          <Button
-            onPress={() => onNumPlayersChange(4)}
-            selected={numPlayers === 4}
-            style={styles.button}
-          >
-            4
-          </Button>
-
-          <Button
-            color={colors.yellowLight}
-            onPress={startGame}
-            style={{ marginTop: 24 }}
-          >
-            START GAME
-          </Button>
+            <PlayerButton
+              number={1}
+              onPress={() => {
+                startGame(1);
+              }}
+              style={{ margin: 6 }}
+            />
+            <PlayerButton
+              number={2}
+              onPress={() => {
+                startGame(2);
+              }}
+              style={{ margin: 6 }}
+            />
+            <PlayerButton
+              number={3}
+              onPress={() => {
+                startGame(3);
+              }}
+              style={{ margin: 6 }}
+            />
+            <PlayerButton
+              number={4}
+              onPress={() => {
+                startGame(4);
+              }}
+              style={{ margin: 6 }}
+            />
+          </View>
 
           {Platform.OS !== "web" && music && (
             <Button
