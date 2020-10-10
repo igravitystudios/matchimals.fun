@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Platform } from "react-native";
 
 import colors from "../constants/colors";

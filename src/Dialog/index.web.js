@@ -1,6 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import Modal from "react-native-modal";
+import {
+  Modal,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import Animals from "../Animals";
 import { usePlayerConfig } from "../hooks/players";
@@ -11,23 +16,30 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
   const backgroundColor = playerConfig[player].color;
   return (
     <Modal
-      isVisible={isVisible}
-      onBackButtonPress={hide}
-      onBackdropPress={hide}
-      onSwipeComplete={hide}
-      style={styles.modal}
+      animationType="fade"
+      visible={isVisible}
+      onDismiss={hide}
+      onRequestClose={hide}
+      transparent
     >
-      <View style={[styles.dialog, style]}>
-        <ScrollView contentContainerStyle={{ paddingTop: 60 }}>
-          {children}
-        </ScrollView>
-        <View
-          style={[
-            styles.animal,
-            { backgroundColor: backgroundColor || "gray" },
-          ]}
-        >
-          <Icon width={80} height={80} />
+      <View style={styles.modal}>
+        <TouchableOpacity
+          activeOpacity={1} // No feedback, the modal closing is the feedback
+          onPress={hide}
+          style={styles.underlay}
+        />
+        <View style={[styles.dialog, style]}>
+          <ScrollView contentContainerStyle={{ paddingTop: 60 }}>
+            {children}
+          </ScrollView>
+          <View
+            style={[
+              styles.animal,
+              { backgroundColor: backgroundColor || "gray" },
+            ]}
+          >
+            <Icon width={80} height={80} />
+          </View>
         </View>
       </View>
     </Modal>
@@ -35,9 +47,15 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
 };
 
 const styles = StyleSheet.create({
+  underlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
   modal: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    padding: 16,
   },
   dialog: {
     flexDirection: "row",
