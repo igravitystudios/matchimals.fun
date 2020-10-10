@@ -5,7 +5,7 @@ import Animals from "../Animals";
 import colors from "../constants/colors";
 
 const PlayerButton = ({ number, onPress, style }) => {
-  const [playerConfig] = usePlayerConfig();
+  const { playerConfig } = usePlayerConfig();
   const PlayerIcons = Array(number)
     .fill()
     .map((n, i) => Animals[playerConfig[i]["animal"]]);

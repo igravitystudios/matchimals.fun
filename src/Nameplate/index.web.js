@@ -4,7 +4,7 @@ import Animals from "../Animals";
 import { usePlayerConfig } from "../hooks/players";
 
 const Nameplate = ({ player, players, currentPlayer, style }) => {
-  const [playerConfig] = usePlayerConfig();
+  const { playerConfig } = usePlayerConfig();
   const active = player === currentPlayer;
   const score = players[player]?.score;
   const name = playerConfig[player]?.name;

@@ -7,6 +7,7 @@ import Matchimals from "./Matchimals";
 import game from "./Matchimals/game";
 import MainMenu from "./MainMenu";
 import Music from "./Music";
+import { PlayerProvider } from "./hooks/players";
 
 class App extends Component {
   state = {
@@ -38,14 +39,16 @@ class App extends Component {
 
     return (
       <Music>
-        <View style={styles.root}>
-          <StatusBar hidden />
-          {isMainMenuVisible ? (
-            <MainMenu startGame={this.startGame} />
-          ) : (
-            <MatchimalsClient backToMainMenu={this.backToMainMenu} />
-          )}
-        </View>
+        <PlayerProvider>
+          <View style={styles.root}>
+            <StatusBar hidden />
+            {isMainMenuVisible ? (
+              <MainMenu startGame={this.startGame} />
+            ) : (
+              <MatchimalsClient backToMainMenu={this.backToMainMenu} />
+            )}
+          </View>
+        </PlayerProvider>
       </Music>
     );
   }

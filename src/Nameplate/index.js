@@ -1,11 +1,13 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Animals from "../Animals";
 import { usePlayerConfig } from "../hooks/players";
+import AnimalChooser from "../AnimalChooser";
 
 const Nameplate = ({ player, players, currentPlayer, style, ...rest }) => {
-  const [playerConfig] = usePlayerConfig();
+  const [showAnimalChooser, setShowAnimalChooser] = useState(false);
+  const { playerConfig } = usePlayerConfig();
   const active = player === currentPlayer;
   const score = players[player]?.score;
   const name = playerConfig[player]?.name;
@@ -13,26 +15,38 @@ const Nameplate = ({ player, players, currentPlayer, style, ...rest }) => {
   const Icon = Animals[playerConfig[player]?.animal];
 
   return (
-    <Animatable.View
-      style={[styles.root, active ? styles.active : styles.inactive, style]}
-      transition={["opacity", "scaleX", "scaleY"]}
-      {...rest}
-    >
-      <View
-        style={[
-          styles.animal,
-          {
-            backgroundColor: backgroundColor || "#9F9FB7",
-          },
-        ]}
+    <>
+      <Animatable.View
+        style={[styles.root, active ? styles.active : styles.inactive, style]}
+        transition={["opacity", "scaleX", "scaleY"]}
+        {...rest}
       >
-        <Icon width={60} height={60} />
-      </View>
-      <View style={styles.details}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.score}>{score}</Text>
-      </View>
-    </Animatable.View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setShowAnimalChooser(true)}
+        >
+          <View
+            style={[
+              styles.animal,
+              {
+                backgroundColor: backgroundColor || "#9F9FB7",
+              },
+            ]}
+          >
+            <Icon width={60} height={60} />
+          </View>
+        </TouchableOpacity>
+        <View style={styles.details}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.score}>{score}</Text>
+        </View>
+      </Animatable.View>
+      <AnimalChooser
+        isVisible={showAnimalChooser}
+        hide={() => setShowAnimalChooser(false)}
+        player={player}
+      />
+    </>
   );
 };
 

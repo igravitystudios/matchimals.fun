@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 
 import { cardHeight, cardWidth, columns } from "../constants/board";
@@ -10,131 +10,106 @@ import Table from "../Table";
 import Menu from "../Menu";
 import Victory from "../Victory";
 import { isLegalMove } from "./game";
-import { MusicContext } from "../Music";
+import { useMusic } from "../Music";
 
-class Matchimals extends Component {
-  static contextType = MusicContext;
+const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
+  const [showMenu, setShowMenu] = useState(false);
+  const music = useMusic();
+  const tableRef = useRef();
 
-  state = {
-    isMenuVisible: false,
-  };
+  const onCardDrop = useCallback(
+    (measurements) => {
+      // Get the top left corner of the card in relation to the viewport
+      const cardLeft = measurements.pageX;
+      const cardTop = measurements.pageY;
 
-  onCardDrop = (measurements) => {
-    const { ctx, G } = this.props;
+      // Get the top left corner of the viewport in relation to the entire table
+      const tableLeft = tableRef.current._previousLeft;
+      const tableTop = tableRef.current._previousTop;
 
-    // Get the top left corner of the card in relation to the viewport
-    const cardLeft = measurements.pageX;
-    const cardTop = measurements.pageY;
+      // Calculate the total distance from the table's edge to the card's edge
+      const distanceLeft = Math.abs(tableLeft - cardLeft);
+      const distanceTop = Math.abs(tableTop - cardTop);
 
-    // Get the top left corner of the viewport in relation to the entire table
-    const tableLeft = this._table._previousLeft;
-    const tableTop = this._table._previousTop;
+      // Calculate the total distance in "cells"
+      const cellsFromLeft = Math.round(distanceLeft / cardWidth);
+      const cellsFromTop = Math.round(distanceTop / cardHeight);
 
-    // Calculate the total distance from the table's edge to the card's edge
-    const distanceLeft = Math.abs(tableLeft - cardLeft);
-    const distanceTop = Math.abs(tableTop - cardTop);
+      // Calculate the target cell's id
+      const targetCell = cellsFromTop * columns + cellsFromLeft;
 
-    // Calculate the total distance in "cells"
-    const cellsFromLeft = Math.round(distanceLeft / cardWidth);
-    const cellsFromTop = Math.round(distanceTop / cardHeight);
+      return new Promise((resolve) => {
+        if (isLegalMove(G, ctx, targetCell)) {
+          music.playSoundEffect1(); // Play card drop sound effect
+          moves.placeCard(targetCell);
+        } else {
+          music.playSoundEffect3(); // Play mismatched card sound effect
+        }
+        resolve();
+      });
+    },
+    [G, ctx, moves, music]
+  );
 
-    // Calculate the target cell's id
-    const targetCell = cellsFromTop * columns + cellsFromLeft;
+  const onGamePass = useCallback(() => {
+    music.playSoundEffect2(); // Play pass card sound effect
+    moves.pass();
+  }, [moves, music]);
 
-    return new Promise((resolve) => {
-      if (isLegalMove(G, ctx, targetCell)) {
-        this.context.playSoundEffect1(); // Play card drop sound effect
-        this.props.moves.placeCard(targetCell);
-      } else {
-        this.context.playSoundEffect3(); // Play mismatched card sound effect
-      }
-      resolve();
-    });
-  };
-
-  onGamePass = () => {
-    this.context.playSoundEffect2(); // Play pass card sound effect
-    this.props.moves.pass();
-  };
-
-  onMenuToggle = () => {
-    this.setState((state) => ({
-      isMenuVisible: !state.isMenuVisible,
-    }));
-  };
-
-  render() {
-    const { isMenuVisible } = this.state;
-    const { backToMainMenu, ...rest } = this.props;
-    const deck = this.props.G.deck;
-    const players = this.props.G.players;
-    const currentPlayer = this.props.ctx.currentPlayer;
-    const gameover = this.props.ctx.gameover;
-
-    return (
-      <Fragment>
-        <SafeAreaView style={styles.root}>
-          <View style={styles.root}>
-            <StatusBar hidden />
-            <Table
-              ref={(tableComponent) => {
-                this._table = tableComponent;
-              }}
-              {...rest}
-            />
-            <View
-              style={{
-                position: "absolute",
-                top: 16,
-                left: 16,
-              }}
-            >
-              {Object.keys(players).map((playerIndex) => (
-                <Nameplate
-                  key={playerIndex}
-                  player={playerIndex}
-                  players={players}
-                  currentPlayer={currentPlayer}
-                />
-              ))}
-            </View>
-            <Deck
-              cards={deck}
-              onCardDrop={this.onCardDrop}
-              style={styles.deck}
-            />
-            <Button onPress={this.onGamePass} style={styles.pass}>
-              PASS
-            </Button>
-            <CircleButton
-              onPress={this.onMenuToggle}
-              style={{
-                position: "absolute",
-                top: 16,
-                right: 16,
-              }}
-            >
-              ?
-            </CircleButton>
+  return (
+    <>
+      <SafeAreaView style={styles.root}>
+        <View style={styles.root}>
+          <StatusBar hidden />
+          <Table ref={tableRef} G={G} ctx={ctx} {...rest} />
+          <View
+            style={{
+              position: "absolute",
+              top: 16,
+              left: 16,
+            }}
+          >
+            {Object.keys(G.players).map((playerIndex) => (
+              <Nameplate
+                key={playerIndex}
+                player={playerIndex}
+                players={G.players}
+                currentPlayer={ctx.currentPlayer}
+              />
+            ))}
           </View>
-        </SafeAreaView>
-        {gameover && (
-          <Victory
-            backToMainMenu={backToMainMenu}
-            player={gameover}
-            players={players}
-          />
-        )}
-        {isMenuVisible && (
-          <Menu
-            backToMainMenu={backToMainMenu}
-            onMenuToggle={this.onMenuToggle}
-          />
-        )}
-      </Fragment>
-    );
-  }
-}
+          <Deck cards={G.deck} onCardDrop={onCardDrop} style={styles.deck} />
+          <Button onPress={onGamePass} style={styles.pass}>
+            PASS
+          </Button>
+          <CircleButton
+            onPress={() => setShowMenu(true)}
+            style={{
+              position: "absolute",
+              top: 16,
+              right: 16,
+            }}
+          >
+            ?
+          </CircleButton>
+        </View>
+      </SafeAreaView>
+      {ctx.gameover ? (
+        <Victory
+          backToMainMenu={backToMainMenu}
+          player={ctx.gameover}
+          players={G.players}
+        />
+      ) : null}
+      <Menu
+        player={ctx.currentPlayer}
+        backToMainMenu={backToMainMenu}
+        isVisible={showMenu}
+        hide={() => setShowMenu(false)}
+      />
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   root: {
