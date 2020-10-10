@@ -1,11 +1,13 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import Modal from "react-native-modal";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Animals from "../Animals";
 import { usePlayerConfig } from "../hooks/players";
 
 const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
+  const insets = useSafeAreaInsets();
   const { playerConfig } = usePlayerConfig();
   const Icon = Animals[playerConfig[player].animal];
   const backgroundColor = playerConfig[player].color;
@@ -17,7 +19,13 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
       onSwipeComplete={hide}
       style={styles.modal}
     >
-      <View style={[styles.dialog, style]}>
+      <View
+        style={[
+          styles.dialog,
+          { marginTop: insets.top + 60, marginBottom: insets.bottom },
+          style,
+        ]}
+      >
         <ScrollView contentContainerStyle={{ paddingTop: 60 }}>
           {children}
         </ScrollView>

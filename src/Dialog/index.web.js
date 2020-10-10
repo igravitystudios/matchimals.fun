@@ -29,7 +29,12 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
           style={styles.underlay}
         />
         <View style={[styles.dialog, style]}>
-          <ScrollView contentContainerStyle={{ paddingTop: 60 }}>
+          <ScrollView
+            contentContainerStyle={{
+              paddingTop: 60,
+              maxHeight: "calc(100vh - 120px)",
+            }}
+          >
             {children}
           </ScrollView>
           <View
@@ -63,6 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 8,
+    marginTop: 60,
   },
   animal: {
     position: "absolute",

@@ -12,7 +12,7 @@ export const useMusic = () => useContext(MusicContext);
 
 // Didn't want to spend the time building sound for the web- so this file sets
 // up an empty provider for the web so it doesn't crash
-const MusicProvider = ({ children }) => {
+export const MusicProvider = ({ children }) => {
   return (
     <MusicContext.Provider
       value={{
@@ -27,5 +27,3 @@ const MusicProvider = ({ children }) => {
     </MusicContext.Provider>
   );
 };
-
-export default MusicProvider;

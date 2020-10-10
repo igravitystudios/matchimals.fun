@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { cardHeight, cardWidth, columns } from "../constants/board";
 import Deck from "../Deck";
@@ -16,6 +17,7 @@ const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
   const [showMenu, setShowMenu] = useState(false);
   const music = useMusic();
   const tableRef = useRef();
+  const insets = useSafeAreaInsets();
 
   const onCardDrop = useCallback(
     (measurements) => {
@@ -58,42 +60,55 @@ const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
 
   return (
     <>
-      <SafeAreaView style={styles.root}>
-        <View style={styles.root}>
-          <StatusBar hidden />
-          <Table ref={tableRef} G={G} ctx={ctx} {...rest} />
-          <View
-            style={{
-              position: "absolute",
-              top: 16,
-              left: 16,
-            }}
-          >
-            {Object.keys(G.players).map((playerIndex) => (
-              <Nameplate
-                key={playerIndex}
-                player={playerIndex}
-                players={G.players}
-                currentPlayer={ctx.currentPlayer}
-              />
-            ))}
-          </View>
-          <Deck cards={G.deck} onCardDrop={onCardDrop} style={styles.deck} />
-          <Button onPress={onGamePass} style={styles.pass}>
-            PASS
-          </Button>
-          <CircleButton
-            onPress={() => setShowMenu(true)}
-            style={{
-              position: "absolute",
-              top: 16,
-              right: 16,
-            }}
-          >
-            ?
-          </CircleButton>
+      <View style={styles.root}>
+        <StatusBar hidden />
+        <Table ref={tableRef} G={G} ctx={ctx} {...rest} />
+        <View
+          style={{
+            position: "absolute",
+            top: Math.max(insets.top, 16),
+            left: Math.max(insets.left, 16),
+          }}
+        >
+          {Object.keys(G.players).map((playerIndex) => (
+            <Nameplate
+              key={playerIndex}
+              player={playerIndex}
+              players={G.players}
+              currentPlayer={ctx.currentPlayer}
+            />
+          ))}
         </View>
-      </SafeAreaView>
+        <Deck
+          cards={G.deck}
+          onCardDrop={onCardDrop}
+          style={{
+            position: "absolute",
+            bottom: Math.max(insets.bottom + cardHeight, 16 + cardHeight),
+            left: Math.max(insets.left, 16),
+          }}
+        />
+        <Button
+          onPress={onGamePass}
+          style={{
+            position: "absolute",
+            bottom: Math.max(insets.bottom, 16),
+            right: Math.max(insets.right, 16),
+          }}
+        >
+          PASS
+        </Button>
+        <CircleButton
+          onPress={() => setShowMenu(true)}
+          style={{
+            position: "absolute",
+            top: Math.max(insets.top, 16),
+            right: Math.max(insets.right, 16),
+          }}
+        >
+          ?
+        </CircleButton>
+      </View>
       {ctx.gameover ? (
         <Victory
           backToMainMenu={backToMainMenu}
@@ -114,16 +129,6 @@ const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  deck: {
-    position: "absolute",
-    bottom: 156,
-    left: 16,
-  },
-  pass: {
-    position: "absolute",
-    bottom: 16,
-    right: 16,
   },
 });
 
