@@ -1,59 +1,40 @@
-import React, { useContext } from "react";
-import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Platform } from "react-native";
 
 import colors from "../constants/colors";
 import Button from "../Button";
-import { MusicContext } from "../Music";
+import Dialog from "../Dialog";
+import { useMusic } from "../Music";
 
-const Menu = ({ backToMainMenu, onMenuToggle }) => {
-  const music = useContext(MusicContext);
+const Menu = ({ backToMainMenu, hide, isVisible, player }) => {
+  const music = useMusic();
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={onMenuToggle}
-      style={styles.root}
+    <Dialog
+      player={player}
+      isVisible={isVisible}
+      hide={hide}
+      style={{ maxWidth: 360 }}
     >
-      <View style={styles.underlay} />
-      <View style={styles.root}>
-        {Platform.OS !== "web" && music && (
-          <Button
-            onPress={() => music.setPaused(!music.paused)}
-            style={{ marginBottom: 128 }}
-          >
-            {music.paused ? "🔇 " : "🔈 "} MUSIC
-          </Button>
-        )}
+      {Platform.OS !== "web" && music && (
         <Button
-          color={colors.redLight}
-          onPress={backToMainMenu}
-          style={{ marginBottom: 32 }}
+          onPress={() => music?.setPaused(!music?.paused)}
+          style={{ marginBottom: 64 }}
         >
-          EXIT TO MAIN MENU
+          {music?.paused ? "🔇 " : "🔈 "} MUSIC
         </Button>
-        <Button color="#fff" onPress={onMenuToggle}>
-          BACK TO GAME
-        </Button>
-      </View>
-    </TouchableOpacity>
+      )}
+      <Button
+        color={colors.redLight}
+        onPress={backToMainMenu}
+        style={{ marginBottom: 32 }}
+      >
+        EXIT TO MAIN MENU
+      </Button>
+      <Button color="#fff" onPress={hide}>
+        BACK TO GAME
+      </Button>
+    </Dialog>
   );
 };
-
-const styles = StyleSheet.create({
-  root: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 9999999999, // active card will have a zIndex of `e.timeStamp`- so this needs to be larger
-  },
-  // Hacky way to have an opaque background without using rgba
-  underlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: colors.grayDark,
-    opacity: 0.9,
-  },
-  menu: {
-    margin: 8,
-  },
-});
 
 export default Menu;

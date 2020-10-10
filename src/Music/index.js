@@ -19,7 +19,7 @@ export const useMusic = () => useContext(MusicContext);
 
 // TODO: This was quick and dirty,
 // everything could probably be refactored/renamed to be more clear
-const MusicProvider = ({ children }) => {
+export const MusicProvider = ({ children }) => {
   const [paused, setPaused] = useState(true);
   const [pauseSoundEffect1, setPauseSoundEffect1] = useState(true);
   const [pauseSoundEffect2, setPauseSoundEffect2] = useState(true);
@@ -76,5 +76,3 @@ const MusicProvider = ({ children }) => {
     </MusicContext.Provider>
   );
 };
-
-export default MusicProvider;

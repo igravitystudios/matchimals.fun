@@ -8,7 +8,7 @@ import Confetti from "../Confetti";
 import { usePlayerConfig } from "../hooks/players";
 
 const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
-  const [playerConfig] = usePlayerConfig();
+  const { playerConfig } = usePlayerConfig();
   const score = players[player]?.score;
   const name = playerConfig[player]?.name;
   const backgroundColor = playerConfig[player]?.color;
