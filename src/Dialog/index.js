@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -60,
     left: "50%",
-    marginLeft: -60,
+    marginLeft: -52, // account for border
     flexShrink: 0,
     justifyContent: "center",
     alignItems: "center",

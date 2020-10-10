@@ -44,7 +44,7 @@ const AnimalChooser = ({ isVisible, hide, player, style }) => {
                     },
                   ]}
                 >
-                  <Icon width={54} height={54} />
+                  <Icon width={52} height={52} />
                 </View>
               </TouchableOpacity>
               <Text style={styles.name}>{animal}</Text>
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     justifyContent: "center",
     alignItems: "center",
-    width: 80,
-    height: 80,
+    width: 72,
+    height: 72,
     borderRadius: 40,
   },
   name: {
