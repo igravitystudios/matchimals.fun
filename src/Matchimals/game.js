@@ -2,6 +2,7 @@ import shuffle from "lodash/shuffle";
 import animals from "../constants/animals";
 import { cells as emptyCells, center, columns } from "../constants/board";
 import { deck as DECK, getRandomCard } from "../constants/cards";
+import * as snapshots from "./snapshots";
 
 export function getNeighbors(G, id) {
   const { cells } = G;
@@ -164,6 +165,16 @@ const game = {
   },
 
   moves: {
+    takeSnapshot: (G, ctx, id) => {
+      console.log("==> takeSnapshot", G);
+    },
+
+    restoreSnapshot: (G, ctx, id) => {
+      if (id) {
+        return snapshots[id];
+      }
+    },
+
     // G and ctx are provided automatically when calling from App– `this.props.moves.placeCard(id)`
     placeCard: (G, ctx, id) => {
       // Ensure we can't overwrite cells.
