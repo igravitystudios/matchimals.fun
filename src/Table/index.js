@@ -196,7 +196,8 @@ class Table extends Component {
         {...this._panResponder.panHandlers}
       >
         <ImageBackground
-          source={require("./matchimals-native-background.png")}
+          resizeMode="repeat"
+          source={require("./wood-background.jpg")}
           style={styles.root}
         >
           <Board {...rest} />
