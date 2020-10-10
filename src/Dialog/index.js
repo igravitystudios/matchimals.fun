@@ -18,6 +18,8 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
       onBackdropPress={hide}
       onSwipeComplete={hide}
       style={styles.modal}
+      useNativeDriver={true}
+      hideModalContentWhileAnimating={true}
     >
       <View
         style={[
