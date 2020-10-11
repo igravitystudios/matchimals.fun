@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
+    "postinstall": "cd ios && pod install && cd ..",
     "pods": "cd ios && pod install && cd ..",
     "start": "react-native start",
     "android": "react-native run-android",
