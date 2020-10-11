@@ -1,4 +1,3 @@
-/* globals __DEV__ */
 import React from "react";
 import { Platform, View } from "react-native";
 
@@ -52,7 +51,7 @@ const Menu = ({
       <Button color="#fff" onPress={hide}>
         BACK TO GAME
       </Button>
-      {__DEV__ ? (
+      {false ? (
         <View style={{ alignItems: "center", marginTop: 48 }}>
           <View style={{ flexDirection: "row" }}>
             <Button
