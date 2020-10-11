@@ -9,7 +9,14 @@ class CircleButton extends Component {
 
     return (
       <TouchableOpacity activeOpacity={0.8} {...rest}>
-        <View style={[styles.button, color && { backgroundColor: color }]}>
+        <View
+          style={[
+            styles.button,
+            {
+              backgroundColor: color || colors.blueLight,
+            },
+          ]}
+        >
           <View style={styles.buttonInner}>
             <Text style={styles.buttonText}>{children}</Text>
           </View>
@@ -25,7 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 64,
     height: 64,
-    backgroundColor: "#C5E5F0",
     borderRadius: 16,
     borderWidth: 4,
     borderColor: "#fff",

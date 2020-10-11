@@ -117,8 +117,10 @@ const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
         />
       ) : null}
       <Menu
+        moves={moves}
         player={ctx.currentPlayer}
         backToMainMenu={backToMainMenu}
+        scrollToCenter={() => tableRef?.current?.scrollToCenter()}
         isVisible={showMenu}
         hide={() => setShowMenu(false)}
       />

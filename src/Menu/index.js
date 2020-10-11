@@ -1,12 +1,20 @@
 import React from "react";
 import { Platform } from "react-native";
 
+// import { DevTools } from "./DevTools";
 import colors from "../constants/colors";
 import Button from "../Button";
 import Dialog from "../Dialog";
 import { useMusic } from "../Music";
 
-const Menu = ({ backToMainMenu, hide, isVisible, player }) => {
+const Menu = ({
+  moves,
+  backToMainMenu,
+  hide,
+  isVisible,
+  player,
+  scrollToCenter,
+}) => {
   const music = useMusic();
   return (
     <Dialog
@@ -18,21 +26,33 @@ const Menu = ({ backToMainMenu, hide, isVisible, player }) => {
       {Platform.OS !== "web" && music && (
         <Button
           onPress={() => music?.setPaused(!music?.paused)}
-          style={{ marginBottom: 64 }}
+          style={{ marginBottom: 24 }}
         >
-          {music?.paused ? "🔇 " : "🔈 "} MUSIC
+          {music?.paused ? "TURN MUSIC ON" : "TURN MUSIC OFF"}
         </Button>
       )}
       <Button
+        color={colors.greenLight}
+        onPress={() => {
+          scrollToCenter();
+          hide();
+        }}
+        style={{ marginBottom: 24 }}
+      >
+        SCROLL TO CENTER
+      </Button>
+      <Button
         color={colors.redLight}
         onPress={backToMainMenu}
-        style={{ marginBottom: 32 }}
+        style={{ marginBottom: 24 }}
       >
         EXIT TO MAIN MENU
       </Button>
       <Button color="#fff" onPress={hide}>
         BACK TO GAME
       </Button>
+
+      {/* <DevTools moves={moves} /> */}
     </Dialog>
   );
 };
