@@ -47,4 +47,4 @@ buck-out/
 *.aab
 
 # CocoaPods
-/ios/Pods/
+/ios/Pods/*
