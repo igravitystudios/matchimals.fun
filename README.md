@@ -8,9 +8,9 @@
 
 #### [🤖 Download for Android from the Google Play Store](https://play.google.com/store/apps/details?id=com.matchimals)
 
-#### [🖥 Play the legacy web version](https://www.matchimals.fun/)
+#### [🖥 Play on desktop on the web](https://www.matchimals.fun/)
 
-<img src="./public/screenshots/Simulator Screen Shot - iPad Pro (12.9-inch) (3rd generation) - 6.png" alt="screenshot of matchimals.fun game" />
+<img src="./public/screenshots/screenshot-optimized.png" alt="screenshot of matchimals.fun game" />
 
 ## How to play
 

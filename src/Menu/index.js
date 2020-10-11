@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 
-// import { DevTools } from "./DevTools";
+import { DevTools } from "./DevTools";
 import colors from "../constants/colors";
 import Button from "../Button";
 import Dialog from "../Dialog";
@@ -52,7 +52,7 @@ const Menu = ({
         BACK TO GAME
       </Button>
 
-      {/* <DevTools moves={moves} /> */}
+      <DevTools moves={moves} />
     </Dialog>
   );
 };
