@@ -4,6 +4,7 @@ import { Platform, View } from "react-native";
 
 import colors from "../constants/colors";
 import Button from "../Button";
+import CircleButton from "../CircleButton";
 import Dialog from "../Dialog";
 import { useMusic } from "../Music";
 
@@ -52,7 +53,7 @@ const Menu = ({
         BACK TO GAME
       </Button>
       {__DEV__ ? (
-        <>
+        <View style={{ alignItems: "center", marginTop: 48 }}>
           <View style={{ flexDirection: "row" }}>
             <Button
               onPress={() => {
@@ -63,80 +64,80 @@ const Menu = ({
             </Button>
           </View>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            <Button
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("twoPlayerA");
               }}
             >
-              A
-            </Button>
-            <Button
+              2A
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("twoPlayerB");
               }}
             >
-              B
-            </Button>
-            <Button
+              2B
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("twoPlayerC");
               }}
             >
-              C
-            </Button>
-            <Button
+              2C
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("twoPlayerD");
               }}
             >
-              D
-            </Button>
-            <Button
+              2D
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("twoPlayerE");
               }}
             >
-              E
-            </Button>
+              2E
+            </CircleButton>
           </View>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            <Button
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("fourPlayerA");
               }}
             >
-              A
-            </Button>
-            <Button
+              4A
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("fourPlayerB");
               }}
             >
-              B
-            </Button>
-            <Button
+              4B
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("fourPlayerC");
               }}
             >
-              C
-            </Button>
-            <Button
+              4C
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("fourPlayerD");
               }}
             >
-              D
-            </Button>
-            <Button
+              4D
+            </CircleButton>
+            <CircleButton
               onPress={() => {
                 moves.restoreSnapshot("fourPlayerE");
               }}
             >
-              E
-            </Button>
+              4E
+            </CircleButton>
           </View>
-        </>
+        </View>
       ) : null}
     </Dialog>
   );
