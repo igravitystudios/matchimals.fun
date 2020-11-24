@@ -52,7 +52,7 @@ const Menu = ({
         BACK TO GAME
       </Button>
 
-      <DevTools moves={moves} />
+      {global?.__DEV__ ? <DevTools moves={moves} /> : null}
     </Dialog>
   );
 };
