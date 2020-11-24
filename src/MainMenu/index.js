@@ -7,13 +7,13 @@ import {
   View,
 } from "react-native";
 
-import colors from "../constants/colors";
+import { colors } from "../constants/colors";
 import Button from "../Button";
 import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const Menu = ({ numPlayers, onNumPlayersChange, startGame }) => {
+const Menu = ({ startGame }) => {
   const music = useMusic();
   const insets = useSafeAreaInsets();
 
@@ -60,14 +60,14 @@ const Menu = ({ numPlayers, onNumPlayersChange, startGame }) => {
 
         {Platform.OS !== "web" && music && (
           <Button
-            onPress={() => music.setPaused(!music.paused)}
+            onPress={() => music?.setPaused(!music?.paused)}
             style={{
               position: "absolute",
               bottom: Math.max(insets.bottom, 8),
               right: Math.max(insets.right, 8),
             }}
           >
-            {music.paused ? "🔇 " : "🔈 "} MUSIC
+            {music?.paused ? "TURN MUSIC ON" : "TURN MUSIC OFF"}
           </Button>
         )}
       </>

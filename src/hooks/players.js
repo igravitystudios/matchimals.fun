@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import sampleSize from "lodash/sampleSize";
 import Animals from "../Animals";
-import colors from "../constants/colors";
+import { colors } from "../constants/colors";
 
 const randomAnimals = sampleSize(Object.keys(Animals), 4);
 const initialState = {

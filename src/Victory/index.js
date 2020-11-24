@@ -1,11 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import colors from "../constants/colors";
+
+import { usePlayerConfig } from "../hooks/players";
+import { colors } from "../constants/colors";
 
 import Animals from "../Animals";
 import Button from "../Button";
 import Confetti from "../Confetti";
-import { usePlayerConfig } from "../hooks/players";
 
 const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
   const { playerConfig } = usePlayerConfig();
