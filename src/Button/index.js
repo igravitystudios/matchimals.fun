@@ -1,29 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import colors from "../constants/colors";
+import { colors } from "../constants/colors";
 
-class Button extends Component {
-  render() {
-    const { children, color, selected, ...rest } = this.props;
-
-    return (
-      <TouchableOpacity activeOpacity={0.8} {...rest}>
-        <View
-          style={[
-            styles.button,
-            color && { backgroundColor: color },
-            selected && styles.selected,
-          ]}
-        >
-          <View style={styles.buttonInner}>
-            <Text style={styles.buttonText}>{children}</Text>
-          </View>
+const Button = ({ children, color, ...rest }) => {
+  return (
+    <TouchableOpacity activeOpacity={0.8} {...rest}>
+      <View style={[styles.button, color && { backgroundColor: color }]}>
+        <View style={styles.buttonInner}>
+          <Text style={styles.buttonText}>{children}</Text>
         </View>
-      </TouchableOpacity>
-    );
-  }
-}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -34,10 +24,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 4,
     borderColor: "#fff",
-  },
-  selected: {
-    // borderColor: colors.greenLight,
-    backgroundColor: colors.yellowLight,
   },
   buttonInner: {
     flex: 1,

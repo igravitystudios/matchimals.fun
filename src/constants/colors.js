@@ -1,4 +1,4 @@
-module.exports = {
+export const colors = {
   redLight: "#FF9E9C",
   redMedium: "#DB7270",
   orangeMedium: "#CD7547",

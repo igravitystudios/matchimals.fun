@@ -2,24 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Svg, { Polygon } from "svgs";
 
-import animals from "../constants/animals";
+import { animals } from "../constants/animals";
 import { cardHeight, cardWidth } from "../constants/board";
 
-const pointStyles = {
-  width: 20,
-  color: "#fff",
-  fontSize: 14,
-  fontWeight: "700",
-  textAlign: "center",
-  textShadowColor: "rgba(0,0,0,0.69)",
-  textShadowRadius: 0,
-  textShadowOffset: {
-    width: 1,
-    height: 1,
-  },
-};
+import Animals from "../Animals";
 
-const CardFront = ({ card, style }) => (
+const CardFront = ({ card = {}, style }) => (
   <View style={[styles.root, style]}>
     <Svg
       width={cardWidth}
@@ -30,22 +18,22 @@ const CardFront = ({ card, style }) => (
       <Polygon
         id="top"
         points="50 70 100 0 0 0 50 70"
-        fill={animals[card.top] && animals[card.top].color}
+        fill={animals[card.top].color}
       />
       <Polygon
         id="right"
         points="50 70 100 140 100 0 50 70"
-        fill={animals[card.right] && animals[card.right].color}
+        fill={animals[card.right].color}
       />
       <Polygon
         id="bottom"
         points="50 70 0 140 100 140 50 70"
-        fill={animals[card.bottom] && animals[card.bottom].color}
+        fill={animals[card.bottom].color}
       />
       <Polygon
         id="left"
         points="50 70 0 0 0 140 50 70"
-        fill={animals[card.left] && animals[card.left].color}
+        fill={animals[card.left].color}
       />
     </Svg>
     {animals[card.top] && (
@@ -58,7 +46,7 @@ const CardFront = ({ card, style }) => (
           height: 64,
         }}
       >
-        {animals[card.top].icon}
+        {React.createElement(Animals[animals[card.top].animal])}
       </View>
     )}
     {animals[card.right] && (
@@ -72,16 +60,18 @@ const CardFront = ({ card, style }) => (
         }}
       >
         <Text
-          style={{
-            position: "absolute",
-            top: -14,
-            left: 14,
-            ...pointStyles,
-          }}
+          style={[
+            styles.score,
+            {
+              position: "absolute",
+              top: -14,
+              left: 14,
+            },
+          ]}
         >
           {animals[card.right].score}
         </Text>
-        {animals[card.right].icon}
+        {React.createElement(Animals[animals[card.right].animal])}
       </View>
     )}
     {animals[card.bottom] && (
@@ -95,16 +85,18 @@ const CardFront = ({ card, style }) => (
         }}
       >
         <Text
-          style={{
-            position: "absolute",
-            top: -16,
-            left: 22,
-            ...pointStyles,
-          }}
+          style={[
+            styles.score,
+            {
+              position: "absolute",
+              top: -16,
+              left: 22,
+            },
+          ]}
         >
           {animals[card.bottom].score}
         </Text>
-        {animals[card.bottom].icon}
+        {React.createElement(Animals[animals[card.bottom].animal])}
       </View>
     )}
     {animals[card.left] && (
@@ -117,15 +109,11 @@ const CardFront = ({ card, style }) => (
           height: 64,
         }}
       >
-        {animals[card.left].icon}
+        {React.createElement(Animals[animals[card.left].animal])}
       </View>
     )}
   </View>
 );
-
-CardFront.defaultProps = {
-  card: {},
-};
 
 const styles = StyleSheet.create({
   root: {
@@ -136,6 +124,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     overflow: "hidden",
     borderRadius: 8,
+  },
+  score: {
+    width: 20,
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "700",
+    textAlign: "center",
+    textShadowColor: "rgba(0,0,0,0.69)",
+    textShadowRadius: 0,
+    textShadowOffset: {
+      width: 1,
+      height: 1,
+    },
   },
 });
 

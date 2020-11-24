@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { usePlayerConfig } from "../hooks/players";
+import { colors } from "../constants/colors";
 import Animals from "../Animals";
-import colors from "../constants/colors";
 
 const PlayerButton = ({ number, onPress, style }) => {
   const { playerConfig } = usePlayerConfig();

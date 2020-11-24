@@ -1,8 +1,8 @@
 import React from "react";
 import { Platform } from "react-native";
 
+import { colors } from "../constants/colors";
 import { DevTools } from "./DevTools";
-import colors from "../constants/colors";
 import Button from "../Button";
 import Dialog from "../Dialog";
 import { useMusic } from "../Music";

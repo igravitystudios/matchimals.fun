@@ -1,177 +1,143 @@
-import React from "react";
-import colors from "./colors";
+import { colors } from "./colors";
 
-import Animals from "../Animals";
-
-const {
-  Bat,
-  Bear,
-  Boar,
-  Bunny,
-  Butterfly,
-  Cat,
-  Chick,
-  Chicken,
-  Cow,
-  Dog,
-  Fox,
-  Frog,
-  Giraffe,
-  Gorilla,
-  Hamster,
-  Hedgehog,
-  Koala,
-  Lion,
-  Monkey,
-  Mouse,
-  Owl,
-  Panda,
-  Penguin,
-  Pig,
-  Tiger,
-  Turtle,
-  Wolf,
-  Zebra,
-} = Animals;
-
-export default {
-  bat: {
-    icon: <Bat />,
+export const animals = {
+  0: {
+    animal: "Bat",
     color: colors.greenLight,
     score: 1,
   },
-  bear: {
-    icon: <Bear />,
+  1: {
+    animal: "Bear",
     color: colors.greenLight,
     score: 7,
   },
-  boar: {
-    icon: <Boar />,
+  2: {
+    animal: "Boar",
     color: colors.blueMedium,
     score: 3,
   },
-  bunny: {
-    icon: <Bunny />,
+  3: {
+    animal: "Bunny",
     color: colors.yellowLight,
     score: 2,
   },
-  butterfly: {
-    icon: <Butterfly />,
+  4: {
+    animal: "Butterfly",
     color: colors.orangeMedium,
     score: 2,
   },
-  cat: {
-    icon: <Cat />,
+  5: {
+    animal: "Cat",
     color: colors.purpleMedium,
     score: 10,
   },
-  chick: {
-    icon: <Chick />,
+  6: {
+    animal: "Chick",
     color: colors.redMedium,
     score: 2,
   },
-  chicken: {
-    icon: <Chicken />,
+  7: {
+    animal: "Chicken",
     color: colors.yellowLight,
     score: 4,
   },
-  cow: {
-    icon: <Cow />,
+  8: {
+    animal: "Cow",
     color: colors.greenMedium,
     score: 4,
   },
-  dog: {
-    icon: <Dog />,
+  9: {
+    animal: "Dog",
     color: colors.blueMedium,
     score: 10,
   },
-  fox: {
-    icon: <Fox />,
+  10: {
+    animal: "Fox",
     color: colors.grayMedium,
     score: 9,
   },
-  frog: {
-    icon: <Frog />,
+  11: {
+    animal: "Frog",
     color: colors.redMedium,
     score: 4,
   },
-  giraffe: {
-    icon: <Giraffe />,
+  12: {
+    animal: "Giraffe",
     color: colors.grayMedium,
     score: 2,
   },
-  gorilla: {
-    icon: <Gorilla />,
+  13: {
+    animal: "Gorilla",
     color: colors.yellowLight,
     score: 7,
   },
-  hamster: {
-    icon: <Hamster />,
+  14: {
+    animal: "Hamster",
     color: colors.grayMedium,
     score: 3,
   },
-  hedgehog: {
-    icon: <Hedgehog />,
+  15: {
+    animal: "Hedgehog",
     color: colors.greenMedium,
     score: 3,
   },
-  koala: {
-    icon: <Koala />,
+  16: {
+    animal: "Koala",
     color: colors.blueDark,
     score: 8,
   },
-  lion: {
-    icon: <Lion />,
+  17: {
+    animal: "Lion",
     color: colors.redLight,
     score: 8,
   },
-  monkey: {
-    icon: <Monkey />,
+  18: {
+    animal: "Monkey",
     color: colors.blueDark,
     score: 7,
   },
-  mouse: {
-    icon: <Mouse />,
+  19: {
+    animal: "Mouse",
     color: colors.redLight,
     score: 4,
   },
-  owl: {
-    icon: <Owl />,
+  20: {
+    animal: "Owl",
     color: colors.redMedium,
     score: 2,
   },
-  panda: {
-    icon: <Panda />,
+  21: {
+    animal: "Panda",
     color: colors.greenMedium,
     score: 7,
   },
-  penguin: {
-    icon: <Penguin />,
+  22: {
+    animal: "Penguin",
     color: colors.blueLight,
     score: 3,
   },
-  pig: {
-    icon: <Pig />,
+  23: {
+    animal: "Pig",
     color: colors.blueDark,
     score: 4,
   },
-  tiger: {
-    icon: <Tiger />,
+  24: {
+    animal: "Tiger",
     color: colors.purpleMedium,
     score: 6,
   },
-  turtle: {
-    icon: <Turtle />,
+  25: {
+    animal: "Turtle",
     color: colors.purpleMedium,
     score: 5,
   },
-  wolf: {
-    icon: <Wolf />,
+  26: {
+    animal: "Wolf",
     color: colors.blueLight,
     score: 7,
   },
-  zebra: {
-    icon: <Zebra />,
+  27: {
+    animal: "Zebra",
     color: colors.greenLight,
     score: 7,
   },

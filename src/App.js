@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Client } from "boardgame.io/react-native";
-import colors from "./constants/colors";
+import { colors } from "./constants/colors";
 
 import Matchimals from "./Matchimals";
 import game from "./Matchimals/game";

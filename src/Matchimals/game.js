@@ -1,7 +1,7 @@
 import shuffle from "lodash/shuffle";
-import animals from "../constants/animals";
 import { cells as emptyCells, center, columns } from "../constants/board";
-import { deck as DECK, getRandomCard } from "../constants/cards";
+import { deck, getRandomCard } from "../constants/cards";
+import { animals } from "../constants/animals";
 import * as snapshots from "./snapshots";
 
 export function getNeighbors(G, id) {
@@ -121,7 +121,7 @@ export function getInitialState(ctx) {
 
   // Add a deck for every player
   for (let i = 0; i < ctx.numPlayers; i++) {
-    G.deck = G.deck.concat(DECK);
+    G.deck = G.deck.concat(deck);
   }
 
   // Shuffle resulting deck using lodash
@@ -138,7 +138,7 @@ export function getInitialState(ctx) {
   G.cells = emptyCells;
 
   // Set the initial card on the board
-  const initialCard = getRandomCard(DECK); // TODO: Use boardgame.io provided random function
+  const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function
   G.cells[center] = initialCard;
 
   // Ensure the first card is connectable
