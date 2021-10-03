@@ -1,12 +1,13 @@
 import React from "react";
 import { ImageBackground, StyleSheet, View } from "react-native";
 
+import CardBackground from "./card-back.png";
 import { cardHeight, cardWidth } from "../constants/board";
 import Logo from "../Logo";
 
 const CardBack = ({ height, style, width }) => (
   <View style={[styles.root, style]}>
-    <ImageBackground source={require("./card-back.png")} style={styles.root}>
+    <ImageBackground source={CardBackground} style={styles.root}>
       <View>
         <Logo width={80} height={24} fill="#fff" />
       </View>

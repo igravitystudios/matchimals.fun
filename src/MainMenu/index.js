@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 
+import TriangleBackground from "./trianglify.png";
 import { colors } from "../constants/colors";
 import Button from "../Button";
 import PlayerButton from "../PlayerButton";
@@ -18,7 +19,7 @@ const Menu = ({ startGame }) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <ImageBackground source={require("./trianglify.png")} style={styles.root}>
+    <ImageBackground source={TriangleBackground} style={styles.root}>
       <>
         <Text style={styles.text}>HOW MANY PLAYERS?</Text>
         <View
