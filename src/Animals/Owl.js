@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Circle, Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Owl = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#45332C"
       d="M32.002 57.573c-28.265 0-28.265-50 0-50 28.26 0 28.26 50 0 50z"

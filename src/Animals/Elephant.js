@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Elephant = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#6E8189"
       d="M21.414 38.793c5.507 11.617 3.104 13.061 5.388 17.951.947 2.029-1.443 1.08-.852 3.973h5.873c.57-1.635-.792-2.389-1.019-3.604-1.919-10.352.567-13.406.497-17.068-.094-4.859-11.301-4.236-9.887-1.252z"

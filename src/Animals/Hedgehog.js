@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Hedgehog = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#8A6859"
       d="M36.069 49.309c2.755 9.864-4.966 8.229-3.237 10.888h7.326c2.098-3.597.279-11.866.279-11.866s-4.775-.48-4.368.978zm-19.243 0c2.755 9.864-4.967 8.229-3.238 10.888h7.326c2.099-3.597.281-11.866.281-11.866s-4.776-.48-4.369.978z"

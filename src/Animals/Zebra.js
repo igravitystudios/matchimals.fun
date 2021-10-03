@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Zebra = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#99A8AE"
       d="M32.059 16.768S31.479 10.997 37.754 2c0 0 6.402 6.283 7.01 18.258l-12.705-3.49z"

@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Ellipse, Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Pig = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#FFC7D4"
       d="M41.49 9.391c1.838-4.592 6.492-6.505 12.75-6.75 2.354-.092 11.414-3.041 6.131 4.543-3.453 4.957.32 18.17-4.826 21.896-6.129 4.44-15.899-15.088-14.055-19.689z"

@@ -2,6 +2,8 @@ import { AppRegistry, Platform } from "react-native";
 
 import App from "./App";
 
+// import Print from "./Print";
+
 if (Platform.OS === "android") {
   require("babel-polyfill");
 }
