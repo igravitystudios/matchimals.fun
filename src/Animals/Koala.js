@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Ellipse, Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Koala = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#99A8AE"
       d="M28 16c0 7.179-5.822 13-12.998 13C7.821 29 2 23.179 2 16S7.821 3 15.002 3C22.178 3 28 8.821 28 16z"

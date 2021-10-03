@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Svg, { Polygon } from "svgs";
 
 import { animals } from "../constants/animals";
-import { cardHeight, cardWidth } from "../constants/board";
+import { animalSize, cardHeight, cardWidth } from "../constants/board";
 
 import Animals from "../Animals";
 
@@ -40,10 +40,10 @@ const CardFront = ({ card = {}, style }) => (
       <View
         style={{
           position: "absolute",
-          top: -32,
-          left: 18,
-          width: 64,
-          height: 64,
+          top: -(animalSize / 2),
+          left: (cardWidth - animalSize) / 2,
+          width: animalSize,
+          height: animalSize,
         }}
       >
         {React.createElement(Animals[animals[card.top].animal])}
@@ -53,10 +53,10 @@ const CardFront = ({ card = {}, style }) => (
       <View
         style={{
           position: "absolute",
-          top: 38,
-          right: -32,
-          width: 64,
-          height: 64,
+          top: (cardHeight - animalSize) / 2,
+          right: -(animalSize / 2),
+          width: animalSize,
+          height: animalSize,
         }}
       >
         <Text
@@ -64,8 +64,8 @@ const CardFront = ({ card = {}, style }) => (
             styles.score,
             {
               position: "absolute",
-              top: -14,
-              left: 14,
+              top: -(animalSize * 0.2),
+              left: animalSize * 0.21875,
             },
           ]}
         >
@@ -78,10 +78,10 @@ const CardFront = ({ card = {}, style }) => (
       <View
         style={{
           position: "absolute",
-          bottom: -32,
-          left: 18,
-          width: 64,
-          height: 64,
+          bottom: -(animalSize / 2),
+          left: (cardWidth - animalSize) / 2,
+          width: animalSize,
+          height: animalSize,
         }}
       >
         <Text
@@ -89,8 +89,8 @@ const CardFront = ({ card = {}, style }) => (
             styles.score,
             {
               position: "absolute",
-              top: -16,
-              left: 22,
+              width: "100%",
+              top: -(animalSize * 0.25),
             },
           ]}
         >
@@ -103,10 +103,10 @@ const CardFront = ({ card = {}, style }) => (
       <View
         style={{
           position: "absolute",
-          top: 38,
-          left: -32,
-          width: 64,
-          height: 64,
+          top: (cardHeight - animalSize) / 2,
+          left: -(animalSize / 2),
+          width: animalSize,
+          height: animalSize,
         }}
       >
         {React.createElement(Animals[animals[card.left].animal])}
@@ -126,9 +126,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   score: {
-    width: 20,
     color: "#fff",
-    fontSize: 14,
+    fontSize: animalSize * 0.21875,
     fontWeight: "700",
     textAlign: "center",
     textShadowColor: "rgba(0,0,0,0.69)",

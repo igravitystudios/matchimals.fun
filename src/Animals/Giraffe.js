@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Giraffe = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#8A6859"
       d="M40.336 33.814C33.67 40.352 40.394 62 40.394 62h2.243s.537-.695-.564-5.518c1.593 4.9 3.146 1.311.299-7.092 2.394 2.225 3.556.124 0-7.354 2.228 2.649 2.498-3.732-2.036-8.222z"

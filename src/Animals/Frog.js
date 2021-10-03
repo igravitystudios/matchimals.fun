@@ -1,8 +1,10 @@
 import React from "react";
 import Svg, { Path } from "svgs";
 
+import { animalSize } from "../constants/board";
+
 const Frog = (props) => (
-  <Svg height={64} width={64} viewBox="0 0 64 64" {...props}>
+  <Svg height={animalSize} width={animalSize} viewBox="0 0 64 64" {...props}>
     <Path
       fill="#FED0AC"
       d="M61.912 26.462c-1.16-5.406-58.664-5.406-59.825 0-.86 3.995 4.895 11.597 4.895 11.597C6.982 44.094 19.481 58 32 58c12.521 0 25.016-13.906 25.016-19.941 0 0 5.757-7.602 4.896-11.597z"
