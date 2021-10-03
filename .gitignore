@@ -30,6 +30,7 @@ release/
 .gradle
 local.properties
 *.iml
+*.hprof
 
 # node.js
 #
