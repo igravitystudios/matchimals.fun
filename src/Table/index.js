@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 
+import WoodBackground from "./wood-background.jpg";
 import { boardHeight, boardWidth } from "../constants/board";
 import Board from "../Board";
 
@@ -197,7 +198,7 @@ class Table extends Component {
       >
         <ImageBackground
           resizeMode="repeat"
-          source={require("./wood-background.jpg")}
+          source={WoodBackground}
           style={styles.root}
         >
           <Board {...rest} />
