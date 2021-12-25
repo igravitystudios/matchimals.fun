@@ -25,6 +25,7 @@
     "react-native-gesture-handler": "1.10.3",
     "react-native-modal": "13.0.0",
     "react-native-safe-area-context": "3.3.2",
+    "react-native-sound": "0.11.1",
     "react-native-svg": "12.1.1",
     "react-native-video": "5.1.1",
     "react-native-web": "0.17.5",
