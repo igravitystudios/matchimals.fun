@@ -9,9 +9,11 @@ import game from "./Matchimals/game";
 import MainMenu from "./MainMenu";
 import { MusicProvider } from "./Music";
 import { PlayerProvider } from "./hooks/players";
+import Dragimals from "./Dragimals";
 
 class App extends Component {
   state = {
+    playDragimals: false,
     isMainMenuVisible: true,
     numPlayers: 1,
   };
@@ -29,8 +31,15 @@ class App extends Component {
     });
   };
 
+  playDragimals = () => {
+    this.setState((state) => ({
+      ...state,
+      playDragimals: true,
+    }));
+  };
+
   render() {
-    const { isMainMenuVisible, numPlayers } = this.state;
+    const { isMainMenuVisible, numPlayers, playDragimals } = this.state;
     const MatchimalsClient = Client({
       board: Matchimals,
       game,
@@ -44,8 +53,13 @@ class App extends Component {
           <PlayerProvider>
             <View style={styles.root}>
               <StatusBar hidden />
-              {isMainMenuVisible ? (
-                <MainMenu startGame={this.startGame} />
+              {playDragimals ? (
+                <Dragimals />
+              ) : isMainMenuVisible ? (
+                <MainMenu
+                  startGame={this.startGame}
+                  playDragimals={this.playDragimals}
+                />
               ) : (
                 <MatchimalsClient backToMainMenu={this.backToMainMenu} />
               )}

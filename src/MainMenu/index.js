@@ -14,7 +14,7 @@ import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const Menu = ({ startGame }) => {
+const Menu = ({ startGame, playDragimals }) => {
   const music = useMusic();
   const insets = useSafeAreaInsets();
 
@@ -57,6 +57,9 @@ const Menu = ({ startGame }) => {
             }}
             style={{ margin: 6 }}
           />
+        </View>
+        <View>
+          <Button onPress={playDragimals}>Dragimals</Button>
         </View>
 
         {Platform.OS !== "web" && music && (
