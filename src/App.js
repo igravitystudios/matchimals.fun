@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Client } from "boardgame.io/react-native";
 import { colors } from "./constants/colors";
@@ -10,51 +11,69 @@ import MainMenu from "./MainMenu";
 import { MusicProvider } from "./Music";
 import { PlayerProvider } from "./hooks/players";
 
-class App extends Component {
-  state = {
-    isMainMenuVisible: true,
-    numPlayers: 1,
+export default function App() {
+  const [isMainMenuVisible, setIsMainMenuVisible] = React.useState(true);
+  const [numPlayers, setNumPlayers] = React.useState(1);
+
+  const [numGamesPlayed, setNumGamesPlayed] = React.useState("0");
+  const {
+    getItem: getAsyncNumGamesPlayed,
+    setItem: setAsyncNumGamesPlayed,
+  } = useAsyncStorage("numGamesPlayed");
+
+  const onMount = async () => {
+    const asyncNumGamesPlayed = await getAsyncNumGamesPlayed();
+
+    setNumGamesPlayed(asyncNumGamesPlayed);
   };
 
-  backToMainMenu = () => {
-    this.setState({
-      isMainMenuVisible: true,
-    });
-  };
+  const handleIncrementGamesPlayed = useCallback(() => {
+    const stringNumberWow = `${Number(numGamesPlayed) + 1}`;
+    console.log("You are playing Game Number: " + stringNumberWow);
+    setNumGamesPlayed(stringNumberWow);
+    setAsyncNumGamesPlayed(stringNumberWow);
+  }, [numGamesPlayed, setNumGamesPlayed, setAsyncNumGamesPlayed]);
 
-  startGame = (numPlayers) => {
-    this.setState({
-      numPlayers,
-      isMainMenuVisible: false,
-    });
-  };
+  useEffect(() => {
+    onMount();
+  });
 
-  render() {
-    const { isMainMenuVisible, numPlayers } = this.state;
-    const MatchimalsClient = Client({
-      board: Matchimals,
-      game,
-      numPlayers,
-      debug: false,
-    });
+  const backToMainMenu = useCallback(() => {
+    setIsMainMenuVisible(true);
+  }, [setIsMainMenuVisible]);
 
-    return (
-      <SafeAreaProvider>
-        <MusicProvider>
-          <PlayerProvider>
-            <View style={styles.root}>
-              <StatusBar hidden />
-              {isMainMenuVisible ? (
-                <MainMenu startGame={this.startGame} />
-              ) : (
-                <MatchimalsClient backToMainMenu={this.backToMainMenu} />
-              )}
-            </View>
-          </PlayerProvider>
-        </MusicProvider>
-      </SafeAreaProvider>
-    );
-  }
+  const startGame = useCallback(
+    (numPlayers) => {
+      setNumPlayers(numPlayers);
+      setIsMainMenuVisible(false);
+      handleIncrementGamesPlayed();
+    },
+    [handleIncrementGamesPlayed, setIsMainMenuVisible, setNumPlayers]
+  );
+
+  const MatchimalsClient = Client({
+    board: Matchimals,
+    game,
+    numPlayers,
+    debug: false,
+  });
+
+  return (
+    <SafeAreaProvider>
+      <MusicProvider>
+        <PlayerProvider>
+          <View style={styles.root}>
+            <StatusBar hidden />
+            {isMainMenuVisible ? (
+              <MainMenu startGame={startGame} />
+            ) : (
+              <MatchimalsClient backToMainMenu={backToMainMenu} />
+            )}
+          </View>
+        </PlayerProvider>
+      </MusicProvider>
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -66,5 +85,3 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grayDark,
   },
 });
-
-export default App;
