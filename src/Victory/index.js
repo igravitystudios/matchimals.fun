@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import InAppReview from "react-native-in-app-review";
 
 import { usePlayerConfig } from "../hooks/players";
 import { colors } from "../constants/colors";
@@ -9,11 +11,38 @@ import Button from "../Button";
 import Confetti from "../Confetti";
 
 const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
+  const {
+    getItem: getAsyncLastReviewPrompt,
+    setItem: setAsyncLastReviewPrompt,
+  } = useAsyncStorage("lastReviewPrompt");
   const { playerConfig } = usePlayerConfig();
   const score = players[player]?.score;
   const name = playerConfig[player]?.name;
   const backgroundColor = playerConfig[player]?.color;
   const Icon = Animals[playerConfig[player]?.animal];
+
+  const handleEndGame = async () => {
+    const asyncLastReviewPrompt = await getAsyncLastReviewPrompt();
+    const lastPrompt = asyncLastReviewPrompt && new Date(asyncLastReviewPrompt);
+    const thirtyDaysAgo = new Date(
+      new Date().setDate(new Date().getDate() - 30)
+    );
+
+    if (InAppReview.isAvailable() && lastPrompt < thirtyDaysAgo) {
+      InAppReview.RequestInAppReview()
+        .then((hasFlowFinishedSuccessfully) => {
+          if (hasFlowFinishedSuccessfully) {
+            setAsyncLastReviewPrompt(new Date().toISOString());
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    backToMainMenu();
+  };
+
   return (
     <View style={[styles.root, style]} {...rest}>
       <Confetti />
@@ -33,7 +62,7 @@ const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
           <Text style={styles.score}>{score}</Text>
           <Button
             color={colors.redLight}
-            onPress={backToMainMenu}
+            onPress={handleEndGame}
             style={{ marginBottom: 16 }}
           >
             EXIT TO MAIN MENU
