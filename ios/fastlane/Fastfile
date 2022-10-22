@@ -18,10 +18,10 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    get_certificates           # invokes cert
-    get_provisioning_profile   # invokes sigh
+    setup_ci
+    match(type: "appstore", readonly: true)
     increment_build_number(xcodeproj: "matchimals.xcodeproj")
     build_app(workspace: "matchimals.xcworkspace", scheme: "matchimals")
-    upload_to_testflight(skip_waiting_for_build_processing: true)
+    pilot(api_key_path: "fastlane/fastlane-api-key.json", skip_waiting_for_build_processing: true)
   end
 end

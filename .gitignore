@@ -50,7 +50,11 @@ buck-out/
 # CocoaPods
 /ios/Pods/*
 /vendor/bundle/
-ios/AppStore_native.matchimals.fun.mobileprovision
-ios/F4CH96MX6T.cer
+ios/*.mobileprovision
+ios/*.cer
 ios/Matchimals.app.dSYM.zip
 ios/fastlane/report.xml
+*.p8
+fastlane-api-key.json
+
+.env
