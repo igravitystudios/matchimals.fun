@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+ios/.xcode.env.local
 
 # Android/IntelliJ
 #
@@ -49,11 +50,16 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/*
+
+# Fastlane
 /vendor/bundle/
 ios/*.mobileprovision
 ios/*.cer
 ios/Matchimals.app.dSYM.zip
-ios/fastlane/report.xml
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
 *.p8
 fastlane-api-key.json
 
