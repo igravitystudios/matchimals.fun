@@ -11,6 +11,7 @@
     "ios:iphone": "react-native run-ios --simulator=\"iPhone 11\"",
     "web": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "cd ios && fastlane beta",
     "prettier": "prettier --write 'src/**/*.{js,json,md}'"
   },
   "dependencies": {
