@@ -1,4 +1,5 @@
-<img src="./assets/app-icons/Icon-App-1024x1024.png" alt="Matchimals logo" width="240" />
+<img src="./assets/app-icons/Icon-App-1024x1024.png" alt="Matchimals icon" width="240" />
+<img src="./matchimals-logo.svg" alt="Matchimals logo" width="240" />
 
 # Matchimals.fun
 

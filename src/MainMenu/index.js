@@ -6,13 +6,14 @@ import {
   Text,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import TriangleBackground from "./trianglify.png";
 import { colors } from "../constants/colors";
 import Button from "../Button";
 import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Logo from "../Logo";
 
 const Menu = ({ startGame }) => {
   const music = useMusic();
@@ -21,6 +22,7 @@ const Menu = ({ startGame }) => {
   return (
     <ImageBackground source={TriangleBackground} style={styles.root}>
       <>
+        <Logo width={306} height={60} style={{ marginBottom: 48 }} />
         <Text style={styles.text}>HOW MANY PLAYERS?</Text>
         <View
           style={{
