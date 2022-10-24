@@ -1,11 +1,12 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 
 import { colors } from "../constants/colors";
 import { DevTools } from "./DevTools";
 import Button from "../Button";
 import Dialog from "../Dialog";
 import { useMusic } from "../Music";
+import Logo from "../Logo";
 
 const Menu = ({
   moves,
@@ -23,6 +24,16 @@ const Menu = ({
       hide={hide}
       style={{ maxWidth: 360 }}
     >
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 16,
+          marginTop: -16,
+        }}
+      >
+        <Logo width={240} height={72} />
+      </View>
       {Platform.OS !== "web" && music && (
         <Button
           onPress={() => music?.setPaused(!music?.paused)}

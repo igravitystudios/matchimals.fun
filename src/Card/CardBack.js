@@ -9,7 +9,7 @@ const CardBack = ({ height, style, width }) => (
   <View style={[styles.root, style]}>
     <ImageBackground source={CardBackground} style={styles.root}>
       <View>
-        <Logo width={80} height={24} fill="#fff" />
+        <Logo width={80} />
       </View>
     </ImageBackground>
   </View>

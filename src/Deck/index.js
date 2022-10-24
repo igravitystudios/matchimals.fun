@@ -11,7 +11,7 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
         shadow = {
           // Shadow props were causing performance issues- let's use a solid border instead of a white shadow
           borderRightWidth: 1,
-          borderRightColor: "#fff",
+          borderRightColor: "#2A1A12", // shadow from new logo
         };
       }
 
@@ -23,7 +23,7 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
           flipped={i === 0}
           style={{
             position: "absolute",
-            left: i === 0 ? 0 : i * 4,
+            left: i === 0 ? 0 : i * 3,
             top: 0,
             ...shadow,
             zIndex: 100 - i,
