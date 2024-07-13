@@ -48,9 +48,6 @@ buck-out/
 *.jsbundle
 *.aab
 
-# CocoaPods
-/ios/Pods/*
-
 # Fastlane
 /vendor/bundle/
 ios/*.mobileprovision
@@ -64,3 +61,21 @@ ios/Matchimals.app.dSYM.zip
 fastlane-api-key.json
 
 .env
+
+# Ruby / CocoaPods
+**/Pods/
+/vendor/bundle/
+ 
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+ 
+# testing
+/coverage
+ 
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import Card from "../Card";
 
-const Deck = ({ cards, onCardDrop, style, ...rest }) => (
+const Deck = ({ cards = [], onCardDrop, style, ...rest }) => (
   <View style={[styles.root, style]} {...rest}>
     {cards.map((card, i) => {
       let shadow;
@@ -34,10 +34,6 @@ const Deck = ({ cards, onCardDrop, style, ...rest }) => (
     })}
   </View>
 );
-
-Deck.defaultProps = {
-  cards: [],
-};
 
 const styles = StyleSheet.create({
   root: {
