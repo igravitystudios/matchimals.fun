@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>405516785906-u6a8es9p35ihatnt4lpm1nihvvla6ebc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.405516785906-u6a8es9p35ihatnt4lpm1nihvvla6ebc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBAWKjzTeMft1JZYewPV9A-mZvEbaZnFIA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>405516785906</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>native.matchimals.fun</string>
+	<key>PROJECT_ID</key>
+	<string>matchimals</string>
+	<key>STORAGE_BUCKET</key>
+	<string>matchimals.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:405516785906:ios:27434e69a7a1fbeed8d86b</string>
+	<key>DATABASE_URL</key>
+	<string>https://matchimals.firebaseio.com</string>
+</dict>
+</plist>

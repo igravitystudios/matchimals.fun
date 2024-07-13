@@ -11,6 +11,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2A4AC9165395B4C4482BFA9F /* libPods-matchimals.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2BD53473AC7F960C144FA4 /* libPods-matchimals.a */; };
+		E245D6202C42425100D0519E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E245D61F2C42424B00D0519E /* GoogleService-Info.plist */; };
 		E26F0265270A4ED200B56D13 /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E26F0264270A4ED200B56D13 /* libswiftWebKit.tbd */; };
 		E2E7A04C285EEBBD0049B02B /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E2E7A04B285EEBBD0049B02B /* AppDelegate.mm */; };
 		E969EDAF8DD04822BF7F7D18 /* Dimbo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1AECA86CE6349068D340E55 /* Dimbo.ttf */; };
@@ -19,8 +20,6 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* matchimalsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = matchimalsTests.m; sourceTree = "<group>"; };
 		0A25D08A91FD2510197D0453 /* libPods-matchimals-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-matchimals-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* Matchimals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchimals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = matchimals/AppDelegate.h; sourceTree = "<group>"; };
@@ -40,6 +39,7 @@
 		D00AFC3C96DD6C348AED3A63 /* Pods-matchimals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matchimals.debug.xcconfig"; path = "Target Support Files/Pods-matchimals/Pods-matchimals.debug.xcconfig"; sourceTree = "<group>"; };
 		D1AECA86CE6349068D340E55 /* Dimbo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Dimbo.ttf; path = ../assets/fonts/Dimbo.ttf; sourceTree = "<group>"; };
 		DC6D436B3747AF00A717D733 /* Pods-matchimals-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matchimals-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-matchimals-tvOSTests/Pods-matchimals-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		E245D61F2C42424B00D0519E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E26F0264270A4ED200B56D13 /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
 		E2E7A04B285EEBBD0049B02B /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = matchimals/AppDelegate.mm; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -61,23 +61,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* matchimalsTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* matchimalsTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = matchimalsTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* matchimals */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,9 +124,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E245D61F2C42424B00D0519E /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* matchimals */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* matchimalsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3D0455D63FFC974EE63611A9 /* Pods */,
@@ -227,6 +210,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				E245D6202C42425100D0519E /* GoogleService-Info.plist in Resources */,
 				E969EDAF8DD04822BF7F7D18 /* Dimbo.ttf in Resources */,
 				EC122856D18257A33B04F097 /* PrivacyInfo.xcprivacy in Resources */,
 			);
