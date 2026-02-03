@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import InAppReview from "react-native-in-app-review";
+import * as StoreReview from "expo-store-review";
 
 import { usePlayerConfig } from "../hooks/players";
 import { colors } from "../constants/colors";
@@ -28,16 +28,14 @@ const Victory = ({ backToMainMenu, player, players, style, ...rest }) => {
       new Date().setDate(new Date().getDate() - 30)
     );
 
-    if (InAppReview.isAvailable() && lastPrompt < thirtyDaysAgo) {
-      InAppReview.RequestInAppReview()
-        .then((hasFlowFinishedSuccessfully) => {
-          if (hasFlowFinishedSuccessfully) {
-            setAsyncLastReviewPrompt(new Date().toISOString());
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const isAvailable = await StoreReview.isAvailableAsync();
+    if (isAvailable && (!lastPrompt || lastPrompt < thirtyDaysAgo)) {
+      try {
+        await StoreReview.requestReview();
+        setAsyncLastReviewPrompt(new Date().toISOString());
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     backToMainMenu();

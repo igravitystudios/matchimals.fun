@@ -1,2 +1,8 @@
-// `react-native start` doesn't allow us to pass an entry-point, so we'll just do this.
-import "./src/index.js";
+import { registerRootComponent } from 'expo';
+
+import App from './App';
+
+// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
+// It also ensures that whether you load the app in Expo Go or in a native build,
+// the environment is set up appropriately
+registerRootComponent(App);
