@@ -1,9 +1,7 @@
 # OSX
-#
 .DS_Store
 
 # Xcode
-#
 build/
 *.pbxuser
 !default.pbxuser
@@ -21,57 +19,40 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-ios/.xcode.env.local
-
-# Android/IntelliJ
-#
-build/
-release/
-.idea
-.gradle
-local.properties
-*.iml
-*.hprof
 
 # node.js
-#
 node_modules/
 npm-debug.log
 yarn-error.log
 
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-
-# Bundle artifact
+# Bundle artifacts
 *.jsbundle
 *.aab
 
-# Fastlane
-/vendor/bundle/
-ios/*.mobileprovision
-ios/*.cer
-ios/Matchimals.app.dSYM.zip
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
-*.p8
-fastlane-api-key.json
+# Expo
+.expo/
+dist/
+ios/
+android/
+web-build/
 
+# EAS
+.eas/
+
+# Environment
 .env
+.env.local
+.env.*.local
 
-# Ruby / CocoaPods
+# CocoaPods
 **/Pods/
-/vendor/bundle/
- 
-# Temporary files created by Metro to check the health of the file watcher
+
+# Metro
 .metro-health-check*
- 
-# testing
+
+# Testing
 /coverage
- 
+
 # Yarn
 .yarn/*
 !.yarn/patches

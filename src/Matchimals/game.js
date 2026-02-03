@@ -135,7 +135,7 @@ export function getInitialState(ctx) {
   }
 
   // Fill the game board
-  G.cells = emptyCells;
+  G.cells = [...emptyCells];
 
   // Set the initial card on the board
   const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function

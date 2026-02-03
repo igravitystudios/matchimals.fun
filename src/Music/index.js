@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
-import { Platform } from "react-native";
-import Video from "react-native-video";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { useAudioPlayer } from "expo-audio";
 
-const backgroundMusic = require("./background-music.mp4");
-const soundEffect1 = require("./sound-effect-1.mp4");
-const soundEffect2 = require("./sound-effect-2.mp4");
-const soundEffect3 = require("./sound-effect-3.mp4");
+const backgroundMusicSource = require("../../assets/audio/background-music.mp4");
+const soundEffect1Source = require("../../assets/audio/sound-effect-1.mp4");
+const soundEffect2Source = require("../../assets/audio/sound-effect-2.mp4");
+const soundEffect3Source = require("../../assets/audio/sound-effect-3.mp4");
 
 export const MusicContext = React.createContext({
   paused: true,
@@ -17,62 +16,49 @@ export const MusicContext = React.createContext({
 
 export const useMusic = () => useContext(MusicContext);
 
-// TODO: This was quick and dirty,
-// everything could probably be refactored/renamed to be more clear
 export const MusicProvider = ({ children }) => {
   const [paused, setPaused] = useState(true);
-  const [pauseSoundEffect1, setPauseSoundEffect1] = useState(true);
-  const [pauseSoundEffect2, setPauseSoundEffect2] = useState(true);
-  const [pauseSoundEffect3, setPauseSoundEffect3] = useState(true);
+
+  const backgroundMusic = useAudioPlayer(backgroundMusicSource, 500);
+  const soundEffect1 = useAudioPlayer(soundEffect1Source, 500);
+  const soundEffect2 = useAudioPlayer(soundEffect2Source, 500);
+  const soundEffect3 = useAudioPlayer(soundEffect3Source, 500);
+
+  // Configure background music
+  useEffect(() => {
+    if (backgroundMusic) {
+      backgroundMusic.loop = true;
+      backgroundMusic.volume = 0.2;
+    }
+  }, [backgroundMusic]);
+
+  // Handle pause/play
+  useEffect(() => {
+    if (!backgroundMusic) return;
+    if (paused) {
+      backgroundMusic.pause();
+    } else {
+      backgroundMusic.play();
+    }
+  }, [paused, backgroundMusic]);
+
+  const playSoundEffect = (player) => {
+    if (!player) return;
+    player.seekTo(0);
+    player.play();
+  };
+
   return (
     <MusicContext.Provider
       value={{
         paused,
         setPaused,
-        playSoundEffect1: () => setPauseSoundEffect1(false),
-        playSoundEffect2: () => setPauseSoundEffect2(false),
-        playSoundEffect3: () => setPauseSoundEffect3(false),
+        playSoundEffect1: () => playSoundEffect(soundEffect1),
+        playSoundEffect2: () => playSoundEffect(soundEffect2),
+        playSoundEffect3: () => playSoundEffect(soundEffect3),
       }}
     >
-      <>
-        {/* Background music */}
-        <Video
-          audioOnly
-          repeat
-          paused={paused}
-          source={backgroundMusic}
-          volume={0.2}
-        />
-
-        {/* Sound effect for connecting cards */}
-        <Video
-          audioOnly
-          repeat={Platform.OS === "ios" ? true : false}
-          paused={pauseSoundEffect1}
-          source={soundEffect1}
-          onEnd={() => setPauseSoundEffect1(true)}
-        />
-
-        {/* Sound effect for passing a card */}
-        <Video
-          audioOnly
-          repeat={Platform.OS === "ios" ? true : false}
-          paused={pauseSoundEffect2}
-          source={soundEffect2}
-          onEnd={() => setPauseSoundEffect2(true)}
-        />
-
-        {/* Sound effect for a mismatched card */}
-        <Video
-          audioOnly
-          repeat={Platform.OS === "ios" ? true : false}
-          paused={pauseSoundEffect3}
-          source={soundEffect3}
-          onEnd={() => setPauseSoundEffect3(true)}
-        />
-
-        {children}
-      </>
+      {children}
     </MusicContext.Provider>
   );
 };

@@ -33,7 +33,7 @@ export const PlayerContext = React.createContext({
 });
 
 export const PlayerProvider = ({ children }) => {
-  const [playerConfig, setPlayerConfig] = useState(initialState);
+  const [playerConfig, setPlayerConfig] = useState(() => ({ ...initialState }));
 
   return (
     <PlayerContext.Provider value={{ playerConfig, setPlayerConfig }}>

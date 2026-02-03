@@ -42,9 +42,9 @@ If you have never worked on a native app before- you'll need to follow the direc
 Once you've configured your machine for React-Native development- getting the Matchimals.fun app to build should only require a few steps:
 
 1.  Fork the repo
-1.  Install dependencies (`yarn` or `npm i`)
-1.  Run the metro bundler: `yarn start`
-1.  In a separate terminal- run the emulator: `yarn run ios`
+1.  Install dependencies (`npm i`)
+1.  Run the metro bundler: `npm start`
+1.  Run the metro bundler + emulator: `npm run ios`
 
 ## Special thanks
 
