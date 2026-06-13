@@ -43,8 +43,11 @@ class Card extends Component {
     this._pan.setValue({ x: gestureState.dx, y: gestureState.dy });
     this._scale.setValue(1);
 
-    this.card.measure((x, y, width, height, pageX, pageY) => {
-      this.props.onCardDrop({ x, y, width, height, pageX, pageY }).then(() => {
+    // measureInWindow (getBoundingClientRect on web) reflects the translate
+    // transform; measure() reads offsetTop/Left on web and ignores transforms,
+    // so the dragged position was lost and the card always snapped back.
+    this.card.measureInWindow((pageX, pageY, width, height) => {
+      this.props.onCardDrop({ pageX, pageY, width, height }).then(() => {
         // Reset card position back to default (top of deck)
         this._pan.setValue({ x: 0, y: 0 });
         this.setState({ dragging: false });
