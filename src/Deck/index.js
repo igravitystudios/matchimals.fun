@@ -17,7 +17,10 @@ const Deck = ({ cards = [], onCardDrop, style, ...rest }) => (
 
       return (
         <Card
-          key={i}
+          // Key by distance from the bottom of the deck so each physical card
+          // keeps its component instance as the deck shrinks (index keys made
+          // the next top card inherit the just-dragged card's state)
+          key={cards.length - i}
           card={card}
           onCardDrop={onCardDrop}
           flipped={i === 0}

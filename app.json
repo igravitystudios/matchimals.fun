@@ -1,4 +1,78 @@
 {
-  "name": "matchimals",
-  "displayName": "Matchimals"
+  "expo": {
+    "name": "Matchimals",
+    "slug": "matchimals",
+    "version": "2.0.0",
+    "orientation": "default",
+    "icon": "./assets/app-icons/Icon-App-1024x1024.png",
+    "platforms": [
+      "ios",
+      "web"
+    ],
+    "ios": {
+      "bundleIdentifier": "native.matchimals.fun",
+      "buildNumber": "6",
+      "appleTeamId": "22ZH5U6APW",
+      "supportsTablet": true,
+      "requireFullScreen": false,
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "associatedDomains": [
+        "applinks:matchimals.fun",
+        "applinks:www.matchimals.fun",
+        "applinks:matchimals.com",
+        "applinks:www.matchimals.com"
+      ],
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIStatusBarHidden": true,
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "UIViewControllerBasedStatusBarAppearance": false,
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false,
+          "NSAllowsLocalNetworking": true
+        },
+        "NSLocationAlwaysUsageDescription": "This app will never request or use your location",
+        "NSLocationWhenInUseUsageDescription": "This app will never request or use your location",
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait",
+          "UIInterfaceOrientationPortraitUpsideDown",
+          "UIInterfaceOrientationLandscapeLeft",
+          "UIInterfaceOrientationLandscapeRight"
+        ]
+      }
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./public/icons/favicon.png"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Dimbo.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#17171b"
+        }
+      ],
+      "./plugins/withFirebaseNoAdId.js",
+      "expo-audio",
+      "expo-status-bar",
+      "expo-asset"
+    ]
+  }
 }

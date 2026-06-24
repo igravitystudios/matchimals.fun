@@ -35,16 +35,21 @@ Find a bug or have a question? Feel free to [open an issue](https://github.com/i
 
 ### Development
 
-React-Native development requires a number of tools to be installed and configured on your machine for the bundler and simulators to run properly.
-
-If you have never worked on a native app before- you'll need to follow the directions for setting up a project using the [React-Native CLI Quickstart](https://facebook.github.io/react-native/docs/getting-started.html#installing-dependencies).
-
-Once you've configured your machine for React-Native development- getting the Matchimals.fun app to build should only require a few steps:
+This is an [Expo](https://expo.dev) app using [continuous native generation](https://docs.expo.dev/workflow/continuous-native-generation/) — the `ios/` directory is generated from `app.json` and not checked in. You'll need [bun](https://bun.sh), Xcode, and CocoaPods installed.
 
 1.  Fork the repo
-1.  Install dependencies (`yarn` or `npm i`)
-1.  Run the metro bundler: `yarn start`
-1.  In a separate terminal- run the emulator: `yarn run ios`
+1.  Install dependencies: `bun install`
+1.  Build and run the app in the iOS simulator: `bun run ios`
+1.  Or run the web version: `bun run web`
+
+### Releasing
+
+Releases are built locally (no EAS subscription required). Bump `version`/`ios.buildNumber` in `app.json`, then either:
+
+- **Xcode:** `bun run prebuild`, then `open ios/Matchimals.xcworkspace` → Product → Archive → Distribute, or
+- **EAS local build:** `bunx eas build -p ios --local` (free; requires an Expo account)
+
+The web version is exported with `bun run build:web` (static output in `dist/`).
 
 ## Special thanks
 
