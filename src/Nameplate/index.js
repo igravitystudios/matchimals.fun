@@ -1,6 +1,11 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import * as Animatable from "react-native-animatable";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Animals from "../Animals";
 import { usePlayerConfig } from "../hooks/players";
 import AnimalChooser from "../AnimalChooser";
@@ -14,11 +19,32 @@ const Nameplate = ({ player, players, currentPlayer, style, ...rest }) => {
   const backgroundColor = playerConfig[player]?.color;
   const Icon = Animals[playerConfig[player]?.animal];
 
+  // Drive the active/inactive transition with the core Animated API on the
+  // native driver- react-native-animatable's `transition` prop oscillates on
+  // the New Architecture (Fabric). Start at the resting value so plates that
+  // mount inactive don't animate in.
+  const progress = useRef(new Animated.Value(active ? 1 : 0)).current;
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: active ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [active, progress]);
+
+  const opacity = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.8, 1],
+  });
+  const scale = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.8, 1],
+  });
+
   return (
     <>
-      <Animatable.View
-        style={[styles.root, active ? styles.active : styles.inactive, style]}
-        transition={["opacity", "scaleX", "scaleY"]}
+      <Animated.View
+        style={[styles.root, { opacity, transform: [{ scale }] }, style]}
         {...rest}
       >
         <TouchableOpacity
@@ -40,7 +66,7 @@ const Nameplate = ({ player, players, currentPlayer, style, ...rest }) => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.score}>{score}</Text>
         </View>
-      </Animatable.View>
+      </Animated.View>
       <AnimalChooser
         isVisible={showAnimalChooser}
         hide={() => setShowAnimalChooser(false)}
@@ -67,11 +93,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-  },
-  active: {},
-  inactive: {
-    opacity: 0.8,
-    transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
   },
   details: {
     width: 120,
