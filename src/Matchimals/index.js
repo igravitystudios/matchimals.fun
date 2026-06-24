@@ -21,21 +21,27 @@ const Matchimals = ({ backToMainMenu, ctx, G, moves, ...rest }) => {
 
   const onCardDrop = useCallback(
     (measurements) => {
-      // Get the top left corner of the card in relation to the viewport
-      const cardLeft = measurements.pageX;
-      const cardTop = measurements.pageY;
+      // The dragged card stays full screen-size while the board scales, so when
+      // zoomed out the card visually covers several cells. Use the card's CENTER
+      // (not its top-left corner) as the drop point so it lands where the player
+      // aims regardless of zoom. At zoom == 1 this is equivalent to the old
+      // top-left + round, since the card is exactly one cell wide there.
+      const cardCenterLeft = measurements.pageX + measurements.width / 2;
+      const cardCenterTop = measurements.pageY + measurements.height / 2;
 
       // Get the top left corner of the viewport in relation to the entire table
       const tableLeft = tableRef.current._previousLeft;
       const tableTop = tableRef.current._previousTop;
+      const scale = tableRef.current._previousScale || 1;
 
-      // Calculate the total distance from the table's edge to the card's edge
-      const distanceLeft = Math.abs(tableLeft - cardLeft);
-      const distanceTop = Math.abs(tableTop - cardTop);
+      // Convert the card center from screen pixels back to board pixels (the
+      // board is scaled by `scale` around its top-left origin, so 1 screen px ==
+      // 1/scale board px), then find which cell contains that point.
+      const boardLeft = Math.abs(tableLeft - cardCenterLeft) / scale;
+      const boardTop = Math.abs(tableTop - cardCenterTop) / scale;
 
-      // Calculate the total distance in "cells"
-      const cellsFromLeft = Math.round(distanceLeft / cardWidth);
-      const cellsFromTop = Math.round(distanceTop / cardHeight);
+      const cellsFromLeft = Math.floor(boardLeft / cardWidth);
+      const cellsFromTop = Math.floor(boardTop / cardHeight);
 
       // Calculate the target cell's id
       const targetCell = cellsFromTop * columns + cellsFromLeft;
