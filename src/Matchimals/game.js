@@ -134,8 +134,10 @@ export function getInitialState(ctx) {
     };
   }
 
-  // Fill the game board
-  G.cells = emptyCells;
+  // Fill the game board. Copy the shared module-level array so each game gets
+  // its own cells — otherwise the first game's state freeze (Immer, in dev)
+  // makes `emptyCells` read-only and the next game throws on G.cells[center] = …
+  G.cells = [...emptyCells];
 
   // Set the initial card on the board
   const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function
