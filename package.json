@@ -31,7 +31,6 @@
     "react-native": "0.85.3",
     "react-native-animatable": "^1.4.0",
     "react-native-in-app-review": "^4.3.0",
-    "react-native-modal": "14.0.0-rc.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-svg": "15.15.4",
     "react-native-web": "^0.21.2",

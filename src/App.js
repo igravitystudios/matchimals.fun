@@ -10,16 +10,15 @@ import game from "./Matchimals/game";
 import MainMenu from "./MainMenu";
 import { MusicProvider } from "./Music";
 import { PlayerProvider } from "./hooks/players";
+import { OverlayProvider } from "./Overlay";
 
 export default function App() {
   const [isMainMenuVisible, setIsMainMenuVisible] = React.useState(true);
   const [numPlayers, setNumPlayers] = React.useState(1);
 
   const [numGamesPlayed, setNumGamesPlayed] = React.useState("0");
-  const {
-    getItem: getAsyncNumGamesPlayed,
-    setItem: setAsyncNumGamesPlayed,
-  } = useAsyncStorage("numGamesPlayed");
+  const { getItem: getAsyncNumGamesPlayed, setItem: setAsyncNumGamesPlayed } =
+    useAsyncStorage("numGamesPlayed");
 
   const onMount = async () => {
     const asyncNumGamesPlayed = await getAsyncNumGamesPlayed();
@@ -62,14 +61,16 @@ export default function App() {
     <SafeAreaProvider>
       <MusicProvider>
         <PlayerProvider>
-          <View style={styles.root}>
-            <StatusBar hidden />
-            {isMainMenuVisible ? (
-              <MainMenu startGame={startGame} />
-            ) : (
-              <MatchimalsClient backToMainMenu={backToMainMenu} />
-            )}
-          </View>
+          <OverlayProvider>
+            <View style={styles.root}>
+              <StatusBar hidden />
+              {isMainMenuVisible ? (
+                <MainMenu startGame={startGame} />
+              ) : (
+                <MatchimalsClient backToMainMenu={backToMainMenu} />
+              )}
+            </View>
+          </OverlayProvider>
         </PlayerProvider>
       </MusicProvider>
     </SafeAreaProvider>
