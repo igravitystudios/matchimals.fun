@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Client } from "boardgame.io/react-native";
 import { colors } from "./constants/colors";
@@ -58,26 +59,31 @@ export default function App() {
   });
 
   return (
-    <SafeAreaProvider>
-      <MusicProvider>
-        <PlayerProvider>
-          <OverlayProvider>
-            <View style={styles.root}>
-              <StatusBar hidden />
-              {isMainMenuVisible ? (
-                <MainMenu startGame={startGame} />
-              ) : (
-                <MatchimalsClient backToMainMenu={backToMainMenu} />
-              )}
-            </View>
-          </OverlayProvider>
-        </PlayerProvider>
-      </MusicProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.flex}>
+      <SafeAreaProvider>
+        <MusicProvider>
+          <PlayerProvider>
+            <OverlayProvider>
+              <View style={styles.root}>
+                <StatusBar hidden />
+                {isMainMenuVisible ? (
+                  <MainMenu startGame={startGame} />
+                ) : (
+                  <MatchimalsClient backToMainMenu={backToMainMenu} />
+                )}
+              </View>
+            </OverlayProvider>
+          </PlayerProvider>
+        </MusicProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   root: {
     position: "relative",
     width: "100%",

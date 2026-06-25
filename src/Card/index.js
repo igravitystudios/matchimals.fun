@@ -1,101 +1,93 @@
-import React, { Component } from "react";
-import { Animated, PanResponder, StyleSheet, View } from "react-native";
+import React, { useCallback, useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import Reanimated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
 
 import { cardHeight, cardWidth } from "../constants/board";
 import CardBack from "./CardBack";
 import CardFront from "./CardFront";
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
+const Card = ({ card = {}, disabled, flipped, onCardDrop, style, ...rest }) => {
+  const [dragging, setDragging] = useState(false);
+  const cardRef = useRef(null);
 
-    this.state = { dragging: false };
+  // Drag with translate transforms instead of mutating left/top layout props-
+  // layout mutation via setNativeProps is unreliable on Fabric. The gesture math
+  // runs on the UI thread; only the drop measurement hops back to JS.
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const scale = useSharedValue(1);
 
-    // Drag with translate transforms instead of mutating left/top layout
-    // props- layout mutation via setNativeProps is unreliable on Fabric.
-    this._pan = new Animated.ValueXY({ x: 0, y: 0 });
-    this._scale = new Animated.Value(1);
+  const reset = useCallback(() => {
+    translateX.value = 0;
+    translateY.value = 0;
+    setDragging(false);
+  }, [translateX, translateY]);
 
-    this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => false,
-      onPanResponderGrant: this._handlePanResponderGrant,
-      onPanResponderMove: this._handlePanResponderMove,
-      onPanResponderRelease: this._handlePanResponderEnd,
-      onPanResponderTerminate: this._handlePanResponderEnd,
+  // Runs on JS. measureInWindow (getBoundingClientRect on web) reflects the
+  // translate transform; measure() reads offsetTop/Left on web and ignores
+  // transforms, so the dragged position would be lost and the card would always
+  // snap back. On a real drop we resolve the cell, then reset to the deck.
+  const handleEnd = useCallback(
+    (didDrop) => {
+      if (!didDrop || !cardRef.current) {
+        reset();
+        return;
+      }
+      cardRef.current.measureInWindow((pageX, pageY, width, height) => {
+        onCardDrop({ pageX, pageY, width, height }).then(reset);
+      });
+    },
+    [onCardDrop, reset]
+  );
+
+  const gesture = Gesture.Pan()
+    .minDistance(0)
+    .onStart(() => {
+      scale.value = 1.05;
+      runOnJS(setDragging)(true);
+    })
+    .onUpdate((e) => {
+      translateX.value = e.translationX;
+      translateY.value = e.translationY;
+    })
+    .onFinalize((e, success) => {
+      scale.value = 1;
+      runOnJS(handleEnd)(success);
     });
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { scale: scale.value },
+    ],
+  }));
+
+  if (disabled) {
+    return (
+      <View style={[styles.root, style]} {...rest}>
+        {!flipped ? <CardBack /> : <CardFront card={card} />}
+      </View>
+    );
   }
 
-  _setCardRef = (card) => {
-    this.card = card;
-  };
-
-  _handlePanResponderGrant = () => {
-    this.setState({ dragging: true });
-    this._scale.setValue(1.05);
-  };
-
-  _handlePanResponderMove = (e, gestureState) => {
-    this._pan.setValue({ x: gestureState.dx, y: gestureState.dy });
-  };
-
-  _handlePanResponderEnd = (e, gestureState) => {
-    this._pan.setValue({ x: gestureState.dx, y: gestureState.dy });
-    this._scale.setValue(1);
-
-    // measureInWindow (getBoundingClientRect on web) reflects the translate
-    // transform; measure() reads offsetTop/Left on web and ignores transforms,
-    // so the dragged position was lost and the card always snapped back.
-    this.card.measureInWindow((pageX, pageY, width, height) => {
-      this.props.onCardDrop({ pageX, pageY, width, height }).then(() => {
-        // Reset card position back to default (top of deck)
-        this._pan.setValue({ x: 0, y: 0 });
-        this.setState({ dragging: false });
-      });
-    });
-  };
-
-  render() {
-    const {
-      card = {},
-      disabled,
-      flipped,
-      onCardDrop, // prevent from being applied to ...rest
-      style,
-      ...rest
-    } = this.props;
-
-    if (disabled) {
-      return (
-        <View style={[styles.root, style]} {...rest}>
-          {!flipped ? <CardBack /> : <CardFront card={card} />}
-        </View>
-      );
-    }
-
-    return (
-      <Animated.View
-        ref={this._setCardRef}
-        style={[
-          styles.root,
-          style,
-          this.state.dragging && styles.dragging,
-          {
-            transform: [
-              { translateX: this._pan.x },
-              { translateY: this._pan.y },
-              { scale: this._scale },
-            ],
-          },
-        ]}
-        {...this._panResponder.panHandlers}
+  return (
+    <GestureDetector gesture={gesture}>
+      <Reanimated.View
+        ref={cardRef}
+        style={[styles.root, style, dragging && styles.dragging, animatedStyle]}
         {...rest}
       >
         {!flipped ? <CardBack /> : <CardFront card={card} />}
-      </Animated.View>
-    );
-  }
-}
+      </Reanimated.View>
+    </GestureDetector>
+  );
+};
 
 const styles = StyleSheet.create({
   root: {
