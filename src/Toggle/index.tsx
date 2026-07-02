@@ -80,7 +80,7 @@ const Toggle = <T extends string>({
 
 const styles = StyleSheet.create({
   track: {
-    backgroundColor: colors.blueLight,
+    backgroundColor: colors.blueGrayLight,
     borderRadius: 16,
     borderWidth: 4,
     borderColor: "#fff",
