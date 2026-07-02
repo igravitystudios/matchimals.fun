@@ -23,8 +23,8 @@ import Toggle from "../Toggle";
 import type { GameMode } from "../Matchimals/game";
 
 const modeCaptions: Record<GameMode, string> = {
-  kids: "Frustration-free: each card can always be placed",
-  classic: "Shuffled deck: play if it fits, pass if it doesn't",
+  kids: "Always a match to make",
+  classic: "Match if you can, pass if not",
 };
 
 const Menu = ({
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     marginTop: 12,
     width: 320,
-    // Reserve two lines so switching captions never shifts the layout
-    height: 56,
+    // Both captions are single-line; fixed height keeps the layout stable
+    height: 28,
     textAlign: "center",
   },
 });
