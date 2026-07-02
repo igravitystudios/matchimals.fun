@@ -14,6 +14,8 @@ export interface GameState {
   cells: (Card | null)[];
   deck: Card[];
   players: Record<string, PlayerState>;
+  // Optional so hardcoded snapshot states don't need to carry it
+  noValidMoves?: boolean;
 }
 
 export interface Neighbors {
@@ -118,17 +120,21 @@ export function isLegalMove(G: GameState, ctx: Ctx, id: number): boolean {
   return false; //Return false if there are no neighboring cards that match
 }
 
-export function canCardsConnect(card1: Card, card2: Card): boolean {
-  if (
-    card1.top === card2.bottom ||
-    card1.bottom === card2.top ||
-    card1.left === card2.right ||
-    card1.right === card2.left
-  ) {
-    return true;
-  }
+export function hasAnyLegalMove(G: GameState, ctx: Ctx): boolean {
+  return G.cells.some((_, id) => isLegalMove(G, ctx, id));
+}
 
-  return false;
+// Rotate the deck until the top card has a legal placement somewhere on the
+// board, so every card that gets drawn is playable. If a full cycle through
+// the deck finds nothing, flag the dead end so endIf finishes the game.
+export function ensurePlayableTopCard(G: GameState, ctx: Ctx): void {
+  for (let i = 0; i < G.deck.length; i++) {
+    if (hasAnyLegalMove(G, ctx)) {
+      return;
+    }
+    G.deck.push(G.deck.shift()!); // Unplayable right now — try again later
+  }
+  G.noValidMoves = true;
 }
 
 export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
@@ -165,10 +171,8 @@ export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
   const initialCard = { ...deck[random.Die(deck.length) - 1] };
   G.cells[center] = initialCard;
 
-  // Ensure the first card is connectable
-  while (!canCardsConnect(G.deck[0], initialCard)) {
-    G.deck.push(G.deck.shift()!); // Place top card to bottom of deck, try again!
-  }
+  // Ensure the first card is playable
+  ensurePlayableTopCard(G, ctx);
 
   // For debugging "game over" state– this sets the deck to only have a single card
   // G.deck = new Array(G.deck[0]);
@@ -210,17 +214,22 @@ const game: Game<GameState> = {
 
         //Next card shifts up the deck
         G.deck.shift();
+
+        if (G.deck.length > 0) {
+          ensurePlayableTopCard(G, ctx);
+        }
       }
     },
 
-    pass: ({ G }) => {
+    pass: ({ G, ctx }) => {
       // Place top card to bottom of deck
       G.deck.push(G.deck.shift()!);
+      ensurePlayableTopCard(G, ctx);
     },
   },
 
   endIf: ({ G }) => {
-    if (G.deck.length === 0) {
+    if (G.deck.length === 0 || G.noValidMoves) {
       const winner = Object.keys(G.players).reduce(
         (previousPlayer, currentPlayer) =>
           G.players[previousPlayer].score > G.players[currentPlayer].score
