@@ -14,6 +14,7 @@ import Button from "../Button";
 import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
 import Logo from "../Logo";
+import Toggle from "../Toggle";
 import type { GameMode } from "../Matchimals/game";
 
 const Menu = ({
@@ -70,24 +71,15 @@ const Menu = ({
           />
         </View>
 
-        <View style={{ flexDirection: "row", marginTop: 24 }}>
-          <Button
-            color={gameMode === "kids" ? colors.yellowLight : colors.grayLight}
-            onPress={() => setGameMode("kids")}
-            style={{ margin: 6 }}
-          >
-            KID'S MODE
-          </Button>
-          <Button
-            color={
-              gameMode === "classic" ? colors.yellowLight : colors.grayLight
-            }
-            onPress={() => setGameMode("classic")}
-            style={{ margin: 6 }}
-          >
-            CLASSIC
-          </Button>
-        </View>
+        <Toggle
+          options={[
+            { label: "KID'S MODE", value: "kids" },
+            { label: "CLASSIC", value: "classic" },
+          ]}
+          value={gameMode}
+          onChange={setGameMode}
+          style={{ marginTop: 24 }}
+        />
 
         {Platform.OS !== "web" && music && (
           <Button
