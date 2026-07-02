@@ -2,7 +2,7 @@
   "name": "matchimals",
   "version": "2.0.0",
   "license": "MIT",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "precommit": "lint-staged",
     "start": "expo start",
@@ -11,7 +11,8 @@
     "web": "expo start --web",
     "build:web": "expo export -p web",
     "test": "jest --passWithNoTests",
-    "format": "prettier --write 'src/**/*.{js,json,md}'"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,json,md}'"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/lodash": "^4.17.24",
     "@types/react": "~19.2.14",
     "babel-preset-expo": "~56.0.0",
     "husky": "2.4.0",
