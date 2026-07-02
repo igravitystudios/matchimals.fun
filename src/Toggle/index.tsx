@@ -12,9 +12,6 @@ import { colors } from "../constants/colors";
 
 const SEGMENT_WIDTH = 150;
 const SEGMENT_HEIGHT = 56;
-// The thumb is inset from the groove on all sides so the track shows around
-// it — it reads as a chip sitting in the groove rather than a full panel
-const THUMB_INSET = 5;
 
 // Quick ease-out slide — a clean toggle-switch feel, no overshoot
 const SLIDE = { duration: 220, easing: Easing.out(Easing.cubic) };
@@ -39,20 +36,17 @@ const Toggle = <T extends string>({
 }: ToggleProps<T>) => {
   const activeIndex = options[1].value === value ? 1 : 0;
 
-  const translateX = useSharedValue(activeIndex * SEGMENT_WIDTH + THUMB_INSET);
+  const translateX = useSharedValue(activeIndex * SEGMENT_WIDTH);
   const mounted = useRef(false);
 
   useEffect(() => {
     if (!mounted.current) {
       // Snap into place on mount without animating
       mounted.current = true;
-      translateX.value = activeIndex * SEGMENT_WIDTH + THUMB_INSET;
+      translateX.value = activeIndex * SEGMENT_WIDTH;
       return;
     }
-    translateX.value = withTiming(
-      activeIndex * SEGMENT_WIDTH + THUMB_INSET,
-      SLIDE
-    );
+    translateX.value = withTiming(activeIndex * SEGMENT_WIDTH, SLIDE);
   }, [activeIndex, translateX]);
 
   const thumbStyle = useAnimatedStyle(() => ({
@@ -62,10 +56,7 @@ const Toggle = <T extends string>({
   return (
     <View style={[styles.track, style]} {...rest}>
       <View style={styles.trackInner}>
-        <View style={styles.trackShadow} />
-        <Reanimated.View style={[styles.thumb, thumbStyle]}>
-          <View style={styles.thumbFace} />
-        </Reanimated.View>
+        <Reanimated.View style={[styles.thumb, thumbStyle]} />
         {options.map((option) => (
           <Pressable
             key={option.value}
@@ -88,11 +79,17 @@ const Toggle = <T extends string>({
 };
 
 const styles = StyleSheet.create({
+  // The control is flat inside; depth comes from a hard, blur-free drop
+  // shadow under the whole pill — the same cartoon offset the logo uses.
   track: {
     backgroundColor: colors.blueGrayLight,
     borderRadius: 16,
     borderWidth: 4,
     borderColor: "#fff",
+    shadowColor: colors.grayDark,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 0,
   },
   trackInner: {
     flexDirection: "row",
@@ -101,35 +98,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
   },
-  // A hard dark band along the top inside of the groove makes the track read
-  // as recessed — the inverse of the thumb's bottom ledge, same top-light.
-  trackShadow: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 5,
-    backgroundColor: colors.blueGrayMedium,
-  },
-  // The thumb is a yellowDark base with the yellowLight face inset above it,
-  // leaving a hard offset "ledge" at the bottom — the same cartoon depth as
-  // the logo letters (no fuzzy shadows in this app).
   thumb: {
     position: "absolute",
-    top: THUMB_INSET + 3,
-    bottom: THUMB_INSET,
-    width: SEGMENT_WIDTH - THUMB_INSET * 2,
-    backgroundColor: colors.yellowDark,
-    borderRadius: 7,
-  },
-  thumbFace: {
-    position: "absolute",
     top: 0,
-    left: 0,
-    right: 0,
-    bottom: 4,
+    bottom: 0,
+    width: SEGMENT_WIDTH,
     backgroundColor: colors.yellowLight,
-    borderRadius: 7,
+    borderRadius: 8,
+    borderWidth: 3,
+    borderColor: colors.yellowDark,
   },
   segment: {
     width: SEGMENT_WIDTH,
