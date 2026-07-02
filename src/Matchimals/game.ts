@@ -121,6 +121,10 @@ export function isLegalMove(G: GameState, ctx: Ctx, id: number): boolean {
 }
 
 export function hasAnyLegalMove(G: GameState, ctx: Ctx): boolean {
+  // No card to play — isLegalMove reads G.deck[0], so guard the empty deck
+  if (G.deck.length === 0) {
+    return false;
+  }
   return G.cells.some((_, id) => isLegalMove(G, ctx, id));
 }
 
