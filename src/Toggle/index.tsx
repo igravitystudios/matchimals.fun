@@ -56,7 +56,9 @@ const Toggle = <T extends string>({
   return (
     <View style={[styles.track, style]} {...rest}>
       <View style={styles.trackInner}>
-        <Reanimated.View style={[styles.thumb, thumbStyle]} />
+        <Reanimated.View style={[styles.thumb, thumbStyle]}>
+          <View style={styles.thumbFace} />
+        </Reanimated.View>
         {options.map((option) => (
           <Pressable
             key={option.value}
@@ -92,15 +94,25 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
   },
+  // The thumb is a yellowDark base with the yellowLight face inset above it,
+  // leaving a hard offset "ledge" at the bottom — the same cartoon depth as
+  // the logo letters (no fuzzy shadows in this app).
   thumb: {
     position: "absolute",
     top: 0,
     bottom: 0,
     width: SEGMENT_WIDTH,
+    backgroundColor: colors.yellowDark,
+    borderRadius: 8,
+  },
+  thumbFace: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 5,
     backgroundColor: colors.yellowLight,
     borderRadius: 8,
-    borderWidth: 3,
-    borderColor: colors.yellowDark,
   },
   segment: {
     width: SEGMENT_WIDTH,
