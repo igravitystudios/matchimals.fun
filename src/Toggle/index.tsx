@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { ViewProps } from "react-native";
 import Reanimated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
   withSequence,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 
@@ -14,8 +14,8 @@ import { colors } from "../constants/colors";
 const SEGMENT_WIDTH = 150;
 const SEGMENT_HEIGHT = 56;
 
-// A springy overshoot so the thumb lands with a playful bounce
-const SPRING = { damping: 14, stiffness: 220, mass: 1 };
+// Quick ease-out slide — a clean toggle-switch feel, no overshoot
+const SLIDE = { duration: 220, easing: Easing.out(Easing.cubic) };
 
 export interface ToggleOption<T extends string> {
   label: string;
@@ -48,11 +48,11 @@ const Toggle = <T extends string>({
       translateX.value = activeIndex * SEGMENT_WIDTH;
       return;
     }
-    translateX.value = withSpring(activeIndex * SEGMENT_WIDTH, SPRING);
-    // Squash-and-stretch while the thumb slides over
+    translateX.value = withTiming(activeIndex * SEGMENT_WIDTH, SLIDE);
+    // A subtle squash while the thumb slides, recovering smoothly
     squash.value = withSequence(
-      withTiming(0.8, { duration: 90 }),
-      withSpring(1, SPRING)
+      withTiming(0.85, { duration: 90, easing: Easing.in(Easing.quad) }),
+      withTiming(1, { duration: 130, easing: Easing.out(Easing.quad) })
     );
   }, [activeIndex, translateX, squash]);
 
