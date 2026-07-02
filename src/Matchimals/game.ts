@@ -1,7 +1,7 @@
-import shuffle from "lodash/shuffle";
 import type { Ctx, Game } from "boardgame.io";
+import type { RandomAPI } from "boardgame.io/dist/types/src/plugins/random/random";
 import { cells as emptyCells, center, columns } from "../constants/board";
-import { deck, getRandomCard } from "../constants/cards";
+import { deck } from "../constants/cards";
 import type { Card } from "../constants/cards";
 import { animals } from "../constants/animals";
 import * as snapshots from "./snapshots";
@@ -131,7 +131,7 @@ export function canCardsConnect(card1: Card, card2: Card): boolean {
   return false;
 }
 
-export function getInitialState(ctx: Ctx): GameState {
+export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
   const G: GameState = {
     cells: [],
     deck: [],
@@ -145,8 +145,9 @@ export function getInitialState(ctx: Ctx): GameState {
     G.deck = G.deck.concat(deck.map((card) => ({ ...card })));
   }
 
-  // Shuffle resulting deck using lodash
-  G.deck = shuffle(G.deck); // TODO: Use boardgame.io provided random shuffle function, which will be important when we are running a server
+  // Shuffle the deck with boardgame.io's seeded RNG so state stays
+  // reproducible from the game seed (matters once a server is involved)
+  G.deck = random.Shuffle(G.deck);
 
   // Set up the game state for each player
   for (let j = 0; j < ctx.numPlayers; j++) {
@@ -161,7 +162,7 @@ export function getInitialState(ctx: Ctx): GameState {
   G.cells = [...emptyCells];
 
   // Set the initial card on the board (copied off the shared constants too)
-  const initialCard = { ...getRandomCard(deck) }; // TODO: Use boardgame.io provided random function
+  const initialCard = { ...deck[random.Die(deck.length) - 1] };
   G.cells[center] = initialCard;
 
   // Ensure the first card is connectable
@@ -179,27 +180,28 @@ export function getInitialState(ctx: Ctx): GameState {
 }
 
 const game: Game<GameState> = {
-  // The setup method is passed ctx
-  setup: getInitialState,
+  // The setup method is passed the plugin context (ctx, random, …)
+  setup: ({ ctx, random }) => getInitialState(ctx, random),
 
   // End turn after a single move, whether it's placeCard or pass
   turn: {
-    moveLimit: 1,
+    minMoves: 1,
+    maxMoves: 1,
   },
 
   moves: {
-    takeSnapshot: (G, ctx, id) => {
+    takeSnapshot: ({ G }) => {
       console.log("==> takeSnapshot", G);
     },
 
-    restoreSnapshot: (G, ctx, id: keyof typeof snapshots) => {
+    restoreSnapshot: ({ G }, id: keyof typeof snapshots) => {
       if (id) {
         return snapshots[id];
       }
     },
 
-    // G and ctx are provided automatically when calling from App– `this.props.moves.placeCard(id)`
-    placeCard: (G, ctx, id: number) => {
+    // The { G, ctx } context is provided automatically when calling from App– `this.props.moves.placeCard(id)`
+    placeCard: ({ G, ctx }, id: number) => {
       // Ensure we can't overwrite cells.
       if (isLegalMove(G, ctx, id)) {
         //Lay the card on the board
@@ -209,21 +211,15 @@ const game: Game<GameState> = {
         //Next card shifts up the deck
         G.deck.shift();
       }
-
-      // Return the updated game state- because G is an Immer object we can mutate it directly
-      return G;
     },
 
-    pass: (G, ctx) => {
+    pass: ({ G }) => {
       // Place top card to bottom of deck
       G.deck.push(G.deck.shift()!);
-
-      // Return the updated game state- because G is an Immer object we can mutate it directly
-      return G;
     },
   },
 
-  endIf: (G, ctx) => {
+  endIf: ({ G }) => {
     if (G.deck.length === 0) {
       const winner = Object.keys(G.players).reduce(
         (previousPlayer, currentPlayer) =>
