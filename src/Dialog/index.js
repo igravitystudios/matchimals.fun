@@ -74,7 +74,14 @@ const Dialog = ({ children, isVisible, hide, player = 0, style }) => {
         <Animated.View
           style={[
             styles.dialog,
-            { marginTop: insets.top + 60, marginBottom: insets.bottom },
+            {
+              marginTop: insets.top + 60,
+              marginBottom: insets.bottom,
+              // Cap the card so tall content scrolls instead of overflowing
+              // the screen (the web variant caps at calc(100vh - 120px)); the
+              // extra 60 leaves room for the animal badge poking out the top.
+              maxHeight: height - insets.top - insets.bottom - 120,
+            },
             { transform: [{ translateY }] },
             style,
           ]}

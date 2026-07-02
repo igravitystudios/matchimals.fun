@@ -119,9 +119,11 @@ export function getInitialState(ctx) {
     players: {},
   };
 
-  // Add a deck for every player
+  // Add a deck for every player. Copy each card so G never holds the shared
+  // constants/cards.js objects — Immer's dev freeze would freeze them after the
+  // first game (same read-only hazard as the emptyCells copy below).
   for (let i = 0; i < ctx.numPlayers; i++) {
-    G.deck = G.deck.concat(deck);
+    G.deck = G.deck.concat(deck.map((card) => ({ ...card })));
   }
 
   // Shuffle resulting deck using lodash
@@ -139,8 +141,8 @@ export function getInitialState(ctx) {
   // makes `emptyCells` read-only and the next game throws on G.cells[center] = …
   G.cells = [...emptyCells];
 
-  // Set the initial card on the board
-  const initialCard = getRandomCard(deck); // TODO: Use boardgame.io provided random function
+  // Set the initial card on the board (copied off the shared constants too)
+  const initialCard = { ...getRandomCard(deck) }; // TODO: Use boardgame.io provided random function
   G.cells[center] = initialCard;
 
   // Ensure the first card is connectable
@@ -204,12 +206,11 @@ const game = {
 
   endIf: (G, ctx) => {
     if (G.deck.length === 0) {
-      const winner = Object.keys(
-        G.players
-      ).reduce((previousPlayer, currentPlayer) =>
-        G.players[previousPlayer].score > G.players[currentPlayer].score
-          ? previousPlayer
-          : currentPlayer
+      const winner = Object.keys(G.players).reduce(
+        (previousPlayer, currentPlayer) =>
+          G.players[previousPlayer].score > G.players[currentPlayer].score
+            ? previousPlayer
+            : currentPlayer
       );
       return winner;
     }
