@@ -5,7 +5,6 @@ import Reanimated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
-  withSequence,
   withTiming,
 } from "react-native-reanimated";
 
@@ -38,7 +37,6 @@ const Toggle = <T extends string>({
   const activeIndex = options[1].value === value ? 1 : 0;
 
   const translateX = useSharedValue(activeIndex * SEGMENT_WIDTH);
-  const squash = useSharedValue(1);
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -49,15 +47,10 @@ const Toggle = <T extends string>({
       return;
     }
     translateX.value = withTiming(activeIndex * SEGMENT_WIDTH, SLIDE);
-    // A subtle squash while the thumb slides, recovering smoothly
-    squash.value = withSequence(
-      withTiming(0.85, { duration: 90, easing: Easing.in(Easing.quad) }),
-      withTiming(1, { duration: 130, easing: Easing.out(Easing.quad) })
-    );
-  }, [activeIndex, translateX, squash]);
+  }, [activeIndex, translateX]);
 
   const thumbStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }, { scaleY: squash.value }],
+    transform: [{ translateX: translateX.value }],
   }));
 
   return (
