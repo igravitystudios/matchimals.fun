@@ -23,8 +23,8 @@ import Toggle from "../Toggle";
 import type { GameMode } from "../Matchimals/game";
 
 const modeCaptions: Record<GameMode, string> = {
-  kids: "Every card you draw can be placed",
-  classic: "Cards come as shuffled — pass the ones that don't fit",
+  kids: "Frustration-free: each card can always be placed",
+  classic: "Shuffled deck: play if it fits, pass if it doesn't",
 };
 
 const Menu = ({
