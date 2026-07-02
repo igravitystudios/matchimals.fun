@@ -79,17 +79,13 @@ const Toggle = <T extends string>({
 };
 
 const styles = StyleSheet.create({
-  // The control is flat inside; depth comes from a hard, blur-free drop
-  // shadow under the whole pill — the same cartoon offset the logo uses.
+  // Fully flat, like the rest of the app. If the app ever gets a hard
+  // "flat shadow" design pass, this pill is a natural candidate for one.
   track: {
     backgroundColor: colors.blueGrayLight,
     borderRadius: 16,
     borderWidth: 4,
     borderColor: "#fff",
-    shadowColor: colors.grayDark,
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 0,
   },
   trackInner: {
     flexDirection: "row",
