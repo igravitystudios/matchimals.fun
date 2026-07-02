@@ -22,14 +22,14 @@ export default function App() {
   const { getItem: getAsyncNumGamesPlayed, setItem: setAsyncNumGamesPlayed } =
     useAsyncStorage("numGamesPlayed");
 
-  const [gameMode, setGameMode] = React.useState<GameMode>("kids");
+  const [gameMode, setGameMode] = React.useState<GameMode>("easy");
   const { getItem: getAsyncGameMode, setItem: setAsyncGameMode } =
     useAsyncStorage("gameMode");
 
-  // Hydrate the last-chosen mode once on mount (defaults to kids)
+  // Hydrate the last-chosen mode once on mount (defaults to easy)
   useEffect(() => {
     getAsyncGameMode().then((storedMode) => {
-      if (storedMode === "kids" || storedMode === "classic") {
+      if (storedMode === "easy" || storedMode === "classic") {
         setGameMode(storedMode);
       }
     });

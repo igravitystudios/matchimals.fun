@@ -23,7 +23,7 @@ import Toggle from "../Toggle";
 import type { GameMode } from "../Matchimals/game";
 
 const modeCaptions: Record<GameMode, string> = {
-  kids: "Always a match to make",
+  easy: "Always a match to make",
   classic: "Match if you can, pass if not",
 };
 
@@ -94,7 +94,7 @@ const Menu = ({
 
         <Toggle
           options={[
-            { label: "KID'S MODE", value: "kids" },
+            { label: "EASY MODE", value: "easy" },
             { label: "CLASSIC", value: "classic" },
           ]}
           value={gameMode}

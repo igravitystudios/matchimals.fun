@@ -10,17 +10,17 @@ export interface PlayerState {
   score: number;
 }
 
-// "kids": the deck always surfaces a playable card (and a dead deck ends the
+// "easy": the deck always surfaces a playable card (and a dead deck ends the
 // game). "classic": only the first card is guaranteed; unplayable cards are
 // PASSed, but a fully dead deck still ends the game instead of looping forever.
-export type GameMode = "kids" | "classic";
+export type GameMode = "easy" | "classic";
 
 export interface GameState {
   cells: (Card | null)[];
   deck: Card[];
   players: Record<string, PlayerState>;
   // Both optional so hardcoded snapshot states don't need to carry them;
-  // an undefined mode behaves as "kids"
+  // an undefined mode behaves as "easy"
   mode?: GameMode;
   noValidMoves?: boolean;
 }
