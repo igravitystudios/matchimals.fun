@@ -3,6 +3,7 @@ export const colors = {
   redMedium: "#DB7270",
   orangeMedium: "#CD7547",
   yellowLight: "#FFEA87",
+  yellowDark: "#D6B845",
   greenLight: "#CAE1C3",
   greenMedium: "#7A9572",
   blueLight: "#C5E5F0",

@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.yellowLight,
     borderRadius: 8,
     borderWidth: 3,
-    borderColor: colors.grayDark,
+    borderColor: colors.yellowDark,
   },
   segment: {
     width: SEGMENT_WIDTH,
