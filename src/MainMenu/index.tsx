@@ -14,8 +14,17 @@ import Button from "../Button";
 import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
 import Logo from "../Logo";
+import type { GameMode } from "../Matchimals/game";
 
-const Menu = ({ startGame }: { startGame: (numPlayers: number) => void }) => {
+const Menu = ({
+  startGame,
+  gameMode,
+  setGameMode,
+}: {
+  startGame: (numPlayers: number) => void;
+  gameMode: GameMode;
+  setGameMode: (mode: GameMode) => void;
+}) => {
   const music = useMusic();
   const insets = useSafeAreaInsets();
 
@@ -59,6 +68,25 @@ const Menu = ({ startGame }: { startGame: (numPlayers: number) => void }) => {
             }}
             style={{ margin: 6 }}
           />
+        </View>
+
+        <View style={{ flexDirection: "row", marginTop: 24 }}>
+          <Button
+            color={gameMode === "kids" ? colors.yellowLight : colors.grayLight}
+            onPress={() => setGameMode("kids")}
+            style={{ margin: 6 }}
+          >
+            KID'S MODE
+          </Button>
+          <Button
+            color={
+              gameMode === "classic" ? colors.yellowLight : colors.grayLight
+            }
+            onPress={() => setGameMode("classic")}
+            style={{ margin: 6 }}
+          >
+            CLASSIC
+          </Button>
         </View>
 
         {Platform.OS !== "web" && music && (

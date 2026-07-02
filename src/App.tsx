@@ -7,7 +7,8 @@ import { Client } from "boardgame.io/react-native";
 import { colors } from "./constants/colors";
 
 import Matchimals from "./Matchimals";
-import game from "./Matchimals/game";
+import { createGame } from "./Matchimals/game";
+import type { GameMode } from "./Matchimals/game";
 import MainMenu from "./MainMenu";
 import { MusicProvider } from "./Music";
 import { PlayerProvider } from "./hooks/players";
@@ -20,6 +21,28 @@ export default function App() {
   const [numGamesPlayed, setNumGamesPlayed] = React.useState("0");
   const { getItem: getAsyncNumGamesPlayed, setItem: setAsyncNumGamesPlayed } =
     useAsyncStorage("numGamesPlayed");
+
+  const [gameMode, setGameMode] = React.useState<GameMode>("kids");
+  const { getItem: getAsyncGameMode, setItem: setAsyncGameMode } =
+    useAsyncStorage("gameMode");
+
+  // Hydrate the last-chosen mode once on mount (defaults to kids)
+  useEffect(() => {
+    getAsyncGameMode().then((storedMode) => {
+      if (storedMode === "kids" || storedMode === "classic") {
+        setGameMode(storedMode);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSetGameMode = useCallback(
+    (mode: GameMode) => {
+      setGameMode(mode);
+      setAsyncGameMode(mode);
+    },
+    [setAsyncGameMode]
+  );
 
   const onMount = async () => {
     const asyncNumGamesPlayed = await getAsyncNumGamesPlayed();
@@ -53,7 +76,7 @@ export default function App() {
 
   const MatchimalsClient = Client({
     board: Matchimals,
-    game,
+    game: createGame(gameMode),
     numPlayers,
     debug: false,
   });
@@ -67,7 +90,11 @@ export default function App() {
               <View style={styles.root}>
                 <StatusBar hidden />
                 {isMainMenuVisible ? (
-                  <MainMenu startGame={startGame} />
+                  <MainMenu
+                    startGame={startGame}
+                    gameMode={gameMode}
+                    setGameMode={handleSetGameMode}
+                  />
                 ) : (
                   <MatchimalsClient backToMainMenu={backToMainMenu} />
                 )}
