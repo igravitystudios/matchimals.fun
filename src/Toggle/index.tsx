@@ -12,6 +12,9 @@ import { colors } from "../constants/colors";
 
 const SEGMENT_WIDTH = 150;
 const SEGMENT_HEIGHT = 56;
+// The thumb is inset from the groove on all sides so the track shows around
+// it — it reads as a chip sitting in the groove rather than a full panel
+const THUMB_INSET = 5;
 
 // Quick ease-out slide — a clean toggle-switch feel, no overshoot
 const SLIDE = { duration: 220, easing: Easing.out(Easing.cubic) };
@@ -36,17 +39,20 @@ const Toggle = <T extends string>({
 }: ToggleProps<T>) => {
   const activeIndex = options[1].value === value ? 1 : 0;
 
-  const translateX = useSharedValue(activeIndex * SEGMENT_WIDTH);
+  const translateX = useSharedValue(activeIndex * SEGMENT_WIDTH + THUMB_INSET);
   const mounted = useRef(false);
 
   useEffect(() => {
     if (!mounted.current) {
       // Snap into place on mount without animating
       mounted.current = true;
-      translateX.value = activeIndex * SEGMENT_WIDTH;
+      translateX.value = activeIndex * SEGMENT_WIDTH + THUMB_INSET;
       return;
     }
-    translateX.value = withTiming(activeIndex * SEGMENT_WIDTH, SLIDE);
+    translateX.value = withTiming(
+      activeIndex * SEGMENT_WIDTH + THUMB_INSET,
+      SLIDE
+    );
   }, [activeIndex, translateX]);
 
   const thumbStyle = useAnimatedStyle(() => ({
@@ -110,20 +116,20 @@ const styles = StyleSheet.create({
   // the logo letters (no fuzzy shadows in this app).
   thumb: {
     position: "absolute",
-    top: 0,
-    bottom: 0,
-    width: SEGMENT_WIDTH,
+    top: THUMB_INSET + 3,
+    bottom: THUMB_INSET,
+    width: SEGMENT_WIDTH - THUMB_INSET * 2,
     backgroundColor: colors.yellowDark,
-    borderRadius: 8,
+    borderRadius: 7,
   },
   thumbFace: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    bottom: 5,
+    bottom: 4,
     backgroundColor: colors.yellowLight,
-    borderRadius: 8,
+    borderRadius: 7,
   },
   segment: {
     width: SEGMENT_WIDTH,
