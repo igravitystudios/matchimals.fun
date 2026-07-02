@@ -56,6 +56,7 @@ const Toggle = <T extends string>({
   return (
     <View style={[styles.track, style]} {...rest}>
       <View style={styles.trackInner}>
+        <View style={styles.trackShadow} />
         <Reanimated.View style={[styles.thumb, thumbStyle]}>
           <View style={styles.thumbFace} />
         </Reanimated.View>
@@ -93,6 +94,16 @@ const styles = StyleSheet.create({
     borderColor: colors.grayDark,
     borderRadius: 12,
     overflow: "hidden",
+  },
+  // A hard dark band along the top inside of the groove makes the track read
+  // as recessed — the inverse of the thumb's bottom ledge, same top-light.
+  trackShadow: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 5,
+    backgroundColor: colors.blueGrayMedium,
   },
   // The thumb is a yellowDark base with the yellowLight face inset above it,
   // leaving a hard offset "ledge" at the bottom — the same cartoon depth as
