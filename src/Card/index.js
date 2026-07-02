@@ -39,7 +39,7 @@ const Card = ({ card = {}, disabled, flipped, onCardDrop, style, ...rest }) => {
         return;
       }
       cardRef.current.measureInWindow((pageX, pageY, width, height) => {
-        onCardDrop({ pageX, pageY, width, height }).then(reset);
+        onCardDrop({ pageX, pageY, width, height }).then(reset, reset);
       });
     },
     [onCardDrop, reset]
