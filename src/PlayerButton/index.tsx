@@ -17,38 +17,25 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
     .fill(undefined)
     .map((n, i) => Animals[playerConfig[i]["animal"]]);
 
-  const getIconSize = useCallback(
-    function () {
+  const getIconLayout = useCallback(
+    function (): { size: number; margin: number; rowWidth?: number } {
       switch (number) {
         case 1: {
-          return {
-            width: 72,
-            height: 72,
-          };
+          return { size: 72, margin: 4 };
         }
         case 2: {
-          return {
-            width: 44,
-            height: 44,
-          };
+          return { size: 44, margin: 4 };
         }
-        case 3: {
-          return {
-            width: 36,
-            height: 36,
-          };
-        }
+        // The animal art carries its own padding, so 3- and 4-player
+        // icons overlap slightly to read as a tight cluster. The fixed
+        // rowWidth keeps the wrap at two icons per row — the overlapped
+        // footprints (36px each) would otherwise fit three across.
+        case 3:
         case 4: {
-          return {
-            width: 36,
-            height: 36,
-          };
+          return { size: 42, margin: -3, rowWidth: 78 };
         }
         default: {
-          return {
-            width: 64,
-            height: 64,
-          };
+          return { size: 64, margin: 4 };
         }
       }
     },
@@ -77,6 +64,8 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
     [number]
   );
 
+  const { size, margin, rowWidth } = getIconLayout();
+
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
       <View
@@ -91,6 +80,7 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
         <View style={styles.tagInner}>
           <View
             style={{
+              width: rowWidth,
               flexDirection: "row",
               flexWrap: "wrap",
               justifyContent: "center",
@@ -98,7 +88,7 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
             }}
           >
             {PlayerIcons.map((Icon, i) => (
-              <Icon key={i} {...getIconSize()} style={{ margin: 4 }} />
+              <Icon key={i} width={size} height={size} style={{ margin }} />
             ))}
           </View>
         </View>
