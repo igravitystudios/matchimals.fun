@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Reanimated, {
   useAnimatedStyle,
@@ -15,9 +9,8 @@ import Reanimated, {
 
 import TriangleBackground from "./trianglify.png";
 import { colors } from "../constants/colors";
-import Button from "../Button";
+import AudioControls from "../AudioControls";
 import PlayerButton from "../PlayerButton";
-import { useMusic } from "../Music";
 import Logo from "../Logo";
 import Toggle from "../Toggle";
 import type { GameMode } from "../Matchimals/game";
@@ -36,7 +29,6 @@ const Menu = ({
   gameMode: GameMode;
   setGameMode: (mode: GameMode) => void;
 }) => {
-  const music = useMusic();
   const insets = useSafeAreaInsets();
 
   // Fade the caption back in whenever the mode (and its text) changes
@@ -105,18 +97,13 @@ const Menu = ({
           {modeCaptions[gameMode]}
         </Reanimated.Text>
 
-        {Platform.OS !== "web" && music && (
-          <Button
-            onPress={() => music?.setPaused(!music?.paused)}
-            style={{
-              position: "absolute",
-              bottom: Math.max(insets.bottom, 8),
-              right: Math.max(insets.right, 8),
-            }}
-          >
-            {music?.paused ? "TURN MUSIC ON" : "TURN MUSIC OFF"}
-          </Button>
-        )}
+        <AudioControls
+          style={{
+            position: "absolute",
+            bottom: Math.max(insets.bottom, 8),
+            right: Math.max(insets.right, 8),
+          }}
+        />
       </>
     </ImageBackground>
   );
