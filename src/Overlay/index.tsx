@@ -37,7 +37,7 @@ const OverlayHost = () => {
   }, []);
 
   return (
-    <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: "box-none" }]}>
       {Object.entries(overlays).map(([id, node]) => (
         <Fragment key={id}>{node}</Fragment>
       ))}
