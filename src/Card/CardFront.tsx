@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import type { StyleProp, ViewStyle } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import Svg, { Polygon } from "svgs";
 
 import { animals } from "../constants/animals";
@@ -132,12 +132,20 @@ const styles = StyleSheet.create({
     fontSize: animalSize * 0.21875,
     fontWeight: "700",
     textAlign: "center",
-    textShadowColor: "rgba(0,0,0,0.69)",
-    textShadowRadius: 0,
-    textShadowOffset: {
-      width: 1,
-      height: 1,
-    },
+    // react-native-web deprecated the textShadow* long-form props in favor
+    // of the CSS shorthand, which native RN doesn't support yet — so each
+    // platform gets its own form (the shorthand is cast past RN's types)
+    ...Platform.select({
+      web: { textShadow: "1px 1px 0 rgba(0,0,0,0.69)" } as unknown as TextStyle,
+      default: {
+        textShadowColor: "rgba(0,0,0,0.69)",
+        textShadowRadius: 0,
+        textShadowOffset: {
+          width: 1,
+          height: 1,
+        },
+      },
+    }),
   },
 });
 

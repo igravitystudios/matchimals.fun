@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Reanimated, {
   useAnimatedStyle,
@@ -30,6 +36,10 @@ const Menu = ({
   setGameMode: (mode: GameMode) => void;
 }) => {
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
+  // On phone-sized viewports the full column collides with the
+  // bottom-right audio controls, so tighten the top of the column
+  const compact = width < 500 || height < 700;
 
   // Fade the caption back in whenever the mode (and its text) changes
   const captionOpacity = useSharedValue(0);
@@ -45,8 +55,14 @@ const Menu = ({
   return (
     <ImageBackground source={TriangleBackground} style={styles.root}>
       <>
-        <Logo width={306} height={60} style={{ marginBottom: 48 }} />
-        <Text style={styles.text}>HOW MANY PLAYERS?</Text>
+        <Logo
+          width={compact ? 224 : 306}
+          height={compact ? 44 : 60}
+          style={{ marginBottom: compact ? 20 : 48 }}
+        />
+        <Text style={[styles.text, compact && styles.textCompact]}>
+          HOW MANY PLAYERS?
+        </Text>
         <View
           style={{
             width: 280,
@@ -91,9 +107,15 @@ const Menu = ({
           ]}
           value={gameMode}
           onChange={setGameMode}
-          style={{ marginTop: 24 }}
+          style={{ marginTop: compact ? 16 : 24 }}
         />
-        <Reanimated.Text style={[styles.caption, captionStyle]}>
+        <Reanimated.Text
+          style={[
+            styles.caption,
+            compact && styles.captionCompact,
+            captionStyle,
+          ]}
+        >
           {modeCaptions[gameMode]}
         </Reanimated.Text>
 
@@ -115,12 +137,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  button: {
-    marginBottom: 8,
-  },
-  active: {
-    borderColor: "blue",
-  },
   text: {
     color: colors.grayDark,
     fontFamily: "Dimbo",
@@ -128,9 +144,14 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     marginBottom: 32,
   },
+  textCompact: {
+    fontSize: 32,
+    lineHeight: 40,
+    marginBottom: 16,
+  },
   caption: {
-    // Muted vs the heading — the animated fade owns the opacity prop
-    color: colors.grayMedium,
+    // The animated fade owns the opacity prop
+    color: colors.grayDark,
     fontFamily: "Dimbo",
     fontSize: 22,
     lineHeight: 28,
@@ -139,6 +160,9 @@ const styles = StyleSheet.create({
     // Both captions are single-line; fixed height keeps the layout stable
     height: 28,
     textAlign: "center",
+  },
+  captionCompact: {
+    marginTop: 8,
   },
 });
 
