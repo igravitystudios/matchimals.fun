@@ -46,12 +46,7 @@ const CellHighlight = ({
     };
   });
 
-  return (
-    <Reanimated.View
-      pointerEvents="none"
-      style={[styles.highlight, animatedStyle]}
-    />
-  );
+  return <Reanimated.View style={[styles.highlight, animatedStyle]} />;
 };
 
 const styles = StyleSheet.create({
@@ -63,6 +58,7 @@ const styles = StyleSheet.create({
     height: cardHeight,
     backgroundColor: "rgba(255, 255, 255, 0.1)",
     borderRadius: 8,
+    pointerEvents: "none",
   },
 });
 
