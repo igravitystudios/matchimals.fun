@@ -47,18 +47,22 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     });
   }, []);
 
-  // Hydrate the persisted settings once on mount (both default to on)
+  // Hydrate the persisted settings once on mount (both default to on).
+  // Playback waits for `hydrated` so a stored "off" doesn't let the music
+  // slip out for the first few frames.
+  const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
-    getAsyncMusicEnabled().then((stored) => {
-      if (stored === "false") {
-        setMusicEnabled(false);
+    Promise.all([getAsyncMusicEnabled(), getAsyncSoundEffectsEnabled()]).then(
+      ([storedMusic, storedSoundEffects]) => {
+        if (storedMusic === "false") {
+          setMusicEnabled(false);
+        }
+        if (storedSoundEffects === "false") {
+          setSoundEffectsEnabled(false);
+        }
+        setHydrated(true);
       }
-    });
-    getAsyncSoundEffectsEnabled().then((stored) => {
-      if (stored === "false") {
-        setSoundEffectsEnabled(false);
-      }
-    });
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -85,12 +89,12 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
   }, [audioUnlocked]);
 
   useEffect(() => {
-    if (musicEnabled && audioUnlocked) {
+    if (hydrated && musicEnabled && audioUnlocked) {
       music.play();
     } else {
       music.pause();
     }
-  }, [musicEnabled, audioUnlocked, music]);
+  }, [hydrated, musicEnabled, audioUnlocked, music]);
 
   const handleSetMusicEnabled = useCallback(
     (enabled: boolean) => {
