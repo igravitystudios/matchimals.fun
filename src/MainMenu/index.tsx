@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
   Platform,
@@ -7,6 +7,11 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Reanimated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 import TriangleBackground from "./trianglify.png";
 import { colors } from "../constants/colors";
@@ -14,10 +19,36 @@ import Button from "../Button";
 import PlayerButton from "../PlayerButton";
 import { useMusic } from "../Music";
 import Logo from "../Logo";
+import Toggle from "../Toggle";
+import type { GameMode } from "../Matchimals/game";
 
-const Menu = ({ startGame }: { startGame: (numPlayers: number) => void }) => {
+const modeCaptions: Record<GameMode, string> = {
+  easy: "Always a match to make",
+  classic: "Match if you can, pass if not",
+};
+
+const Menu = ({
+  startGame,
+  gameMode,
+  setGameMode,
+}: {
+  startGame: (numPlayers: number) => void;
+  gameMode: GameMode;
+  setGameMode: (mode: GameMode) => void;
+}) => {
   const music = useMusic();
   const insets = useSafeAreaInsets();
+
+  // Fade the caption back in whenever the mode (and its text) changes
+  const captionOpacity = useSharedValue(0);
+  useEffect(() => {
+    captionOpacity.value = 0;
+    captionOpacity.value = withTiming(1, { duration: 350 });
+  }, [gameMode, captionOpacity]);
+
+  const captionStyle = useAnimatedStyle(() => ({
+    opacity: captionOpacity.value,
+  }));
 
   return (
     <ImageBackground source={TriangleBackground} style={styles.root}>
@@ -61,6 +92,19 @@ const Menu = ({ startGame }: { startGame: (numPlayers: number) => void }) => {
           />
         </View>
 
+        <Toggle
+          options={[
+            { label: "EASY MODE", value: "easy" },
+            { label: "CLASSIC", value: "classic" },
+          ]}
+          value={gameMode}
+          onChange={setGameMode}
+          style={{ marginTop: 24 }}
+        />
+        <Reanimated.Text style={[styles.caption, captionStyle]}>
+          {modeCaptions[gameMode]}
+        </Reanimated.Text>
+
         {Platform.OS !== "web" && music && (
           <Button
             onPress={() => music?.setPaused(!music?.paused)}
@@ -96,6 +140,18 @@ const styles = StyleSheet.create({
     fontSize: 48,
     lineHeight: 60,
     marginBottom: 32,
+  },
+  caption: {
+    // Muted vs the heading — the animated fade owns the opacity prop
+    color: colors.grayMedium,
+    fontFamily: "Dimbo",
+    fontSize: 22,
+    lineHeight: 28,
+    marginTop: 12,
+    width: 320,
+    // Both captions are single-line; fixed height keeps the layout stable
+    height: 28,
+    textAlign: "center",
   },
 });
 

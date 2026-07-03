@@ -10,10 +10,19 @@ export interface PlayerState {
   score: number;
 }
 
+// "easy": the deck always surfaces a playable card (and a dead deck ends the
+// game). "classic": only the first card is guaranteed; unplayable cards are
+// PASSed, but a fully dead deck still ends the game instead of looping forever.
+export type GameMode = "easy" | "classic";
+
 export interface GameState {
   cells: (Card | null)[];
   deck: Card[];
   players: Record<string, PlayerState>;
+  // Both optional so hardcoded snapshot states don't need to carry them;
+  // an undefined mode behaves as "easy"
+  mode?: GameMode;
+  noValidMoves?: boolean;
 }
 
 export interface Neighbors {
@@ -82,12 +91,15 @@ export function calculateScore(G: GameState, ctx: Ctx, id: number): number {
   return score;
 }
 
-export function isLegalMove(G: GameState, ctx: Ctx, id: number): boolean {
+export function isLegalMove(
+  G: GameState,
+  ctx: Ctx,
+  id: number,
+  currentCard: Card = G.deck[0]
+): boolean {
   if (G.cells[id] !== null) {
     return false;
   }
-
-  const currentCard = G.deck[0];
 
   //Assign neighbors
   const neighbors = getNeighbors(G, id);
@@ -118,24 +130,63 @@ export function isLegalMove(G: GameState, ctx: Ctx, id: number): boolean {
   return false; //Return false if there are no neighboring cards that match
 }
 
-export function canCardsConnect(card1: Card, card2: Card): boolean {
-  if (
-    card1.top === card2.bottom ||
-    card1.bottom === card2.top ||
-    card1.left === card2.right ||
-    card1.right === card2.left
-  ) {
-    return true;
-  }
-
-  return false;
+export function cardHasAnyLegalMove(
+  G: GameState,
+  ctx: Ctx,
+  card: Card
+): boolean {
+  return G.cells.some((_, id) => isLegalMove(G, ctx, id, card));
 }
 
-export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
+export function hasAnyLegalMove(G: GameState, ctx: Ctx): boolean {
+  // No card to play — no legal move
+  if (G.deck.length === 0) {
+    return false;
+  }
+  return cardHasAnyLegalMove(G, ctx, G.deck[0]);
+}
+
+// Rotate the deck until the top card has a legal placement somewhere on the
+// board, so every card that gets drawn is playable. If a full cycle through
+// the deck finds nothing, flag the dead end so endIf finishes the game.
+export function ensurePlayableTopCard(G: GameState, ctx: Ctx): void {
+  for (let i = 0; i < G.deck.length; i++) {
+    if (hasAnyLegalMove(G, ctx)) {
+      return;
+    }
+    G.deck.push(G.deck.shift()!); // Unplayable right now — try again later
+  }
+  G.noValidMoves = true;
+}
+
+// Classic mode leaves the deck order alone, but still flags the dead end
+// where nothing in the deck can be placed, so endIf finishes the game
+// instead of forcing endless passes.
+export function checkForDeadEnd(G: GameState, ctx: Ctx): void {
+  if (!G.deck.some((card) => cardHasAnyLegalMove(G, ctx, card))) {
+    G.noValidMoves = true;
+  }
+}
+
+// Run whenever a new card surfaces at the top of the deck
+export function afterDeckChange(G: GameState, ctx: Ctx): void {
+  if (G.mode === "classic") {
+    checkForDeadEnd(G, ctx);
+  } else {
+    ensurePlayableTopCard(G, ctx);
+  }
+}
+
+export function getInitialState(
+  ctx: Ctx,
+  random: RandomAPI,
+  mode: GameMode
+): GameState {
   const G: GameState = {
     cells: [],
     deck: [],
     players: {},
+    mode,
   };
 
   // Add a deck for every player. Copy each card so G never holds the shared
@@ -165,10 +216,9 @@ export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
   const initialCard = { ...deck[random.Die(deck.length) - 1] };
   G.cells[center] = initialCard;
 
-  // Ensure the first card is connectable
-  while (!canCardsConnect(G.deck[0], initialCard)) {
-    G.deck.push(G.deck.shift()!); // Place top card to bottom of deck, try again!
-  }
+  // Ensure the first card is playable (in both modes — classic always
+  // guaranteed the very first draw, with the rest left as shuffled)
+  ensurePlayableTopCard(G, ctx);
 
   // For debugging "game over" state– this sets the deck to only have a single card
   // G.deck = new Array(G.deck[0]);
@@ -179,57 +229,64 @@ export function getInitialState(ctx: Ctx, random: RandomAPI): GameState {
   return G;
 }
 
-const game: Game<GameState> = {
-  // The setup method is passed the plugin context (ctx, random, …)
-  setup: ({ ctx, random }) => getInitialState(ctx, random),
+// The game is built per match so the chosen mode can be baked into setup —
+// App.tsx rebuilds the boardgame.io Client with createGame(mode) each game.
+export function createGame(mode: GameMode): Game<GameState> {
+  return {
+    // The setup method is passed the plugin context (ctx, random, …)
+    setup: ({ ctx, random }) => getInitialState(ctx, random, mode),
 
-  // End turn after a single move, whether it's placeCard or pass
-  turn: {
-    minMoves: 1,
-    maxMoves: 1,
-  },
-
-  moves: {
-    takeSnapshot: ({ G }) => {
-      console.log("==> takeSnapshot", G);
+    // End turn after a single move, whether it's placeCard or pass
+    turn: {
+      minMoves: 1,
+      maxMoves: 1,
     },
 
-    restoreSnapshot: ({ G }, id: keyof typeof snapshots) => {
-      if (id) {
-        return snapshots[id];
+    moves: {
+      takeSnapshot: ({ G }) => {
+        console.log("==> takeSnapshot", G);
+      },
+
+      restoreSnapshot: ({ G }, id: keyof typeof snapshots) => {
+        if (id) {
+          return snapshots[id];
+        }
+      },
+
+      // The { G, ctx } context is provided automatically when calling from App– `this.props.moves.placeCard(id)`
+      placeCard: ({ G, ctx }, id: number) => {
+        // Ensure we can't overwrite cells.
+        if (isLegalMove(G, ctx, id)) {
+          //Lay the card on the board
+          G.cells[id] = G.deck[0];
+          G.players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
+
+          //Next card shifts up the deck
+          G.deck.shift();
+
+          if (G.deck.length > 0) {
+            afterDeckChange(G, ctx);
+          }
+        }
+      },
+
+      pass: ({ G, ctx }) => {
+        // Place top card to bottom of deck
+        G.deck.push(G.deck.shift()!);
+        afterDeckChange(G, ctx);
+      },
+    },
+
+    endIf: ({ G }) => {
+      if (G.deck.length === 0 || G.noValidMoves) {
+        const winner = Object.keys(G.players).reduce(
+          (previousPlayer, currentPlayer) =>
+            G.players[previousPlayer].score > G.players[currentPlayer].score
+              ? previousPlayer
+              : currentPlayer
+        );
+        return winner;
       }
     },
-
-    // The { G, ctx } context is provided automatically when calling from App– `this.props.moves.placeCard(id)`
-    placeCard: ({ G, ctx }, id: number) => {
-      // Ensure we can't overwrite cells.
-      if (isLegalMove(G, ctx, id)) {
-        //Lay the card on the board
-        G.cells[id] = G.deck[0];
-        G.players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
-
-        //Next card shifts up the deck
-        G.deck.shift();
-      }
-    },
-
-    pass: ({ G }) => {
-      // Place top card to bottom of deck
-      G.deck.push(G.deck.shift()!);
-    },
-  },
-
-  endIf: ({ G }) => {
-    if (G.deck.length === 0) {
-      const winner = Object.keys(G.players).reduce(
-        (previousPlayer, currentPlayer) =>
-          G.players[previousPlayer].score > G.players[currentPlayer].score
-            ? previousPlayer
-            : currentPlayer
-      );
-      return winner;
-    }
-  },
-};
-
-export default game;
+  };
+}
