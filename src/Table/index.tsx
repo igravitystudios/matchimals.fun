@@ -81,6 +81,12 @@ const Table = forwardRef<TableHandle, TableProps>(({ style, ...rest }, ref) => {
   const savedScale = useSharedValue(1);
   const originX = useSharedValue(0);
   const originY = useSharedValue(0);
+  // The pinch focal is the centroid of the current touches, so it snaps when a
+  // finger lands or lifts mid-gesture (iOS keeps the pinch active on the last
+  // finger, and trackpad pinches report zero touches). Tracking the pointer
+  // count lets the origin re-anchor at each transition instead of jumping.
+  const pinchPointers = useSharedValue(0);
+  const pinchActive = useSharedValue(false);
 
   // Preserve the imperative API the rest of the app relies on: onCardDrop reads
   // _previousLeft/_previousTop/_previousScale to map a dropped card to a cell,
@@ -115,6 +121,12 @@ const Table = forwardRef<TableHandle, TableProps>(({ style, ...rest }, ref) => {
       savedY.value = translateY.value;
     })
     .onUpdate((e) => {
+      // On iOS the pan stays active underneath a pinch (UIKit ignores touches
+      // beyond maxPointers instead of failing the recognizer), so its
+      // snapshot-based writes must yield while the pinch owns the transform.
+      if (pinchActive.value) {
+        return;
+      }
       const next = clampToBoundaries(
         savedX.value + e.translationX,
         savedY.value + e.translationY,
@@ -132,11 +144,22 @@ const Table = forwardRef<TableHandle, TableProps>(({ style, ...rest }, ref) => {
 
   const pinch = Gesture.Pinch()
     .onStart((e) => {
+      pinchActive.value = true;
+      pinchPointers.value = e.numberOfPointers;
       savedScale.value = scale.value;
       originX.value = (e.focalX - translateX.value) / scale.value;
       originY.value = (e.focalY - translateY.value) / scale.value;
     })
     .onUpdate((e) => {
+      if (e.numberOfPointers !== pinchPointers.value) {
+        // Re-anchor so this frame leaves the transform unchanged. e.scale
+        // keeps accumulating across the pointer change, so fold it into the
+        // baseline rather than resetting it.
+        pinchPointers.value = e.numberOfPointers;
+        savedScale.value = scale.value / e.scale;
+        originX.value = (e.focalX - translateX.value) / scale.value;
+        originY.value = (e.focalY - translateY.value) / scale.value;
+      }
       const nextScale = clampValue(
         savedScale.value * e.scale,
         MIN_ZOOM,
@@ -158,6 +181,11 @@ const Table = forwardRef<TableHandle, TableProps>(({ style, ...rest }, ref) => {
       savedScale.value = scale.value;
       savedX.value = translateX.value;
       savedY.value = translateY.value;
+    })
+    // onFinalize also runs when the gesture fails or is cancelled, so the pan
+    // is never left permanently suppressed.
+    .onFinalize(() => {
+      pinchActive.value = false;
     });
 
   const gesture = Gesture.Simultaneous(pan, pinch);
