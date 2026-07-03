@@ -10,6 +10,7 @@
     "prebuild": "expo prebuild -p ios --clean",
     "web": "expo start --web",
     "build:web": "expo export -p web",
+    "deploy:ios": "./scripts/deploy-ios.sh",
     "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,json,md}'"

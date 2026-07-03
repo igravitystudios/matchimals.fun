@@ -1,8 +1,12 @@
 # OSX
 .DS_Store
 
+# Claude Code local state (session permissions, worktrees)
+.claude/
+
 # Expo / generated native project (CNG — regenerate with `bun run prebuild`)
 /ios/
+/build/
 .expo/
 /dist/
 *.jsbundle

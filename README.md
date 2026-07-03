@@ -42,14 +42,23 @@ This is an [Expo](https://expo.dev) app using [continuous native generation](htt
 1.  Build and run the app in the iOS simulator: `bun run ios`
 1.  Or run the web version: `bun run web`
 
-### Releasing
+### Deploying to TestFlight
 
-Releases are built locally (no EAS subscription required). Bump `version`/`ios.buildNumber` in `app.json`, then either:
+iOS releases are built and uploaded entirely locally (no EAS subscription or fastlane required):
 
-- **Xcode:** `bun run prebuild`, then `open ios/Matchimals.xcworkspace` → Product → Archive → Distribute, or
-- **EAS local build:** `bunx eas build -p ios --local` (free; requires an Expo account)
+```bash
+bun run deploy:ios
+```
 
-The web version is exported with `bun run build:web` (static output in `dist/`).
+The script (`scripts/deploy-ios.sh`) auto-increments `ios.buildNumber` in `app.json` (and commits the bump), runs `expo prebuild`, archives with `xcodebuild`, uploads the build straight to App Store Connect, and tags the commit (`ios-v<version>-<build>`). It refuses to run unless you're on a clean `main` and the typecheck passes. App version bumps (`expo.version`) are still manual — edit `app.json` before deploying a new release.
+
+One-time setup (credentials never leave your machine — nothing secret is committed):
+
+1. In [App Store Connect](https://appstoreconnect.apple.com) → Users and Access → Integrations → App Store Connect API, generate a **Team key** with the **App Manager** role. Note the Key ID and Issuer ID.
+2. `mkdir -p ~/.appstoreconnect/private_keys` and move the downloaded `AuthKey_<KEYID>.p8` there.
+3. `cp .env.example .env` and fill in `ASC_KEY_ID` and `ASC_ISSUER_ID`.
+
+The web version deploys automatically via Netlify when `main` is pushed (`bun run build:web` for a local static export to `dist/`).
 
 ## Special thanks
 
