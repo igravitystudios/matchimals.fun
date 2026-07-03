@@ -40,8 +40,9 @@ const Dialog = ({
             contentContainerStyle={{
               paddingTop: 60,
               // react-native-web supports CSS calc() strings; RN's style types
-              // don't know about them.
-              maxHeight: "calc(100vh - 120px)" as unknown as number,
+              // don't know about them. dvh (not vh) so the cap tracks the
+              // visible viewport when the mobile URL bar is expanded.
+              maxHeight: "calc(100dvh - 120px)" as unknown as number,
             }}
           >
             {children}
