@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import type { ViewProps } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -16,23 +16,19 @@ import type { Card as CardType } from "../constants/cards";
 import CardBack from "./CardBack";
 import CardFront from "./CardFront";
 
-// How much the card grows when picked up. Placement math depends on it: a
-// placed card's entrance starts at this scale (converted to board coordinates).
+// How much the card grows when picked up. The FlyingCard overlay starts its
+// flight at this scale so it matches the dragged card exactly.
 export const PICKUP_SCALE = 1.05;
 
-const SETTLE_TIMING = { duration: 180, easing: Easing.out(Easing.cubic) };
+// Shared by the snap-back and the FlyingCard's flight into the cell.
+export const SETTLE_TIMING = {
+  duration: 180,
+  easing: Easing.out(Easing.cubic),
+};
 
 export type CardDropPoint = {
   centerX: number;
   centerY: number;
-};
-
-// Where a placed card's entrance animation starts, relative to its cell:
-// offsets in board pixels from the cell center, scale in board units.
-export type CardEntrance = {
-  x: number;
-  y: number;
-  scale: number;
 };
 
 interface CardProps extends ViewProps {
@@ -40,10 +36,9 @@ interface CardProps extends ViewProps {
   disabled?: boolean;
   flipped?: boolean;
   // Returns whether the card was placed. A placement commits the move
-  // immediately (unmounting this deck card) and the placed board card animates
-  // in from the release point, so the next deck card is grabbable right away.
+  // immediately (this deck card hides at once and unmounts on the next deck
+  // render) while the FlyingCard overlay carries the visual into the cell.
   onCardDrop?: (point: CardDropPoint) => boolean;
-  entrance?: CardEntrance;
   // Written while a drag is in flight so the board can preview the drop target
   // on the UI thread. dragActive only flips true once the drag-start
   // measurement lands, so readers never see a center derived from a stale base.
@@ -52,47 +47,11 @@ interface CardProps extends ViewProps {
   dragActive?: SharedValue<boolean>;
 }
 
-// Slides a just-placed card from the drag release point into its cell. The
-// start transform is captured at mount; the swap from the dragged deck card to
-// this one happens in a single React commit, so the first frame renders
-// exactly where the drag ended.
-const EntranceView = ({
-  entrance,
-  style,
-  children,
-  ...rest
-}: ViewProps & { entrance: CardEntrance }) => {
-  const translateX = useSharedValue(entrance.x);
-  const translateY = useSharedValue(entrance.y);
-  const scale = useSharedValue(entrance.scale);
-
-  useEffect(() => {
-    translateX.value = withTiming(0, SETTLE_TIMING);
-    translateY.value = withTiming(0, SETTLE_TIMING);
-    scale.value = withTiming(1, SETTLE_TIMING);
-  }, [translateX, translateY, scale]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: translateX.value },
-      { translateY: translateY.value },
-      { scale: scale.value },
-    ],
-  }));
-
-  return (
-    <Reanimated.View style={[style, animatedStyle]} {...rest}>
-      {children}
-    </Reanimated.View>
-  );
-};
-
 const Card = ({
   card = {} as CardType,
   disabled,
   flipped,
   onCardDrop,
-  entrance,
   dragCenterX,
   dragCenterY,
   dragActive,
@@ -100,8 +59,8 @@ const Card = ({
   ...rest
 }: CardProps) => {
   const [dragging, setDragging] = useState(false);
-  // While the snap-back animation is running the gesture is disabled, so the
-  // card can't be re-grabbed mid-flight.
+  // The gesture is disabled while the snap-back animation runs (no re-grab
+  // mid-flight) and after a placement (the card is hidden, awaiting unmount).
   const [settling, setSettling] = useState(false);
   const cardRef = useRef<View>(null);
   const baseMeasured = useRef(false);
@@ -118,6 +77,10 @@ const Card = ({
   // can lag the UI-thread transform by a frame or two on Fabric).
   const baseCenterX = useSharedValue(0);
   const baseCenterY = useSharedValue(0);
+  // Drops to 0 the instant a placement is decided: the FlyingCard overlay
+  // takes over the visual on the same frame, and this card unmounts whenever
+  // the deferred deck render lands.
+  const placedOpacity = useSharedValue(1);
 
   const finishSnapBack = useCallback(() => {
     setSettling(false);
@@ -175,13 +138,24 @@ const Card = ({
         centerX: baseCenterX.value + translateX.value,
         centerY: baseCenterY.value + translateY.value,
       });
-      // A placement has already committed the move: this card unmounts on the
-      // resulting re-render and the placed board card animates into the cell.
-      if (!placed) {
+      if (placed) {
+        // The FlyingCard overlay appears at this exact position on the same
+        // frame; hide this card so the two never show together.
+        placedOpacity.value = 0;
+        setSettling(true);
+      } else {
         snapBack();
       }
     },
-    [onCardDrop, snapBack, baseCenterX, baseCenterY, translateX, translateY]
+    [
+      onCardDrop,
+      snapBack,
+      baseCenterX,
+      baseCenterY,
+      translateX,
+      translateY,
+      placedOpacity,
+    ]
   );
 
   const gesture = Gesture.Pan()
@@ -209,6 +183,7 @@ const Card = ({
     });
 
   const animatedStyle = useAnimatedStyle(() => ({
+    opacity: placedOpacity.value,
     transform: [
       { translateX: translateX.value },
       { translateY: translateY.value },
@@ -217,17 +192,6 @@ const Card = ({
   }));
 
   if (disabled) {
-    if (entrance) {
-      return (
-        <EntranceView
-          entrance={entrance}
-          style={[styles.root, style]}
-          {...rest}
-        >
-          {!flipped ? <CardBack /> : <CardFront card={card} />}
-        </EntranceView>
-      );
-    }
     return (
       <View style={[styles.root, style]} {...rest}>
         {!flipped ? <CardBack /> : <CardFront card={card} />}

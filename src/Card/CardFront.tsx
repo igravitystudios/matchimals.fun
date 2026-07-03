@@ -149,4 +149,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardFront;
+// Memoized: card objects keep reference identity across game-state updates, so
+// re-renders of a parent (Deck, FlyingCard) skip these SVG-heavy subtrees.
+export default React.memo(CardFront);

@@ -121,8 +121,10 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     if (!soundEffectsEnabled) {
       return;
     }
-    player.seekTo(0);
-    player.play();
+    // seekTo is async: after a clip finishes the player sits at the end, and a
+    // play() issued before the rewind lands is silently swallowed. Wait for
+    // the seek so back-to-back triggers play every time.
+    player.seekTo(0).then(() => player.play());
   };
 
   return (

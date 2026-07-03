@@ -68,4 +68,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deck;
+// Memoized (with a deferred `cards` value and stable callback/shared-value
+// props from Matchimals) so the urgent placement render skips the whole deck
+// stack — it re-renders a frame later, off the drop's critical frame.
+export default React.memo(Deck);

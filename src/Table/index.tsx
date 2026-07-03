@@ -15,9 +15,7 @@ import type { SharedValue } from "react-native-reanimated";
 import WoodBackground from "./wood-background.jpg";
 import { boardHeight, boardWidth } from "../constants/board";
 import Board from "../Board";
-import type { LastPlacement } from "../Board";
 import CellHighlight from "../CellHighlight";
-import type { Ctx } from "boardgame.io";
 import type { GameState } from "../Matchimals/game";
 
 // The imperative API the rest of the app relies on: onCardDrop reads the
@@ -30,14 +28,9 @@ export interface TableHandle {
   scrollToCenter: () => void;
 }
 
-// The rest of the boardgame.io board props spread in by Matchimals ride along
-// via the JSX spread and are passed through to Board untouched.
 interface TableProps {
   style?: { left?: number; top?: number };
   G: GameState;
-  ctx?: Ctx;
-  // Rides along via the JSX spread to Board, which animates the placed card.
-  lastPlacement?: LastPlacement | null;
   // Live drag state from the Deck's top card, previewed by CellHighlight.
   dragCenterX: SharedValue<number>;
   dragCenterY: SharedValue<number>;
@@ -74,7 +67,7 @@ const clampToBoundaries = (
 };
 
 const Table = forwardRef<TableHandle, TableProps>(
-  ({ style, dragCenterX, dragCenterY, dragActive, ...rest }, ref) => {
+  ({ style, dragCenterX, dragCenterY, dragActive, G }, ref) => {
     const { width, height } = useWindowDimensions();
 
     const centeredLeft = (style && style.left) || -((boardWidth - width) / 2);
@@ -217,7 +210,7 @@ const Table = forwardRef<TableHandle, TableProps>(
               source={WoodBackground}
               style={styles.board}
             >
-              <Board {...rest} />
+              <Board G={G} />
               <CellHighlight
                 dragCenterX={dragCenterX}
                 dragCenterY={dragCenterY}

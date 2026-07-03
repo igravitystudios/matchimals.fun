@@ -1,4 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSharedValue } from "react-native-reanimated";
@@ -8,7 +14,8 @@ import { cardHeight, cardWidth, columns, rows } from "../constants/board";
 import Deck from "../Deck";
 import { PICKUP_SCALE } from "../Card";
 import type { CardDropPoint } from "../Card";
-import type { LastPlacement } from "../Board";
+import FlyingCard from "../FlyingCard";
+import type { FlyingCardHandle } from "../FlyingCard";
 import Button from "../Button";
 import CircleButton from "../CircleButton";
 import Nameplate from "../Nameplate";
@@ -24,17 +31,71 @@ type MatchimalsProps = BoardProps<GameState> & {
   backToMainMenu: () => void;
 };
 
-const Matchimals = ({
-  backToMainMenu,
-  ctx,
-  G,
-  moves,
-  ...rest
-}: MatchimalsProps) => {
+// Memoized so the urgent placement render can skip the nameplates (they take
+// deferred values and catch up a frame later, off the drop's critical frame).
+const Nameplates = React.memo(
+  ({
+    players,
+    currentPlayer,
+  }: {
+    players: GameState["players"];
+    currentPlayer: string;
+  }) => (
+    <>
+      {Object.keys(players).map((playerIndex) => (
+        <Nameplate
+          key={playerIndex}
+          player={playerIndex}
+          players={players}
+          currentPlayer={currentPlayer}
+        />
+      ))}
+    </>
+  )
+);
+
+Nameplates.displayName = "Nameplates";
+
+const Matchimals = ({ backToMainMenu, ctx, G, moves }: MatchimalsProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const music = useMusic();
   const tableRef = useRef<TableHandle>(null);
   const insets = useSafeAreaInsets();
+
+  // A placement commits the game state at release, but nothing may MOUNT while
+  // the FlyingCard overlay is mid-flight: Fabric applies mounts on the main
+  // thread, and a placed card's SVG tree landing mid-animation stalls frames
+  // (visible jank). So the UI renders from a frozen display snapshot during
+  // the flight; when the overlay lands, the snapshot catches up in one render
+  // (board card, deck advance, nameplates) underneath the static overlay,
+  // where a render hitch is invisible, and then the overlay fades.
+  const [frozen, setFrozen] = useState(false);
+  const [display, setDisplay] = useState(() => ({
+    G,
+    currentPlayer: ctx.currentPlayer,
+  }));
+  if (
+    !frozen &&
+    (display.G !== G || display.currentPlayer !== ctx.currentPlayer)
+  ) {
+    // Render-phase sync (React's "adjust state during render" pattern) keeps
+    // the snapshot current whenever it isn't deliberately frozen.
+    setDisplay({ G, currentPlayer: ctx.currentPlayer });
+  }
+
+  const deckStyle = useMemo(
+    () => ({
+      position: "absolute" as const,
+      bottom: Math.max(insets.bottom + cardHeight, 16 + cardHeight),
+      left: Math.max(insets.left, 16),
+    }),
+    [insets.bottom, insets.left]
+  );
+
+  // Kept in a ref so onCardDrop's identity never changes — a fresh callback per
+  // move would defeat the Deck's memoization on the urgent placement render.
+  const dropDeps = useRef({ G, ctx, moves, music });
+  dropDeps.current = { G, ctx, moves, music };
 
   // Live position of the card being dragged (window coordinates), written by
   // Card on the UI thread and read by the Table's CellHighlight to preview the
@@ -43,66 +104,85 @@ const Matchimals = ({
   const dragCenterY = useSharedValue(0);
   const dragActive = useSharedValue(false);
 
-  // Where the most recent placement was released, so the placed board card can
-  // animate from the release point into its cell.
-  const [lastPlacement, setLastPlacement] = useState<LastPlacement | null>(
-    null
-  );
+  // The pre-mounted overlay that carries a placed card from the release point
+  // into its cell, so the drop responds on the next frame regardless of how
+  // long the placement render takes.
+  const flyingCardRef = useRef<FlyingCardHandle>(null);
+  const overlayNeedsHide = useRef(false);
 
-  const onCardDrop = useCallback(
-    (point: CardDropPoint): boolean => {
-      // The dragged card stays full screen-size while the board scales, so when
-      // zoomed out the card visually covers several cells. The drop point is
-      // the card's CENTER so it lands where the player aims regardless of zoom.
-      //
-      // Get the top left corner of the viewport in relation to the entire table
-      const table = tableRef.current!;
-      const tableLeft = table._previousLeft;
-      const tableTop = table._previousTop;
-      const scale = table._previousScale || 1;
+  // The flight landed: reveal the real state (mounting the board card and
+  // advancing the deck under the overlay), then hide the overlay once that
+  // render has committed.
+  const onFlightArrived = useCallback(() => {
+    const { G, ctx } = dropDeps.current;
+    overlayNeedsHide.current = true;
+    setFrozen(false);
+    setDisplay({ G, currentPlayer: ctx.currentPlayer });
+  }, []);
 
-      // Convert the card center from screen pixels back to board pixels (the
-      // board is scaled by `scale` around its top-left origin, so 1 screen px ==
-      // 1/scale board px), then find which cell contains that point. This must
-      // stay the same math as CellHighlight's worklet so the card always lands
-      // on the highlighted cell.
-      const boardLeft = (point.centerX - tableLeft) / scale;
-      const boardTop = (point.centerY - tableTop) / scale;
+  useEffect(() => {
+    if (overlayNeedsHide.current) {
+      overlayNeedsHide.current = false;
+      flyingCardRef.current?.hide();
+    }
+  }, [display]);
 
-      const cellsFromLeft = Math.floor(boardLeft / cardWidth);
-      const cellsFromTop = Math.floor(boardTop / cardHeight);
+  const onCardDrop = useCallback((point: CardDropPoint): boolean => {
+    const { G, ctx, moves, music } = dropDeps.current;
+    // The dragged card stays full screen-size while the board scales, so when
+    // zoomed out the card visually covers several cells. The drop point is
+    // the card's CENTER so it lands where the player aims regardless of zoom.
+    //
+    // Get the top left corner of the viewport in relation to the entire table
+    const table = tableRef.current!;
+    const tableLeft = table._previousLeft;
+    const tableTop = table._previousTop;
+    const scale = table._previousScale || 1;
 
-      // A drop outside the board must not wrap into a neighboring row via the
-      // flat cell index.
-      const inBounds =
-        cellsFromLeft >= 0 &&
-        cellsFromLeft < columns &&
-        cellsFromTop >= 0 &&
-        cellsFromTop < rows;
+    // Convert the card center from screen pixels back to board pixels (the
+    // board is scaled by `scale` around its top-left origin, so 1 screen px ==
+    // 1/scale board px), then find which cell contains that point. This must
+    // stay the same math as CellHighlight's worklet so the card always lands
+    // on the highlighted cell.
+    const boardLeft = (point.centerX - tableLeft) / scale;
+    const boardTop = (point.centerY - tableTop) / scale;
 
-      // Calculate the target cell's id
-      const targetCell = cellsFromTop * columns + cellsFromLeft;
+    const cellsFromLeft = Math.floor(boardLeft / cardWidth);
+    const cellsFromTop = Math.floor(boardTop / cardHeight);
 
-      if (!inBounds || !isLegalMove(G, ctx, targetCell)) {
-        music.playSoundEffect3(); // Play mismatched card sound effect
-        return false;
-      }
+    // A drop outside the board must not wrap into a neighboring row via the
+    // flat cell index.
+    const inBounds =
+      cellsFromLeft >= 0 &&
+      cellsFromLeft < columns &&
+      cellsFromTop >= 0 &&
+      cellsFromTop < rows;
 
-      music.playSoundEffect1(); // Play card drop sound effect
-      setLastPlacement({
-        cell: targetCell,
-        // The placed card's entrance starts at the release point: offsets in
-        // board pixels from the cell center, and the dragged card's screen-size
-        // pickup scale converted to board units.
-        x: boardLeft - (cellsFromLeft + 0.5) * cardWidth,
-        y: boardTop - (cellsFromTop + 0.5) * cardHeight,
-        scale: PICKUP_SCALE / scale,
-      });
-      moves.placeCard(targetCell);
-      return true;
-    },
-    [G, ctx, moves, music]
-  );
+    // Calculate the target cell's id
+    const targetCell = cellsFromTop * columns + cellsFromLeft;
+
+    if (!inBounds || !isLegalMove(G, ctx, targetCell)) {
+      music.playSoundEffect3(); // Play mismatched card sound effect
+      return false;
+    }
+
+    music.playSoundEffect1(); // Play card drop sound effect
+    // The overlay flies the card face from the release point into the cell on
+    // the UI thread; the displayed state stays frozen until it lands, so no
+    // mounts can stall frames mid-flight.
+    flyingCardRef.current?.fly({
+      card: G.deck[0],
+      fromX: point.centerX,
+      fromY: point.centerY,
+      fromScale: PICKUP_SCALE,
+      toX: tableLeft + (cellsFromLeft + 0.5) * cardWidth * scale,
+      toY: tableTop + (cellsFromTop + 0.5) * cardHeight * scale,
+      toScale: scale,
+    });
+    setFrozen(true);
+    moves.placeCard(targetCell);
+    return true;
+  }, []);
 
   const onGamePass = useCallback(() => {
     music.playSoundEffect2(); // Play pass card sound effect
@@ -115,13 +195,10 @@ const Matchimals = ({
         <StatusBar hidden />
         <Table
           ref={tableRef}
-          G={G}
-          ctx={ctx}
+          G={display.G}
           dragCenterX={dragCenterX}
           dragCenterY={dragCenterY}
           dragActive={dragActive}
-          lastPlacement={lastPlacement}
-          {...rest}
         />
         <View
           style={{
@@ -130,26 +207,23 @@ const Matchimals = ({
             left: Math.max(insets.left, 16),
           }}
         >
-          {Object.keys(G.players).map((playerIndex) => (
-            <Nameplate
-              key={playerIndex}
-              player={playerIndex}
-              players={G.players}
-              currentPlayer={ctx.currentPlayer}
-            />
-          ))}
+          <Nameplates
+            players={display.G.players}
+            currentPlayer={display.currentPlayer}
+          />
         </View>
         <Deck
-          cards={G.deck}
+          cards={display.G.deck}
           onCardDrop={onCardDrop}
           dragCenterX={dragCenterX}
           dragCenterY={dragCenterY}
           dragActive={dragActive}
-          style={{
-            position: "absolute",
-            bottom: Math.max(insets.bottom + cardHeight, 16 + cardHeight),
-            left: Math.max(insets.left, 16),
-          }}
+          style={deckStyle}
+        />
+        <FlyingCard
+          ref={flyingCardRef}
+          nextCard={G.deck[0]}
+          onArrived={onFlightArrived}
         />
         <Button
           onPress={onGamePass}
