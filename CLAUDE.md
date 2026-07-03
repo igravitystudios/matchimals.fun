@@ -46,6 +46,7 @@ The `ios/` directory is **generated** from `app.json` (and the config plugins) �
 
 ## Conventions
 
+- **This is a public GitHub repo.** Before every commit, review the diff for anything private — credentials, API key IDs, tokens, personal info, internal URLs. Secrets belong only in `.env` (gitignored) and `~/.appstoreconnect/`; never in tracked files, commit messages, or PR descriptions.
 - Prettier (default config, `.prettierrc`) — let `bun run format` handle style; don't hand-format.
 - Components are folders with an `index.tsx`; assets (png/jpg/svg/mp4) live beside the component that uses them. Asset imports are declared in `src/declarations.d.ts`.
 - TypeScript is strict (`tsconfig.json` extends Expo's base + `"strict": true`); run `bun run typecheck` before committing. Prefer narrow local types over `any`; the deliberate escape hatches (e.g. web-only CSS values cast past RN's style types) carry comments.
