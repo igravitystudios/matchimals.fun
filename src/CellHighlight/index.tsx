@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: cardWidth,
     height: cardHeight,
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 8,
     pointerEvents: "none",
   },
