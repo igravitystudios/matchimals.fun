@@ -23,8 +23,8 @@ export const MusicContext = React.createContext<MusicContextValue>({
 export const useMusic = () => useContext(MusicContext);
 
 export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
-  const [musicEnabled, setMusicEnabled] = useState(true);
-  const [soundEffectsEnabled, setSoundEffectsEnabled] = useState(true);
+  const [musicEnabled, setMusicEnabled] = useState(false);
+  const [soundEffectsEnabled, setSoundEffectsEnabled] = useState(false);
   const { getItem: getAsyncMusicEnabled, setItem: setAsyncMusicEnabled } =
     useAsyncStorage("musicEnabled");
   const {
@@ -47,18 +47,18 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     });
   }, []);
 
-  // Hydrate the persisted settings once on mount (both default to on).
-  // Playback waits for `hydrated` so a stored "off" doesn't let the music
-  // slip out for the first few frames.
+  // Hydrate the persisted settings once on mount. Audio is opt-in: both
+  // stay muted unless the player has explicitly turned them on before.
+  // Playback waits for `hydrated` so a toggle can't flicker mid-launch.
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     Promise.all([getAsyncMusicEnabled(), getAsyncSoundEffectsEnabled()]).then(
       ([storedMusic, storedSoundEffects]) => {
-        if (storedMusic === "false") {
-          setMusicEnabled(false);
+        if (storedMusic === "true") {
+          setMusicEnabled(true);
         }
-        if (storedSoundEffects === "false") {
-          setSoundEffectsEnabled(false);
+        if (storedSoundEffects === "true") {
+          setSoundEffectsEnabled(true);
         }
         setHydrated(true);
       }
