@@ -41,7 +41,6 @@ const Menu = ({
   // bottom-right audio controls, so tighten the top of the column
   const compact = width < 500 || height < 700;
 
-  // Fade the caption back in whenever the mode (and its text) changes
   const captionOpacity = useSharedValue(0);
   useEffect(() => {
     captionOpacity.value = 0;

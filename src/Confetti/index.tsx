@@ -38,7 +38,6 @@ class Confetti extends Component<Partial<ConfettiViewProps>> {
 }
 
 const styles = StyleSheet.create({
-  // RN 0.85 removed absoluteFillObject; absoluteFill is the same plain object.
   root: {
     ...StyleSheet.absoluteFill,
   },

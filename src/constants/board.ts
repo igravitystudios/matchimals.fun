@@ -7,9 +7,5 @@ export const cardWidth = 100;
 export const cardHeight = 140;
 export const animalSize = 60;
 
-// const cardWidth = 240;
-// const cardHeight = 336;
-// const animalSize = 144;
-
 export const boardWidth = cardWidth * columns;
 export const boardHeight = cardHeight * rows;

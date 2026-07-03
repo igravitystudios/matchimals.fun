@@ -38,8 +38,7 @@ const Matchimals = ({
       // The dragged card stays full screen-size while the board scales, so when
       // zoomed out the card visually covers several cells. Use the card's CENTER
       // (not its top-left corner) as the drop point so it lands where the player
-      // aims regardless of zoom. At zoom == 1 this is equivalent to the old
-      // top-left + round, since the card is exactly one cell wide there.
+      // aims regardless of zoom.
       const cardCenterLeft = measurements.pageX + measurements.width / 2;
       const cardCenterTop = measurements.pageY + measurements.height / 2;
 

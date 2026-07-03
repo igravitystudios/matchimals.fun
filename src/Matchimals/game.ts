@@ -35,13 +35,11 @@ export interface Neighbors {
 export function getNeighbors(G: GameState, id: number): Neighbors {
   const { cells } = G;
 
-  //Assume all are null
   let topCard: Card | null = null,
     rightCard: Card | null = null,
     bottomCard: Card | null = null,
     leftCard: Card | null = null;
 
-  // Find neighbor indices
   const topIndex = id - columns,
     rightIndex = id + 1,
     leftIndex = id - 1,
@@ -67,14 +65,12 @@ export function getNeighbors(G: GameState, id: number): Neighbors {
 export function calculateScore(G: GameState, ctx: Ctx, id: number): number {
   const currentCard = G.deck[0];
 
-  //Assign neighbors
   const neighbors = getNeighbors(G, id);
   const topCard = neighbors.topCard,
     rightCard = neighbors.rightCard,
     bottomCard = neighbors.bottomCard,
     leftCard = neighbors.leftCard;
 
-  //Calculate score for each matching side
   let score = 0;
   if (topCard != null && currentCard.top === topCard.bottom) {
     score += animals[topCard.bottom].score;
@@ -101,21 +97,19 @@ export function isLegalMove(
     return false;
   }
 
-  //Assign neighbors
   const neighbors = getNeighbors(G, id);
   const topCard = neighbors.topCard,
     rightCard = neighbors.rightCard,
     bottomCard = neighbors.bottomCard,
     leftCard = neighbors.leftCard;
 
-  // Check for matching side
   if (
     topCard == null &&
     rightCard == null &&
     bottomCard == null &&
     leftCard == null
   ) {
-    return false; //Return false if no neighbor cards exist
+    return false;
   }
 
   if (
@@ -124,10 +118,10 @@ export function isLegalMove(
     (bottomCard == null || currentCard.bottom === bottomCard.top) &&
     (leftCard == null || currentCard.left === leftCard.right)
   ) {
-    return true; //Return true if there exists a match
+    return true;
   }
 
-  return false; //Return false if there are no neighboring cards that match
+  return false;
 }
 
 export function cardHasAnyLegalMove(
@@ -139,7 +133,6 @@ export function cardHasAnyLegalMove(
 }
 
 export function hasAnyLegalMove(G: GameState, ctx: Ctx): boolean {
-  // No card to play — no legal move
   if (G.deck.length === 0) {
     return false;
   }
@@ -200,7 +193,6 @@ export function getInitialState(
   // reproducible from the game seed (matters once a server is involved)
   G.deck = random.Shuffle(G.deck);
 
-  // Set up the game state for each player
   for (let j = 0; j < ctx.numPlayers; j++) {
     G.players[j] = {
       score: 0,
@@ -212,20 +204,14 @@ export function getInitialState(
   // makes `emptyCells` read-only and the next game throws on G.cells[center] = …
   G.cells = [...emptyCells];
 
-  // Set the initial card on the board (copied off the shared constants too)
+  // The initial card is copied off the shared constants too
   const initialCard = { ...deck[random.Die(deck.length) - 1] };
   G.cells[center] = initialCard;
 
-  // Ensure the first card is playable (in both modes — classic always
-  // guaranteed the very first draw, with the rest left as shuffled)
+  // Ensure the first card is playable (in both modes — classic guarantees
+  // the very first draw, with the rest left as shuffled)
   ensurePlayableTopCard(G, ctx);
 
-  // For debugging "game over" state– this sets the deck to only have a single card
-  // G.deck = new Array(G.deck[0]);
-
-  // console.log("Initial Game State", G, "Initial ctx", ctx);
-
-  // Our game state is ready to go– return it!
   return G;
 }
 
@@ -233,10 +219,8 @@ export function getInitialState(
 // App.tsx rebuilds the boardgame.io Client with createGame(mode) each game.
 export function createGame(mode: GameMode): Game<GameState> {
   return {
-    // The setup method is passed the plugin context (ctx, random, …)
     setup: ({ ctx, random }) => getInitialState(ctx, random, mode),
 
-    // End turn after a single move, whether it's placeCard or pass
     turn: {
       minMoves: 1,
       maxMoves: 1,
@@ -253,15 +237,11 @@ export function createGame(mode: GameMode): Game<GameState> {
         }
       },
 
-      // The { G, ctx } context is provided automatically when calling from App– `this.props.moves.placeCard(id)`
       placeCard: ({ G, ctx }, id: number) => {
-        // Ensure we can't overwrite cells.
         if (isLegalMove(G, ctx, id)) {
-          //Lay the card on the board
           G.cells[id] = G.deck[0];
           G.players[ctx.currentPlayer].score += calculateScore(G, ctx, id);
 
-          //Next card shifts up the deck
           G.deck.shift();
 
           if (G.deck.length > 0) {
@@ -271,7 +251,6 @@ export function createGame(mode: GameMode): Game<GameState> {
       },
 
       pass: ({ G, ctx }) => {
-        // Place top card to bottom of deck
         G.deck.push(G.deck.shift()!);
         afterDeckChange(G, ctx);
       },

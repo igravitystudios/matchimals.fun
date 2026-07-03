@@ -6,8 +6,8 @@ import { StyleSheet, View } from "react-native";
 // (Fabric), which breaks full-screen overlays. Instead we keep the mounted
 // overlays in a tiny module-level store and render them in a single full-screen
 // host at the app root. The store is deliberately OUTSIDE React state so that
-// mounting/updating an overlay only re-renders the host- never the whole app
-// (which previously caused an infinite render loop). Because the host lives
+// mounting/updating an overlay only re-renders the host- never the whole app,
+// which would loop (overlays render during app renders). Because the host lives
 // below the app's providers, portaled content still sees PlayerProvider, Music,
 // safe-area, etc.
 

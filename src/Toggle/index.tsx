@@ -41,7 +41,6 @@ const Toggle = <T extends string>({
 
   useEffect(() => {
     if (!mounted.current) {
-      // Snap into place on mount without animating
       mounted.current = true;
       translateX.value = activeIndex * SEGMENT_WIDTH;
       return;

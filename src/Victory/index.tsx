@@ -43,8 +43,7 @@ const Victory = ({
       new Date().setDate(new Date().getDate() - 30)
     );
 
-    // No stored prompt date counts as "long ago" (epoch), matching the old
-    // `null < Date` coercion.
+    // No stored prompt date counts as "long ago" (epoch)
     if (
       InAppReview.isAvailable() &&
       (lastPrompt || new Date(0)) < thirtyDaysAgo
@@ -94,7 +93,6 @@ const Victory = ({
 };
 
 const styles = StyleSheet.create({
-  // RN 0.85 removed absoluteFillObject; absoluteFill is the same plain object.
   root: {
     ...StyleSheet.absoluteFill,
     flex: 1,
