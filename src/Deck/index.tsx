@@ -4,12 +4,12 @@ import type { ViewProps } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
 
 import Card from "../Card";
-import type { CardDropPoint } from "../Card";
+import type { CardDropPoint, DropResult } from "../Card";
 import type { Card as CardType } from "../constants/cards";
 
 interface DeckProps extends ViewProps {
   cards?: CardType[];
-  onCardDrop?: (point: CardDropPoint) => Promise<unknown>;
+  onCardDrop?: (point: CardDropPoint) => DropResult;
   dragCenterX?: SharedValue<number>;
   dragCenterY?: SharedValue<number>;
   dragActive?: SharedValue<boolean>;

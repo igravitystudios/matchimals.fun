@@ -6,7 +6,7 @@ import type { BoardProps } from "boardgame.io/dist/types/src/client/react";
 
 import { cardHeight, cardWidth, columns, rows } from "../constants/board";
 import Deck from "../Deck";
-import type { CardDropPoint } from "../Card";
+import type { CardDropPoint, DropResult } from "../Card";
 import Button from "../Button";
 import CircleButton from "../CircleButton";
 import Nameplate from "../Nameplate";
@@ -42,7 +42,7 @@ const Matchimals = ({
   const dragActive = useSharedValue(false);
 
   const onCardDrop = useCallback(
-    (point: CardDropPoint) => {
+    (point: CardDropPoint): DropResult => {
       // The dragged card stays full screen-size while the board scales, so when
       // zoomed out the card visually covers several cells. The drop point is
       // the card's CENTER so it lands where the player aims regardless of zoom.
@@ -75,15 +75,25 @@ const Matchimals = ({
       // Calculate the target cell's id
       const targetCell = cellsFromTop * columns + cellsFromLeft;
 
-      return new Promise<void>((resolve) => {
-        if (inBounds && isLegalMove(G, ctx, targetCell)) {
+      if (!inBounds || !isLegalMove(G, ctx, targetCell)) {
+        music.playSoundEffect3(); // Play mismatched card sound effect
+        return { placed: false };
+      }
+
+      return {
+        placed: true,
+        // Screen-space center of the target cell, where the card animates to
+        // before the move commits.
+        cellCenter: {
+          x: tableLeft + (cellsFromLeft + 0.5) * cardWidth * scale,
+          y: tableTop + (cellsFromTop + 0.5) * cardHeight * scale,
+        },
+        boardScale: scale,
+        commit: () => {
           music.playSoundEffect1(); // Play card drop sound effect
           moves.placeCard(targetCell);
-        } else {
-          music.playSoundEffect3(); // Play mismatched card sound effect
-        }
-        resolve();
-      });
+        },
+      };
     },
     [G, ctx, moves, music]
   );
