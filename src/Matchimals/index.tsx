@@ -1,11 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
 import { StatusBar, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSharedValue } from "react-native-reanimated";
 import type { BoardProps } from "boardgame.io/dist/types/src/client/react";
 
-import { cardHeight, cardWidth, columns } from "../constants/board";
+import { cardHeight, cardWidth, columns, rows } from "../constants/board";
 import Deck from "../Deck";
-import type { CardDropMeasurements } from "../Card";
+import type { CardDropPoint } from "../Card";
 import Button from "../Button";
 import CircleButton from "../CircleButton";
 import Nameplate from "../Nameplate";
@@ -33,15 +34,19 @@ const Matchimals = ({
   const tableRef = useRef<TableHandle>(null);
   const insets = useSafeAreaInsets();
 
-  const onCardDrop = useCallback(
-    (measurements: CardDropMeasurements) => {
-      // The dragged card stays full screen-size while the board scales, so when
-      // zoomed out the card visually covers several cells. Use the card's CENTER
-      // (not its top-left corner) as the drop point so it lands where the player
-      // aims regardless of zoom.
-      const cardCenterLeft = measurements.pageX + measurements.width / 2;
-      const cardCenterTop = measurements.pageY + measurements.height / 2;
+  // Live position of the card being dragged (window coordinates), written by
+  // Card on the UI thread and read by the Table's CellHighlight to preview the
+  // drop target without any JS-thread round trips.
+  const dragCenterX = useSharedValue(0);
+  const dragCenterY = useSharedValue(0);
+  const dragActive = useSharedValue(false);
 
+  const onCardDrop = useCallback(
+    (point: CardDropPoint) => {
+      // The dragged card stays full screen-size while the board scales, so when
+      // zoomed out the card visually covers several cells. The drop point is
+      // the card's CENTER so it lands where the player aims regardless of zoom.
+      //
       // Get the top left corner of the viewport in relation to the entire table
       const table = tableRef.current!;
       const tableLeft = table._previousLeft;
@@ -50,18 +55,28 @@ const Matchimals = ({
 
       // Convert the card center from screen pixels back to board pixels (the
       // board is scaled by `scale` around its top-left origin, so 1 screen px ==
-      // 1/scale board px), then find which cell contains that point.
-      const boardLeft = Math.abs(tableLeft - cardCenterLeft) / scale;
-      const boardTop = Math.abs(tableTop - cardCenterTop) / scale;
+      // 1/scale board px), then find which cell contains that point. This must
+      // stay the same math as CellHighlight's worklet so the card always lands
+      // on the highlighted cell.
+      const boardLeft = (point.centerX - tableLeft) / scale;
+      const boardTop = (point.centerY - tableTop) / scale;
 
       const cellsFromLeft = Math.floor(boardLeft / cardWidth);
       const cellsFromTop = Math.floor(boardTop / cardHeight);
+
+      // A drop outside the board must not wrap into a neighboring row via the
+      // flat cell index.
+      const inBounds =
+        cellsFromLeft >= 0 &&
+        cellsFromLeft < columns &&
+        cellsFromTop >= 0 &&
+        cellsFromTop < rows;
 
       // Calculate the target cell's id
       const targetCell = cellsFromTop * columns + cellsFromLeft;
 
       return new Promise<void>((resolve) => {
-        if (isLegalMove(G, ctx, targetCell)) {
+        if (inBounds && isLegalMove(G, ctx, targetCell)) {
           music.playSoundEffect1(); // Play card drop sound effect
           moves.placeCard(targetCell);
         } else {
@@ -82,7 +97,15 @@ const Matchimals = ({
     <>
       <View style={styles.root}>
         <StatusBar hidden />
-        <Table ref={tableRef} G={G} ctx={ctx} {...rest} />
+        <Table
+          ref={tableRef}
+          G={G}
+          ctx={ctx}
+          dragCenterX={dragCenterX}
+          dragCenterY={dragCenterY}
+          dragActive={dragActive}
+          {...rest}
+        />
         <View
           style={{
             position: "absolute",
@@ -102,6 +125,9 @@ const Matchimals = ({
         <Deck
           cards={G.deck}
           onCardDrop={onCardDrop}
+          dragCenterX={dragCenterX}
+          dragCenterY={dragCenterY}
+          dragActive={dragActive}
           style={{
             position: "absolute",
             bottom: Math.max(insets.bottom + cardHeight, 16 + cardHeight),

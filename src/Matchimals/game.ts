@@ -52,7 +52,7 @@ export function getNeighbors(G: GameState, id: number): Neighbors {
   if (bottomIndex < cells.length) {
     bottomCard = cells[bottomIndex];
   }
-  if (rightIndex % columns !== 0 && rightIndex < cells.length - 1) {
+  if (rightIndex % columns !== 0 && rightIndex < cells.length) {
     rightCard = cells[rightIndex];
   }
   if (leftIndex % columns !== columns - 1 && leftIndex >= 0) {

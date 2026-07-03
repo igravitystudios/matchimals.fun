@@ -1,17 +1,29 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import type { ViewProps } from "react-native";
+import type { SharedValue } from "react-native-reanimated";
 
 import Card from "../Card";
-import type { CardDropMeasurements } from "../Card";
+import type { CardDropPoint } from "../Card";
 import type { Card as CardType } from "../constants/cards";
 
 interface DeckProps extends ViewProps {
   cards?: CardType[];
-  onCardDrop?: (measurements: CardDropMeasurements) => Promise<unknown>;
+  onCardDrop?: (point: CardDropPoint) => Promise<unknown>;
+  dragCenterX?: SharedValue<number>;
+  dragCenterY?: SharedValue<number>;
+  dragActive?: SharedValue<boolean>;
 }
 
-const Deck = ({ cards = [], onCardDrop, style, ...rest }: DeckProps) => (
+const Deck = ({
+  cards = [],
+  onCardDrop,
+  dragCenterX,
+  dragCenterY,
+  dragActive,
+  style,
+  ...rest
+}: DeckProps) => (
   <View style={[styles.root, style]} {...rest}>
     {cards.map((card, i) => {
       let shadow;
@@ -32,6 +44,9 @@ const Deck = ({ cards = [], onCardDrop, style, ...rest }: DeckProps) => (
           key={cards.length - i}
           card={card}
           onCardDrop={onCardDrop}
+          dragCenterX={dragCenterX}
+          dragCenterY={dragCenterY}
+          dragActive={dragActive}
           flipped={i === 0}
           style={{
             position: "absolute",
