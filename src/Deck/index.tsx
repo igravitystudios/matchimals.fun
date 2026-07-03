@@ -17,17 +17,18 @@ const Deck = ({ cards = [], onCardDrop, style, ...rest }: DeckProps) => (
       let shadow;
       if (i !== 0) {
         shadow = {
-          // Shadow props were causing performance issues- let's use a solid border instead of a white shadow
+          // A solid border reads as the card edge — real shadow props are a
+          // perf problem with this many stacked cards
           borderRightWidth: 1,
-          borderRightColor: "#2A1A12", // shadow from new logo
+          borderRightColor: "#2A1A12",
         };
       }
 
       return (
         <Card
           // Key by distance from the bottom of the deck so each physical card
-          // keeps its component instance as the deck shrinks (index keys made
-          // the next top card inherit the just-dragged card's state)
+          // keeps its component instance as the deck shrinks (index keys would
+          // let the next top card inherit the just-dragged card's state)
           key={cards.length - i}
           card={card}
           onCardDrop={onCardDrop}

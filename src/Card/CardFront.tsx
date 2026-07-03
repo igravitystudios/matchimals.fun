@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
     fontSize: animalSize * 0.21875,
     fontWeight: "700",
     textAlign: "center",
-    // react-native-web deprecated the textShadow* long-form props in favor
-    // of the CSS shorthand, which native RN doesn't support yet — so each
-    // platform gets its own form (the shorthand is cast past RN's types)
+    // react-native-web wants the CSS textShadow shorthand; native RN only
+    // supports the long-form props — so each platform gets its own form
+    // (the shorthand is cast past RN's types)
     ...Platform.select({
       web: { textShadow: "1px 1px 0 rgba(0,0,0,0.69)" } as unknown as TextStyle,
       default: {

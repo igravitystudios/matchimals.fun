@@ -107,7 +107,7 @@ const Table = forwardRef<TableHandle, TableProps>(({ style, ...rest }, ref) => {
 
   // One finger pans (maxPointers(1) hands off to the pinch as soon as a second
   // finger lands). Two fingers pinch-zoom toward the focal point, which also
-  // pans as the fingers slide- matching the old PanResponder behavior.
+  // pans as the fingers slide.
   const pan = Gesture.Pan()
     .maxPointers(1)
     .onStart(() => {
