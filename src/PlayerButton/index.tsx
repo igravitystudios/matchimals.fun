@@ -23,19 +23,19 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
       // overlap slightly (negative margin) to read as a tight cluster.
       switch (number) {
         case 1: {
-          return { size: 72, margin: -3 };
+          return { size: 72, margin: -1 };
         }
         case 2: {
-          return { size: 44, margin: -3 };
+          return { size: 44, margin: -1 };
         }
         // The fixed rowWidth keeps the wrap at two icons per row — the
-        // overlapped footprints (30px each) would otherwise fit three across.
+        // overlapped footprints (34px each) would otherwise fit three across.
         case 3:
         case 4: {
-          return { size: 36, margin: -3, rowWidth: 66 };
+          return { size: 36, margin: -1, rowWidth: 70 };
         }
         default: {
-          return { size: 64, margin: -3 };
+          return { size: 64, margin: -1 };
         }
       }
     },
