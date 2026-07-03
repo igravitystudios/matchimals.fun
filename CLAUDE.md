@@ -19,6 +19,7 @@ bun run format         # prettier on src/**
 
 bun run prebuild       # regenerate ios/ from app.json (expo prebuild -p ios --clean)
 bun run build:web      # static web export to dist/ (expo export -p web)
+bun run deploy:ios     # bump build number, archive, and upload to TestFlight (scripts/deploy-ios.sh)
 ```
 
 Run a single test: `bun run test -- path/to/file.test.js` (or `-t "name"`). There is currently no test suite, so `test` passes with no tests.
@@ -27,7 +28,7 @@ Lint: `.eslintrc` extends `@react-native`; `lint-staged` runs prettier on commit
 
 ## Continuous native generation
 
-The `ios/` directory is **generated** from `app.json` (and the config plugins) — it is not the source of truth and is gitignored. Never hand-edit native iOS files expecting changes to persist; edit `app.json` or a config plugin and re-run `bun run prebuild`. Building requires Xcode + CocoaPods. Releases are built locally (no paid EAS): bump `version`/`ios.buildNumber` in `app.json`, then archive in Xcode or `bunx eas build -p ios --local`. See the build-philosophy memory: no fastlane, no paid EAS.
+The `ios/` directory is **generated** from `app.json` (and the config plugins) — it is not the source of truth and is gitignored. Never hand-edit native iOS files expecting changes to persist; edit `app.json` or a config plugin and re-run `bun run prebuild`. Building requires Xcode + CocoaPods. Releases are built locally (no paid EAS): `bun run deploy:ios` auto-increments `ios.buildNumber`, archives, and uploads to TestFlight (needs an App Store Connect API key — see README "Deploying to TestFlight"); bump `version` in `app.json` manually for new releases. See the build-philosophy memory: no fastlane, no paid EAS.
 
 `plugins/withFirebaseNoAdId.js` is a custom dangerous-mod plugin that prepends `$RNFirebaseAnalyticsWithoutAdIdSupport=true` to the Podfile so AdSupport.framework isn't linked (keeps the App Store privacy declaration clean).
 

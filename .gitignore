@@ -3,6 +3,7 @@
 
 # Expo / generated native project (CNG — regenerate with `bun run prebuild`)
 /ios/
+/build/
 .expo/
 /dist/
 *.jsbundle
