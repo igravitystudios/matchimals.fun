@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="/icons/favicon.png" />
-    <link
-      rel="apple-touch-icon"
-      href="/icons/apple-touch-icon-60x60.png"
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
     />
+    <link rel="shortcut icon" href="/icons/favicon.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon-60x60.png" />
     <link
       rel="apple-touch-icon"
       sizes="120x120"
@@ -43,10 +43,7 @@
       property="og:description"
       content="Matchimals is a simple card game in which two players take turns trying to match animals in a puzzle-like fashion. The player with the most points at the end wins!"
     />
-    <meta
-      property="og:image"
-      content="/matchimals-og-1200x630.png"
-    />
+    <meta property="og:image" content="/matchimals-og-1200x630.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary" />
@@ -58,10 +55,7 @@
       name="twitter:description"
       content="Matchimals is a simple card game in which two players take turns trying to match animals in a puzzle-like fashion. The player with the most points at the end wins!"
     />
-    <meta
-      name="twitter:image"
-      content="/matchimals-og-600x600.png"
-    />
+    <meta name="twitter:image" content="/matchimals-og-600x600.png" />
     <title>Matchimals- an animal matching puzzle card game 🦁 🃏</title>
     <style>
       @font-face {
@@ -77,6 +71,32 @@
         -moz-user-select: none; /* Firefox all */
         -ms-user-select: none; /* IE 10+ */
         user-select: none; /* Likely future */
+        -webkit-touch-callout: none; /* no long-press callout on card images (iOS) */
+      }
+      /* Full-screen game: the page must never scroll. On mobile Safari/Chrome
+         the URL bar makes a 100vh page overflow, and any page scroll (or
+         rubber-band overscroll, which ignores touch-action) fires pointercancel
+         mid-drag and snaps the card back to the deck. Pinning body with
+         position: fixed is the iOS-proof way to kill document scrolling;
+         inner ScrollViews (e.g. the rules dialog) still scroll normally. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+      body {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+      }
+      /* Track the live viewport (URL bar collapse/expand) in every browser,
+         and give the RNW flex chain a definite size to fill. */
+      #root {
+        position: fixed;
+        inset: 0;
+        display: flex;
       }
     </style>
   </head>
