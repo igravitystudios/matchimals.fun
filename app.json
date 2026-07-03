@@ -11,7 +11,7 @@
     ],
     "ios": {
       "bundleIdentifier": "native.matchimals.fun",
-      "buildNumber": "9",
+      "buildNumber": "10",
       "appleTeamId": "22ZH5U6APW",
       "supportsTablet": true,
       "requireFullScreen": false,
