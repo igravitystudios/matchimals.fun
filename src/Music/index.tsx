@@ -67,29 +67,30 @@ export const MusicProvider = ({ children }: { children: React.ReactNode }) => {
     music.volume = 0.2;
   }, [music]);
 
+  // Browsers block audio until the page is interacted with, so on web hold
+  // off playing until the first interaction (which may well be the music
+  // toggle itself)
+  const [audioUnlocked, setAudioUnlocked] = useState(Platform.OS !== "web");
   useEffect(() => {
-    if (musicEnabled) {
+    if (audioUnlocked) {
+      return;
+    }
+    const unlock = () => setAudioUnlocked(true);
+    document.addEventListener("pointerdown", unlock);
+    document.addEventListener("keydown", unlock);
+    return () => {
+      document.removeEventListener("pointerdown", unlock);
+      document.removeEventListener("keydown", unlock);
+    };
+  }, [audioUnlocked]);
+
+  useEffect(() => {
+    if (musicEnabled && audioUnlocked) {
       music.play();
     } else {
       music.pause();
     }
-  }, [musicEnabled, music]);
-
-  // Browsers block audio until the page is interacted with, so the play()
-  // above can silently fail on load — retry on any interaction (play() is a
-  // no-op once the music is going).
-  useEffect(() => {
-    if (Platform.OS !== "web" || !musicEnabled) {
-      return;
-    }
-    const resume = () => music.play();
-    document.addEventListener("pointerdown", resume);
-    document.addEventListener("keydown", resume);
-    return () => {
-      document.removeEventListener("pointerdown", resume);
-      document.removeEventListener("keydown", resume);
-    };
-  }, [musicEnabled, music]);
+  }, [musicEnabled, audioUnlocked, music]);
 
   const handleSetMusicEnabled = useCallback(
     (enabled: boolean) => {
