@@ -37,13 +37,28 @@ const OverlayHost = () => {
   }, []);
 
   return (
-    <View style={[StyleSheet.absoluteFill, { pointerEvents: "box-none" }]}>
+    <View style={styles.host}>
       {Object.entries(overlays).map(([id, node]) => (
         <Fragment key={id}>{node}</Fragment>
       ))}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  host: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    // Must live in StyleSheet.create, not an inline style object:
+    // react-native-web can only express "box-none" as a generated CSS
+    // class (none on the host, auto on children) — inlined, the invalid
+    // declaration is dropped and the host swallows every click
+    pointerEvents: "box-none",
+  },
+});
 
 // Renders the host alongside the app. No React state here, so it never forces
 // the app subtree to re-render.
