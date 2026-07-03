@@ -3,9 +3,9 @@ import { View } from "react-native";
 
 import { colors } from "../constants/colors";
 import { DevTools } from "./DevTools";
+import AudioControls from "../AudioControls";
 import Button from "../Button";
 import Dialog from "../Dialog";
-import { useMusic } from "../Music";
 import Logo from "../Logo";
 import type { PlayerId } from "../hooks/players";
 import type { Moves } from "./DevTools";
@@ -27,7 +27,6 @@ const Menu = ({
   player,
   scrollToCenter,
 }: MenuProps) => {
-  const music = useMusic();
   return (
     <Dialog
       player={player}
@@ -45,14 +44,7 @@ const Menu = ({
       >
         <Logo width={240} height={72} />
       </View>
-      {music && (
-        <Button
-          onPress={() => music?.setPaused(!music?.paused)}
-          style={{ marginBottom: 24 }}
-        >
-          {music?.paused ? "TURN MUSIC ON" : "TURN MUSIC OFF"}
-        </Button>
-      )}
+      <AudioControls style={{ alignSelf: "center", marginBottom: 24 }} />
       <Button
         color={colors.greenLight}
         onPress={() => {

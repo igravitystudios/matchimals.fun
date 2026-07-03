@@ -20,7 +20,11 @@ const CircleButton = ({ children, color, ...rest }: CircleButtonProps) => {
         ]}
       >
         <View style={styles.buttonInner}>
-          <Text style={styles.buttonText}>{children}</Text>
+          {typeof children === "string" ? (
+            <Text style={styles.buttonText}>{children}</Text>
+          ) : (
+            children
+          )}
         </View>
       </View>
     </TouchableOpacity>
