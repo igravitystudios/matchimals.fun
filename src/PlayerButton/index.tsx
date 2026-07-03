@@ -19,23 +19,21 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
 
   const getIconLayout = useCallback(
     function (): { size: number; margin: number; rowWidth?: number } {
-      // The animal art carries its own padding, so the icon boxes sit
-      // edge-to-edge and still read as a tight cluster.
       switch (number) {
         case 1: {
-          return { size: 72, margin: 0 };
+          return { size: 72, margin: 2 };
         }
         case 2: {
-          return { size: 44, margin: 0 };
+          return { size: 44, margin: 2 };
         }
         // The fixed rowWidth keeps the wrap at two icons per row —
-        // three gapless 36px icons would otherwise fit across.
+        // three 36px icons with 2px margins would otherwise fit across.
         case 3:
         case 4: {
-          return { size: 36, margin: 0, rowWidth: 72 };
+          return { size: 36, margin: 2, rowWidth: 80 };
         }
         default: {
-          return { size: 64, margin: 0 };
+          return { size: 64, margin: 2 };
         }
       }
     },
