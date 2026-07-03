@@ -19,23 +19,23 @@ const PlayerButton = ({ number, onPress, style }: PlayerButtonProps) => {
 
   const getIconLayout = useCallback(
     function (): { size: number; margin: number; rowWidth?: number } {
+      // The animal art carries its own padding, so the icon boxes
+      // overlap slightly (negative margin) to read as a tight cluster.
       switch (number) {
         case 1: {
-          return { size: 72, margin: 4 };
+          return { size: 72, margin: -3 };
         }
         case 2: {
-          return { size: 44, margin: 4 };
+          return { size: 44, margin: -3 };
         }
-        // The animal art carries its own padding, so 3- and 4-player
-        // icons overlap slightly to read as a tight cluster. The fixed
-        // rowWidth keeps the wrap at two icons per row — the overlapped
-        // footprints (36px each) would otherwise fit three across.
+        // The fixed rowWidth keeps the wrap at two icons per row — the
+        // overlapped footprints (30px each) would otherwise fit three across.
         case 3:
         case 4: {
-          return { size: 42, margin: -3, rowWidth: 78 };
+          return { size: 36, margin: -3, rowWidth: 66 };
         }
         default: {
-          return { size: 64, margin: 4 };
+          return { size: 64, margin: -3 };
         }
       }
     },
