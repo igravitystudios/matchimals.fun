@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import Card from "../Card";
 import type { CardEntrance } from "../Card";
+import type { Card as CardType } from "../constants/cards";
 import type { GameState } from "../Matchimals/game";
 import {
   boardHeight,
@@ -15,6 +16,34 @@ import {
 
 export type LastPlacement = CardEntrance & { cell: number };
 
+// Memoized so a placement re-renders only the affected cells, not every placed
+// card's SVG tree — that full-board render happens synchronously at drop time
+// and would delay the placed card's entrance animation. Unchanged `value`s keep
+// reference identity across moves (Immer structural sharing), so the shallow
+// compare bails for the other ~473 cells.
+const BoardCell = React.memo(
+  ({
+    id,
+    value,
+    entrance,
+  }: {
+    id: number;
+    value: CardType | null;
+    entrance?: CardEntrance;
+  }) => (
+    <View
+      id={`${id}`}
+      // The most recently placed card slides in from the drag release point;
+      // its cell is elevated so the moving card passes over its neighbors.
+      style={[styles.cell, entrance && styles.cellEntering]}
+    >
+      {value && <Card card={value} flipped disabled entrance={entrance} />}
+    </View>
+  )
+);
+
+BoardCell.displayName = "BoardCell";
+
 const Board = ({
   G,
   lastPlacement,
@@ -26,25 +55,13 @@ const Board = ({
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       const id = columns * i + j;
-      const value = G.cells[id];
-      // The most recently placed card slides in from the drag release point;
-      // its cell is elevated so the moving card passes over its neighbors.
-      const isEntering = lastPlacement?.cell === id;
       cells.push(
-        <View
+        <BoardCell
           key={id}
-          id={`${id}`}
-          style={[styles.cell, isEntering && styles.cellEntering]}
-        >
-          {value && (
-            <Card
-              card={value}
-              flipped
-              disabled
-              entrance={isEntering ? lastPlacement : undefined}
-            />
-          )}
-        </View>
+          id={id}
+          value={G.cells[id]}
+          entrance={lastPlacement?.cell === id ? lastPlacement : undefined}
+        />
       );
     }
   }
