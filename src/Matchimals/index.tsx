@@ -6,7 +6,9 @@ import type { BoardProps } from "boardgame.io/dist/types/src/client/react";
 
 import { cardHeight, cardWidth, columns, rows } from "../constants/board";
 import Deck from "../Deck";
-import type { CardDropPoint, DropResult } from "../Card";
+import { PICKUP_SCALE } from "../Card";
+import type { CardDropPoint } from "../Card";
+import type { LastPlacement } from "../Board";
 import Button from "../Button";
 import CircleButton from "../CircleButton";
 import Nameplate from "../Nameplate";
@@ -41,8 +43,14 @@ const Matchimals = ({
   const dragCenterY = useSharedValue(0);
   const dragActive = useSharedValue(false);
 
+  // Where the most recent placement was released, so the placed board card can
+  // animate from the release point into its cell.
+  const [lastPlacement, setLastPlacement] = useState<LastPlacement | null>(
+    null
+  );
+
   const onCardDrop = useCallback(
-    (point: CardDropPoint): DropResult => {
+    (point: CardDropPoint): boolean => {
       // The dragged card stays full screen-size while the board scales, so when
       // zoomed out the card visually covers several cells. The drop point is
       // the card's CENTER so it lands where the player aims regardless of zoom.
@@ -77,23 +85,21 @@ const Matchimals = ({
 
       if (!inBounds || !isLegalMove(G, ctx, targetCell)) {
         music.playSoundEffect3(); // Play mismatched card sound effect
-        return { placed: false };
+        return false;
       }
 
-      return {
-        placed: true,
-        // Screen-space center of the target cell, where the card animates to
-        // before the move commits.
-        cellCenter: {
-          x: tableLeft + (cellsFromLeft + 0.5) * cardWidth * scale,
-          y: tableTop + (cellsFromTop + 0.5) * cardHeight * scale,
-        },
-        boardScale: scale,
-        commit: () => {
-          music.playSoundEffect1(); // Play card drop sound effect
-          moves.placeCard(targetCell);
-        },
-      };
+      music.playSoundEffect1(); // Play card drop sound effect
+      setLastPlacement({
+        cell: targetCell,
+        // The placed card's entrance starts at the release point: offsets in
+        // board pixels from the cell center, and the dragged card's screen-size
+        // pickup scale converted to board units.
+        x: boardLeft - (cellsFromLeft + 0.5) * cardWidth,
+        y: boardTop - (cellsFromTop + 0.5) * cardHeight,
+        scale: PICKUP_SCALE / scale,
+      });
+      moves.placeCard(targetCell);
+      return true;
     },
     [G, ctx, moves, music]
   );
@@ -114,6 +120,7 @@ const Matchimals = ({
           dragCenterX={dragCenterX}
           dragCenterY={dragCenterY}
           dragActive={dragActive}
+          lastPlacement={lastPlacement}
           {...rest}
         />
         <View

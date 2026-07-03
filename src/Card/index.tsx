@@ -1,12 +1,13 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import type { ViewProps } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Reanimated, {
+  Easing,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import type { SharedValue } from "react-native-reanimated";
 
@@ -15,35 +16,34 @@ import type { Card as CardType } from "../constants/cards";
 import CardBack from "./CardBack";
 import CardFront from "./CardFront";
 
-// Snap-back: soft enough for a playful overshoot on the way home to the deck.
-const SNAP_BACK_SPRING = { damping: 15, stiffness: 180 };
-// Fly-to-cell: stiff so the card settles fast — the move only commits once the
-// springs rest, so a long tail would delay the turn.
-const FLY_SPRING = { damping: 22, stiffness: 280 };
+// How much the card grows when picked up. Placement math depends on it: a
+// placed card's entrance starts at this scale (converted to board coordinates).
+export const PICKUP_SCALE = 1.05;
+
+const SETTLE_TIMING = { duration: 180, easing: Easing.out(Easing.cubic) };
 
 export type CardDropPoint = {
   centerX: number;
   centerY: number;
 };
 
-// A legal drop hands back where the card should fly to; the move only commits
-// once the card has visually landed, so the swap to the placed board card is
-// pixel-identical.
-export type DropResult =
-  | {
-      placed: true;
-      // Screen-space center of the target cell and the board's current zoom.
-      cellCenter: { x: number; y: number };
-      boardScale: number;
-      commit: () => void;
-    }
-  | { placed: false };
+// Where a placed card's entrance animation starts, relative to its cell:
+// offsets in board pixels from the cell center, scale in board units.
+export type CardEntrance = {
+  x: number;
+  y: number;
+  scale: number;
+};
 
 interface CardProps extends ViewProps {
   card?: CardType;
   disabled?: boolean;
   flipped?: boolean;
-  onCardDrop?: (point: CardDropPoint) => DropResult;
+  // Returns whether the card was placed. A placement commits the move
+  // immediately (unmounting this deck card) and the placed board card animates
+  // in from the release point, so the next deck card is grabbable right away.
+  onCardDrop?: (point: CardDropPoint) => boolean;
+  entrance?: CardEntrance;
   // Written while a drag is in flight so the board can preview the drop target
   // on the UI thread. dragActive only flips true once the drag-start
   // measurement lands, so readers never see a center derived from a stale base.
@@ -52,11 +52,47 @@ interface CardProps extends ViewProps {
   dragActive?: SharedValue<boolean>;
 }
 
+// Slides a just-placed card from the drag release point into its cell. The
+// start transform is captured at mount; the swap from the dragged deck card to
+// this one happens in a single React commit, so the first frame renders
+// exactly where the drag ended.
+const EntranceView = ({
+  entrance,
+  style,
+  children,
+  ...rest
+}: ViewProps & { entrance: CardEntrance }) => {
+  const translateX = useSharedValue(entrance.x);
+  const translateY = useSharedValue(entrance.y);
+  const scale = useSharedValue(entrance.scale);
+
+  useEffect(() => {
+    translateX.value = withTiming(0, SETTLE_TIMING);
+    translateY.value = withTiming(0, SETTLE_TIMING);
+    scale.value = withTiming(1, SETTLE_TIMING);
+  }, [translateX, translateY, scale]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { scale: scale.value },
+    ],
+  }));
+
+  return (
+    <Reanimated.View style={[style, animatedStyle]} {...rest}>
+      {children}
+    </Reanimated.View>
+  );
+};
+
 const Card = ({
   card = {} as CardType,
   disabled,
   flipped,
   onCardDrop,
+  entrance,
   dragCenterX,
   dragCenterY,
   dragActive,
@@ -64,8 +100,8 @@ const Card = ({
   ...rest
 }: CardProps) => {
   const [dragging, setDragging] = useState(false);
-  // While an end-of-drag animation (snap-back or fly-to-cell) is running the
-  // gesture is disabled, so the card can't be re-grabbed mid-flight.
+  // While the snap-back animation is running the gesture is disabled, so the
+  // card can't be re-grabbed mid-flight.
   const [settling, setSettling] = useState(false);
   const cardRef = useRef<View>(null);
   const baseMeasured = useRef(false);
@@ -82,29 +118,26 @@ const Card = ({
   // can lag the UI-thread transform by a frame or two on Fabric).
   const baseCenterX = useSharedValue(0);
   const baseCenterY = useSharedValue(0);
-  // Counts the fly-to-cell springs still moving; the move commits when the
-  // last one rests.
-  const flyRemaining = useSharedValue(0);
 
   const finishSnapBack = useCallback(() => {
     setSettling(false);
     setDragging(false);
   }, []);
 
-  // Spring home to the deck, keeping the card's elevated zIndex until it has
+  // Ease home to the deck, keeping the card's elevated zIndex until it has
   // settled so it doesn't slide underneath other UI on the way back.
   const snapBack = useCallback(() => {
     setSettling(true);
-    scale.value = withSpring(1, SNAP_BACK_SPRING);
-    translateY.value = withSpring(0, SNAP_BACK_SPRING);
-    translateX.value = withSpring(0, SNAP_BACK_SPRING, () => {
+    scale.value = withTiming(1, SETTLE_TIMING);
+    translateY.value = withTiming(0, SETTLE_TIMING);
+    translateX.value = withTiming(0, SETTLE_TIMING, () => {
       runOnJS(finishSnapBack)();
     });
   }, [scale, translateX, translateY, finishSnapBack]);
 
   // Runs on JS at drag start, while the card is still at rest in the deck —
-  // measureInWindow is reliable there (the 1.05 pickup scale is center-origin,
-  // so the center is unaffected even if it has already applied).
+  // measureInWindow is reliable there (the pickup scale is center-origin, so
+  // the center is unaffected even if it has already applied).
   const startDrag = useCallback(() => {
     setDragging(true);
     baseMeasured.current = false;
@@ -138,58 +171,24 @@ const Card = ({
       }
       // Shared-value reads from JS are synchronous, and the values are settled
       // once the finger has lifted.
-      const result = onCardDrop({
+      const placed = onCardDrop({
         centerX: baseCenterX.value + translateX.value,
         centerY: baseCenterY.value + translateY.value,
       });
-      if (!result.placed) {
+      // A placement has already committed the move: this card unmounts on the
+      // resulting re-render and the placed board card animates into the cell.
+      if (!placed) {
         snapBack();
-        return;
       }
-      // Fly into the cell, scaling from screen size to the board zoom. The
-      // commit waits for ALL three springs to rest: the placed board card must
-      // appear exactly where this one settles or the swap would visibly jump.
-      // Committing unmounts this card (its deck key disappears), completing
-      // the swap.
-      setSettling(true);
-      const { commit } = result;
-      flyRemaining.value = 3;
-      const onSpringRest = () => {
-        "worklet";
-        flyRemaining.value -= 1;
-        if (flyRemaining.value === 0) {
-          runOnJS(commit)();
-        }
-      };
-      scale.value = withSpring(result.boardScale, FLY_SPRING, onSpringRest);
-      translateX.value = withSpring(
-        result.cellCenter.x - baseCenterX.value,
-        FLY_SPRING,
-        onSpringRest
-      );
-      translateY.value = withSpring(
-        result.cellCenter.y - baseCenterY.value,
-        FLY_SPRING,
-        onSpringRest
-      );
     },
-    [
-      onCardDrop,
-      snapBack,
-      baseCenterX,
-      baseCenterY,
-      translateX,
-      translateY,
-      scale,
-      flyRemaining,
-    ]
+    [onCardDrop, snapBack, baseCenterX, baseCenterY, translateX, translateY]
   );
 
   const gesture = Gesture.Pan()
     .enabled(!settling)
     .minDistance(0)
     .onStart(() => {
-      scale.value = 1.05;
+      scale.value = PICKUP_SCALE;
       runOnJS(startDrag)();
     })
     .onUpdate((e) => {
@@ -201,8 +200,8 @@ const Card = ({
       }
     })
     .onFinalize((e, success) => {
-      // The scale stays at pickup size here; handleEnd picks the animation
-      // that brings it home (snap-back) or to the board zoom (fly-to-cell).
+      // The scale stays at pickup size here; a placement swaps this card for
+      // the board card at the same visual size, and a snap-back animates it.
       if (dragActive) {
         dragActive.value = false;
       }
@@ -218,6 +217,17 @@ const Card = ({
   }));
 
   if (disabled) {
+    if (entrance) {
+      return (
+        <EntranceView
+          entrance={entrance}
+          style={[styles.root, style]}
+          {...rest}
+        >
+          {!flipped ? <CardBack /> : <CardFront card={card} />}
+        </EntranceView>
+      );
+    }
     return (
       <View style={[styles.root, style]} {...rest}>
         {!flipped ? <CardBack /> : <CardFront card={card} />}

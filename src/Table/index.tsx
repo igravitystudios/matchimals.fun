@@ -15,6 +15,7 @@ import type { SharedValue } from "react-native-reanimated";
 import WoodBackground from "./wood-background.jpg";
 import { boardHeight, boardWidth } from "../constants/board";
 import Board from "../Board";
+import type { LastPlacement } from "../Board";
 import CellHighlight from "../CellHighlight";
 import type { Ctx } from "boardgame.io";
 import type { GameState } from "../Matchimals/game";
@@ -35,6 +36,8 @@ interface TableProps {
   style?: { left?: number; top?: number };
   G: GameState;
   ctx?: Ctx;
+  // Rides along via the JSX spread to Board, which animates the placed card.
+  lastPlacement?: LastPlacement | null;
   // Live drag state from the Deck's top card, previewed by CellHighlight.
   dragCenterX: SharedValue<number>;
   dragCenterY: SharedValue<number>;
