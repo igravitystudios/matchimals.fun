@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, View } from "react-native";
+import { View } from "react-native";
 
 import { colors } from "../constants/colors";
 import { DevTools } from "./DevTools";
@@ -45,7 +45,7 @@ const Menu = ({
       >
         <Logo width={240} height={72} />
       </View>
-      {Platform.OS !== "web" && music && (
+      {music && (
         <Button
           onPress={() => music?.setPaused(!music?.paused)}
           style={{ marginBottom: 24 }}

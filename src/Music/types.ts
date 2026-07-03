@@ -1,5 +1,4 @@
-// Shared between the native (expo-audio) and web (no-op) variants so both
-// providers expose the same context shape.
+// The shape of the context exposed by the expo-audio MusicProvider.
 export type MusicContextValue = {
   paused: boolean;
   setPaused: (paused: boolean) => void;

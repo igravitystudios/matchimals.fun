@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Reanimated, {
   useAnimatedStyle,
@@ -105,7 +99,7 @@ const Menu = ({
           {modeCaptions[gameMode]}
         </Reanimated.Text>
 
-        {Platform.OS !== "web" && music && (
+        {music && (
           <Button
             onPress={() => music?.setPaused(!music?.paused)}
             style={{
