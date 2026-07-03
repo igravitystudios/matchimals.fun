@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -114,8 +114,10 @@ const styles = StyleSheet.create({
   root: {
     position: "relative",
     width: "100%",
-    // react-native-web supports viewport units; RN's style types don't.
-    height: Platform.OS === "web" ? ("100vh" as unknown as number) : "100%",
+    // On web this fills #root, which index.html pins to the live viewport
+    // (position: fixed; inset: 0) — unlike 100vh, it tracks the mobile URL bar
+    // collapsing/expanding, so the deck and buttons stay on screen.
+    height: "100%",
     overflow: "hidden",
     backgroundColor: colors.grayDark,
   },
