@@ -70,7 +70,12 @@
         }
       ],
       "./plugins/withFirebaseNoAdId.js",
-      "expo-audio",
+      [
+        "expo-audio",
+        {
+          "enableBackgroundPlayback": false
+        }
+      ],
       "expo-status-bar",
       "expo-asset"
     ]
