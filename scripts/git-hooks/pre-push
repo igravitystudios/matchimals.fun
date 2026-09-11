@@ -1,0 +1,6 @@
+#!/bin/bash
+# Enable once per clone:  git config core.hooksPath scripts/git-hooks
+# Refuses to push commits that add key files or private keys (see scripts/check-secrets.mjs).
+[ -n "$SKIP_SECRETS_CHECK" ] && exit 0
+BUN="${BUN:-$(command -v bun || echo "$HOME/.bun/bin/bun")}"
+exec "$BUN" "$(dirname "$0")/../check-secrets.mjs"
